@@ -4,7 +4,7 @@ window.SendView = Backbone.View.extend({
 
     events: {
         'click #save': 'submit',
-        //'click #pickContact': 'pickContact'
+        'click #pickContact': 'pickContact'
         //'keyup .contact-key': 'findContact'
     },
 
@@ -16,6 +16,11 @@ window.SendView = Backbone.View.extend({
     render: function () {
         $(this.el).html(this.template());
         return this;
+    },
+
+    pickContact: function(){
+
+        alert("gothere");
     },
 
     submit: function (e) {
@@ -58,33 +63,43 @@ window.SendView = Backbone.View.extend({
 //************************Profile View*************************//
 window.ProfileView = Backbone.View.extend({
 
+    events: {
+        "click #logout" : "logout" 
+    },
 
     initialize: function () {
         console.log('Initializing ProfileView');
+
+        //if(git.authenticate())
+        //    console.log("authenticated! " + window.authenticated);
+        
         this.render();
     },
 
-    render: function () {
-        var thankyous = this.model.models;
-        /*remoteStorage.semanticcurrency.getThankYous().then(
-            function (tys) {
-                console.log(tys);
-            });
-            */
+    render: function (authUrl) {
 
-        $(this.el).html(this.template(profile.toJSON()));
+        var authUrl, gitUser, gitRepo;
 
-        _.each(thankyous, function (thankyou) {
+        if(!window.authenticated)
+        {
+            authUrl = git.getAuthUrl(this.model.gitClientId);
+        }
+        else
+        {
+            gitUser = this.model.gitUser;
+            gitRepo = this.model.gitRepo;
+        }
 
-            if (profile.id == thankyou.get("thanker"))
-                $('.thankyous-sent', this.el).append(new ThankYouListItemView({ model: thankyou }).render().el);
-            else if (profile.id == thankyou.get("thankee"))
-                $('.thankyous-received', this.el).append(new ThankYouListItemView({ model: thankyou }).render().el);
+        $(this.el).html(this.template({gitUser: gitUser, gitRepo: gitRepo, gitAuthUrl: authUrl}));
 
-
-        }, this);
+        $("#gitLogin").hide();
 
         return this;
+        
+    },
+
+    logout : function() {
+        git.logout();
     }
 
 });

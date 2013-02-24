@@ -1,21 +1,24 @@
-﻿<div class="header">
-    <h1>My Profile</h1>
-    <a href="#" class="header-button header-button-left header-back-button">
-        <button>Back</button>
-    </a>
-    <a href="#" class="header-button header-button-icon header-button-right search" id="view-home-refresh">
-        <button>
-            <img src="css/images/refresh-icon.png" alt="Refresh" width="14" height="18"></button></a>
+﻿<div id="form">
+
+    <h1>Gratzi</h1>
+    
+    <div id="fields">
+        <label for="name" class="control-label">
+            <h2>GitHub</h2>
+        </label>
+<% if(!window.authenticated) { %>
+        <div id="gitLogin">
+            <a id="gitLink" class="body-button" href="<%= gitAuthUrl %>">Login</a>
+        </div>
+<% } else { %>
+        <span class="profProperty"><%= gitUser %></span>
+        <span class="profProperty"><%= gitRepo %></span>
+<% } %>
+        <a href="#" id="logout">Logout</a>
+    </div>
+
 </div>
 
-<div id="content-wrapper">
-    <div id="profile">
-        <img src="<%= photo %>" id="profileImage" /><h2><%= displayName %></h2>
-        <%= username %><br />
-        <%= email %>
-    </div>
-    <h2>Sent</h2>
-    <div class="thankyous-sent"></div>
-    <h2>Received</h2>
-    <div class="thankyous-received"></div>
-</div>
+<footer>
+    <p><a href="/#about">About Gratzi</a></p>
+</footer>

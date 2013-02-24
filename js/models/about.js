@@ -3,7 +3,9 @@
         appName: "Gratzi",
         createdBy: "Datacosmos",
         year: "2013",
-        gitHubRepo: "http://github.com/auggernaut",
+        gitRepo: "http://github.com/auggernaut",
+        gitUser: "auggernaut",
+        gitClientId: "bbee6e8255728de31711",
         url: "http://www.datacosmos.com"
-
+        
 });

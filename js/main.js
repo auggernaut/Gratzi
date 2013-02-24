@@ -3,7 +3,7 @@ var profile = {};
 window.Router = Backbone.Router.extend({
 
     routes: {
-        "": "send",
+        "": "start",
         "send": "send",
         "about": "about",
         "profile": "profile"
@@ -13,20 +13,6 @@ window.Router = Backbone.Router.extend({
 
         var self = this;
 
-        //IF Profile Exists, Grab
-
-        //ELSE Show create new profile screen
-
-        //Grab the profile details
-        //TODO: Profile Id should come from connected account
-        var prof = new Profile({ id: 'cb38d97a895cd85b' });
-
-        prof.fetch({
-            success: function () {
-                profile = prof;
-            }
-        });
-
         // Register event listener for back button troughout the app
         $('#content').on('click', '.header-back-button', function (event) {
             window.history.back();
@@ -35,23 +21,53 @@ window.Router = Backbone.Router.extend({
 
     },
 
+    start: function(code) {
+
+        var match = window.location.href.match(/\?code=([a-z0-9]*)/);
+
+        // Handle Code
+        if (match) {
+            console.log("Getting access token...");
+            git.authenticate(match[1], function(){
+
+                console.log("Gettings Git account details...");
+                git.load(function(result, data){
+                    //if(result != null && result == "err")
+                    //{
+                    //    console.log(err);
+                    //}
+                    //else
+                    console.log(data);
+
+                    window.location.href="/#send";
+
+                });
+            });
+        }
+        else if(window.authenticated)
+            window.location.href="/#send";              
+        else
+            window.location.href="/#profile";
+        
+    },
+
     about: function () {
         // Since the contact view never changes, we instantiate it and render it only once
         if (!this.aboutView) {
             this.aboutView = new AboutView();
             this.aboutView.render();
         } else {
-            this.homeView.delegateEvents(); // delegate events when the view is recycled
+            this.aboutView.delegateEvents(); // delegate events when the view is recycled
         }
         this.slidePage(this.aboutView);
     },
 
     send: function () {
-
+        this.slidePage(new SendView());
     },
 
     profile: function () {
-
+        this.slidePage(new ProfileView({model: new AboutModel()}));            
     },
 
     slidePage: function (page) {

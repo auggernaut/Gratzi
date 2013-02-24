@@ -1,47 +1,34 @@
-﻿<div class="header">
-    <h1>Send a Thank You</h1>
-    <a href="#" class="header-button header-button-left header-back-button">
-        <button>Back</button>
-    </a>
-</div>
+﻿<div id="form">
 
-<div class="scroll striped" id="form">
-
-    <div class="control-group">
+    <h1>Gratzi</h1>
+    
+    <div id="fields">
         <label for="name" class="control-label">
             <h2>To</h2>
         </label>
+        <button id="pickContact" class="body-button small">Pick a Contact</button>
 
-        <div class="controls">
-            <a href="#contacts" class="body-button small">Pick Contact</a>
-        </div>
-    </div>
-
-    <div class="control-group">
         <label for="grapes" class="control-label">
             <h2>Reason</h2>
         </label>
-
-        <div class="controls">
-            <textarea id="reason" name="reason" />
-            <span class="help-inline"></span>
-        </div>
-    </div>
-
-    <div class="control-group">
+        <textarea id="reason" name="reason" />
+        <span class="help-inline"></span>
+        
         <label for="country" class="control-label">
             <h2>Tags</h2>
         </label>
-
-        <div class="controls">
-            <input type="text" id="tags" name="tags" />
-            <span class="help-inline"></span>
-        </div>
+        <input type="text" id="tags" name="tags" />
+        <span class="help-inline"></span>
     </div>
 
-    <div class="form-actions">
+    <div id="submit">
         <button id="save" class="body-button">Send</button>
+        <div id="message" class="hide"></div>
     </div>
-    <div id="message" class="hide"></div>
 </div>
+
+<footer>
+    <p><a href="/#about">About Gratzi</a></p>
+    <p><a href="/#profile">Settings</a></p>
+</footer>
 
