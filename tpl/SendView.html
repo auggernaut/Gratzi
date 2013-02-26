@@ -1,34 +1,29 @@
 ﻿<div id="form">
 
-    <h1>Gratzi</h1>
-    
-    <div id="fields">
-        <label for="name" class="control-label">
-            <h2>To</h2>
-        </label>
-        <button id="pickContact" class="body-button small">Pick a Contact</button>
+  <h1>Gratzi</h1>
 
-        <label for="grapes" class="control-label">
-            <h2>Reason</h2>
-        </label>
-        <textarea id="reason" name="reason" />
-        <span class="help-inline"></span>
-        
-        <label for="country" class="control-label">
-            <h2>Tags</h2>
-        </label>
-        <input type="text" id="tags" name="tags" />
-        <span class="help-inline"></span>
-    </div>
+  <div id="fields">
+    <h2>To</h2>
+    <input type="text" id="to" name="to"/>
+    <!--<button id="pickContact" class="body-button small">Pick a Contact</button>-->
 
-    <div id="submit">
-        <button id="save" class="body-button">Send</button>
-        <div id="message" class="hide"></div>
-    </div>
+    <h2>Reason</h2>
+    <textarea id="reason" name="reason" rows="3" />
+    <span class="help-inline"></span>
+
+    <h2>Tags</h2>
+    <input type="text" id="tags" name="tags"/>
+    <span class="help-inline"></span>
+  </div>
+
+  <div id="submit">
+    <button id="save" class="body-button">Send</button>
+    <div id="message" class="hide"></div>
+  </div>
 </div>
 
 <footer>
-    <p><a href="/#about">About Gratzi</a></p>
-    <p><a href="/#profile">Settings</a></p>
+  <p><a href="/#about">About</a></p>
+  <p><a href="/#profile">Settings</a></p>
 </footer>
 

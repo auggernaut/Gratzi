@@ -1,24 +1,21 @@
-﻿<div id="form">
+﻿  <h1>Gratzi</h1>
 
-    <h1>Gratzi</h1>
-    
-    <div id="fields">
-        <label for="name" class="control-label">
-            <h2>GitHub</h2>
-        </label>
-<% if(!window.authenticated) { %>
-        <div id="gitLogin">
-            <a id="gitLink" class="body-button" href="<%= gitAuthUrl %>">Login</a>
-        </div>
-<% } else { %>
-        <span class="profProperty"><%= gitUser %></span>
-        <span class="profProperty"><%= gitRepo %></span>
-<% } %>
-        <a href="#" id="logout">Logout</a>
-    </div>
-
-</div>
+  <div class="center">
+    <label for="name" class="control-label">
+    </label>
+    <% if(!$.cookie('git-oauth-token')) { %>
+      <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>">Sign in with <b>GitHub</b>
+      </a>
+    <% } else { %>
+      <p><img src="<%= gitAvatar %>" class="img-circle" /></p>
+      <h3><%= gitUser %></h3>
+        <p><a href="http://github.com/<%= gitUser %>">http://github.com/<%= gitUser %></a></p>
+    <span class="profProperty"><%= gitRepo %></span>
+    <a href="#" id="logout">Logout</a>
+    <% } %>
+  </div>
 
 <footer>
-    <p><a href="/#about">About Gratzi</a></p>
+  <p><a href="/#about">About</a></p>
+  <p><a href="/#send">Send</a></p>
 </footer>

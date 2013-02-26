@@ -271,7 +271,7 @@
         var data = {
           "message": message,
           "author": {
-            "name": options.username
+            "name": options.user
           },
           "parents": [
             parent
@@ -291,7 +291,7 @@
 
       this.updateHead = function(head, commit, cb) {
         _request("PATCH", repoPath + "/git/refs/heads/" + head, { "sha": commit }, function(err, res) {
-          cb(err);
+          cb(err, res);
         });
       };
 
@@ -315,6 +315,7 @@
       this.fork = function(cb) {
         _request("POST", repoPath + "/forks", null, cb);
       };
+
 
       // Create pull request
       // --------
@@ -460,6 +461,12 @@
 
     this.getGist = function(id) {
       return new Github.Gist({id: id});
+    };
+
+    // Create repository
+    // --------
+    this.createRepository = function (options, cb) {
+      _request("POST", "/user/repos", options, cb);
     };
   };
 }).call(this);
