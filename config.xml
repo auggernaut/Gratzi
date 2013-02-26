@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/2.3.0"
-        id          = "org.datacosmos.thankyou"
+        id          = "org.datacosmos.gratzi"
         versionCode = "10"
         version     = "2.3.0">
  
-    <name>Thank You</name>
+    <name>Gratzi</name>
  
     <description>
-        A simple thank you application.
+      Send a digital, signed thank you.
     </description>
  
     <author href="http://datacosmos.com" email="augustin@datacosmos.com">
@@ -17,14 +17,8 @@
 
     <preference name="phonegap-version" value="2.3.0" />
  
-    <feature name="http://api.phonegap.com/2.3.0/camera"/>
     <feature name="http://api.phonegap.com/2.3.0/contacts"/>
-    <feature name="http://api.phonegap.com/2.3.0/file"/>
     <feature name="http://api.phonegap.com/2.3.0/geolocation"/>
-    <feature name="http://api.phonegap.com/2.3.0/media"/>
-    <feature name="http://api.phonegap.com/2.3.0/network"/>
-    <feature name="http://api.phonegap.com/2.3.0/notification"/>
 
-    <!--<plugin name="Contacts" value="CDVContacts" />-->
  
 </widget>
