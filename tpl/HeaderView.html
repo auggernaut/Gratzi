@@ -10,5 +10,8 @@
       <% } %>
       <li id="about"><a href="#about">About</a></li>
     </ul>
+    <% if($.cookie('git-oauth-token')) { %>
+    <p class="navbar-text pull-right"><a href="#" id="logout">Logout</a></p>
+    <% } %>
   </div>
 </div>

@@ -3,7 +3,8 @@
 gratzi.HeaderView = Backbone.View.extend({
 
   events: {
-    "click a" : 'selectNavItem'
+    "click a": 'selectNavItem',
+    "click #logout": "logout"
   },
 
   initialize: function () {
@@ -16,10 +17,16 @@ gratzi.HeaderView = Backbone.View.extend({
     return this;
   },
 
-  selectNavItem: function (source) { 
+  selectNavItem: function (source) {
     this.render();
     $(source.target.getAttribute('href')).addClass("active");
+  },
+
+  logout: function () {
+    git.logout();
+    window.location.href = "/#";
   }
+
 
 });
 
@@ -110,19 +117,19 @@ gratzi.SendView = Backbone.View.extend({
     var newGratzi = {
       "thanker": $.cookie("username"),
       "thankee": $('#to').val(),
-      "reason": $('#reason').val(),
+      "message": $('#message').val(),
       "tags": $('#tags').val()
     }
 
     git.addGratzi(newGratzi, function (err, res) {
-      $('#message').show().html("Thank you sent!");
+      $('#info').show().html("Gratzi sent!");
     });
 
     $('#to').val('');
-    $('#reason').val('');
+    $('#message').val('');
     $('#tags').val('');
 
-    
+
   }
 
 });
@@ -140,7 +147,6 @@ gratzi.ProfileView = Backbone.View.extend({
 
   initialize: function () {
     console.log('Initializing ProfileView');
-
     this.render();
   },
 
@@ -165,6 +171,7 @@ gratzi.ProfileView = Backbone.View.extend({
 
   logout: function () {
     git.logout();
+    window.location.href = "/#";
   }
 
 });

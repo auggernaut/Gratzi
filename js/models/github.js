@@ -90,7 +90,7 @@ git = {
   addGratzi: function (newGratzi, cb) {
     var repo = github().getRepo($.cookie("username"), "Gratzi-Store");
 
-    repo.write("master", newGratzi.thanker + "-" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.reason + "-" + newGratzi.tags, function(err, res){
+    repo.write("master", newGratzi.thanker + "-" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.message + "-" + newGratzi.tags, function(err, res){
       cb(err, res);
     });
 
