@@ -1,4 +1,46 @@
-//*********************About Views***************************//
+
+//*********************Header View***************************//
+gratzi.HeaderView = Backbone.View.extend({
+
+  events: {
+    "click a" : 'selectNavItem'
+  },
+
+  initialize: function () {
+    console.log('Initializing Header View');
+    this.render();
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    return this;
+  },
+
+  selectNavItem: function (source) { 
+    this.render();
+    $(source.target.getAttribute('href')).addClass("active");
+  }
+
+});
+
+
+
+//*********************Home View***************************//
+gratzi.HomeView = Backbone.View.extend({
+
+  initialize: function () {
+    console.log('Initializing Home View');
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    return this;
+  }
+
+});
+
+
+//*********************About View***************************//
 gratzi.AboutView = Backbone.View.extend({
 
   initialize: function () {
@@ -17,7 +59,7 @@ gratzi.AboutView = Backbone.View.extend({
 
 
 
-//************************Send Views*************************//
+//************************Send View*************************//
 gratzi.SendView = Backbone.View.extend({
 
   events: {

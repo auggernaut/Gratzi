@@ -1,52 +1,47 @@
 
-html {
-  height: 100%;
-}
-
-/*
-@font-face {
-    font-family: Museo;
-    src: url("Museo300-Regular.otf") format("opentype");
-}*/
-
-body {
-  font: 300 14px/1.5 Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #ddd;
-  position: relative;
-  width: 100%;
-}
-
 h1, h2, h3 {
   padding: 0;
-  text-align: center;
   text-shadow: 0 -1px rgba(0,0,0,.4);
-  margin: 0;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  box-flex: 1;
 }
 
 h1 {
-  font-size: 4em;
+  text-align: center;
+  font-size: 60px !important;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 
 
 h2 {
   font-size: 20px/1.6;
   text-align: left;
-  margin-top: 20px;
 }
 
-h3 {
+
+.hero-unit {
+  padding: 40px;
+}
+
+.jumbotron {
+  margin: 80px 0;
   text-align: center;
 }
 
+  .jumbotron h1 {
+    font-size: 100px !important;
+    line-height: 1;
+  }
+
+  .jumbotron .lead {
+    font-size: 24px;
+    line-height: 1.25;
+    margin-top: 10px;
+  }
+
+  .jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
 
 #content {
   position: absolute;
@@ -94,143 +89,10 @@ h3 {
   text-align: center;
 }
 
-.body-button {
-  padding: 15px 19px;
-  font-size: 25px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 0;
-  *margin-left: .3em;
-  line-height: 20px;
-  color: #333333;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  vertical-align: middle;
-  cursor: pointer;
-  background-color: #f5f5f5;
-  *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-  background-repeat: repeat-x;
-  border: 1px solid #cccccc;
-  *border: 0;
-  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  border-bottom-color: #b3b3b3;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  *zoom: 1;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-          color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #006dcc;
-  *background-color: #0044cc;
-  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
-  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-  background-repeat: repeat-x;
-  border-color: #0044cc #0044cc #002a80;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-
-}
-
-  .body-button:hover {
-    color: #ffffff;
-  background-color: #0044cc;
-  *background-color: #003bb3;
-  text-decoration: none;
-  background-position: 0 -15px;
-  -webkit-transition: background-position 0.1s linear;
-     -moz-transition: background-position 0.1s linear;
-       -o-transition: background-position 0.1s linear;
-          transition: background-position 0.1s linear;
-  }
-
-  .body-button:active {
-    background-color: #cccccc;
-    background-image: none;
-    outline: 0;
-    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-  }
-
-.small {
-  padding: 3px 7px;
-  font-size: 15px;
-  text-decoration: none;
-  text-align: center;
-}
-
-#message {
-  text-align: center;
-  font-size: 30px;
-  margin: 10px;
-}
-
-
 #form {
   margin: 0px 20px;
   padding-right: 10px;
 }
-
-  #form input, textarea {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
-    transition: border linear 0.2s, box-shadow linear 0.2s;
-    display: inline-block;
-    height: 20px;
-    padding: 4px 6px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 20px;
-    color: #555555;
-    vertical-align: middle;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    width: 100%;
-  }
-
-    #form input:focus, textarea:focus {
-      border-color: rgba(82, 168, 236, 0.8);
-      outline: 0;
-      outline: thin dotted \9;
-      /* IE6-9 */
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    }
-
-  #form textarea {
-    height: auto;
-    font: 300 14px/1.5 Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  }
 
 #submit {
   margin-top: 20px;
@@ -240,22 +102,9 @@ h3 {
   margin-top: 10px;
 }
 
-footer {
-  font-size: 10px;
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-  bottom: 0px;
-}
 
 #logout {
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
-}
-
-.img-circle {
-  -webkit-border-radius: 500px;
-  -moz-border-radius: 500px;
-  border-radius: 500px;
 }

@@ -1,0 +1,14 @@
+﻿<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Gratzi</a>
+    <ul class="nav">
+      <% if($.cookie('git-oauth-token')) { %>
+      <li id="send"><a href="#send">Send</a></li>
+      <li id="profile"><a href="#profile">Profile</a></li>
+      <% } else { %>
+      <li id="signup"><a href="#signup">Sign Up</a></li>
+      <% } %>
+      <li id="about"><a href="#about">About</a></li>
+    </ul>
+  </div>
+</div>
