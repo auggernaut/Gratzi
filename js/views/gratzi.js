@@ -3,7 +3,7 @@
 gratzi.HeaderView = Backbone.View.extend({
 
   events: {
-    "click a": 'selectNavItem',
+    //"click a": 'selectNavItem',
     "click #logout": "logout"
   },
 
@@ -12,21 +12,20 @@ gratzi.HeaderView = Backbone.View.extend({
     this.render();
   },
 
-  render: function () {
+  render: function (menuItem) {
     $(this.el).html(this.template());
     return this;
   },
 
-  selectNavItem: function (source) {
-    this.render();
-    $(source.target.getAttribute('href')).addClass("active");
-  },
+ // selectNavItem: function (source) {
+ //   this.render();
+ //   $(source.target.getAttribute('href')).addClass("active");
+ // },
 
   logout: function () {
     git.logout();
     window.location.href = "/#";
   }
-
 
 });
 
@@ -52,7 +51,7 @@ gratzi.AboutView = Backbone.View.extend({
 
   initialize: function () {
     console.log('Initializing About View');
-    this.model = gratzi.About;
+    this.model = gratzi.Client;
   },
 
   render: function () {
@@ -92,43 +91,45 @@ gratzi.SendView = Backbone.View.extend({
 
   submit: function (e) {
 
-
-    //this.model.create({
-    //  thanker: $.cookie("username"),
-    //  thankee: $('#to').val(),
-    //  reason: $('#reason').val(),
-    //  tags: $('#tags').val()
-    //});
-
-
-
-    //navigator.notification.alert(
-    //    'Thank you sent!',  // message
-    //    function () {
-    //      return;
-    //    },         // callback
-    //    'Success',            // title
-    //    'Ok'                  // buttonName
-    //);
-
-    //remoteStorage.semanticcurrency.addThankYou(this.model.toJSON()[0]);
-
-    //SEND TO GITHUB
     var newGratzi = {
-      "thanker": $.cookie("username"),
+      "thanker": $.cookie("username") + "@github.com",
       "thankee": $('#to').val(),
       "message": $('#message').val(),
       "tags": $('#tags').val()
     }
 
+    //DEPLOYD
+    //this.model.create(newGratzi);
+
+    //REMOTESTORAGE
+    //remoteStorage.semanticcurrency.addThankYou(this.model.toJSON()[0]);
+
+    //GITHUB
     git.addGratzi(newGratzi, function (err, res) {
-      $('#info').show().html("Gratzi sent!");
+      if (!err) {
+        var email = {
+          "to": newGratzi.thankee,
+          "from": gratzi.Server.emailFrom,
+          "subject": newGratzi.thanker + " has sent you a Gratzi!",
+          "message": "You recieved a Gratzi! Click this link to view it: <br/><br/>" + gratzi.Client.url
+        }
+
+        $.post(gratzi.Server.url + "/email", email,
+          function (data) {
+            if (data.token == "success") {
+              $('#info').show().html("Gratzi sent!");
+            }
+          }, "json");
+
+        $('#to').val('');
+        $('#message').val('');
+        $('#tags').val('');
+      }
+      else
+        $('#info').show().html("Gratzi failed to create!");
     });
 
-    $('#to').val('');
-    $('#message').val('');
-    $('#tags').val('');
-
+    
 
   }
 
@@ -155,7 +156,7 @@ gratzi.ProfileView = Backbone.View.extend({
     var authUrl, gitUser, gitRepo, gitAvatar;
 
     if (!$.cookie('git-oauth-token')) {
-      authUrl = git.getAuthUrl(gratzi.About.gitClientId);
+      authUrl = git.getAuthUrl(gratzi.Client.gitClientId);
     }
     else {
       gitUser = $.cookie("username");

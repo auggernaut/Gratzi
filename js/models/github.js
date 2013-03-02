@@ -16,7 +16,7 @@ git = {
 
   authenticate: function (code, callback) {
 
-    $.getJSON('http://mighty-refuge-1633.herokuapp.com/authenticate/' + code, function (data) {
+    $.getJSON(gratzi.Server.url + '/authenticate/' + code, function (data) {
 
       if (data.token) {
         $.cookie('git-oauth-token', data.token);
@@ -90,7 +90,7 @@ git = {
   addGratzi: function (newGratzi, cb) {
     var repo = github().getRepo($.cookie("username"), "Gratzi-Store");
 
-    repo.write("master", newGratzi.thanker + "-" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.message + "-" + newGratzi.tags, function(err, res){
+    repo.write("master", newGratzi.thanker + "->" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.message + "-" + newGratzi.tags, function(err, res){
       cb(err, res);
     });
 
