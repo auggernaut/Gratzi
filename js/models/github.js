@@ -1,7 +1,7 @@
 
 function github() {
   return new Github({
-    token: $.cookie('git-oauth-token'),
+    token: $.cookie('oauth-token'),
     username: $.cookie('username'),
     auth: "oauth"
   });
@@ -19,7 +19,7 @@ git = {
     $.getJSON(gratzi.Server.url + '/authenticate/' + code, function (data) {
 
       if (data.token) {
-        $.cookie('git-oauth-token', data.token);
+        $.cookie('oauth-token', data.token);
         callback();
       }
       else
@@ -34,7 +34,7 @@ git = {
 
   load: function (cb) {
 
-    if ($.cookie('git-oauth-token')) {
+    if ($.cookie('oauth-token')) {
       $.ajax({
         type: "GET",
         url: 'https://api.github.com/user',
@@ -100,7 +100,7 @@ git = {
   logout: function () {
     console.log("Logging out.");
     $.cookie("username", null);
-    $.cookie("git-oauth-token", null);
+    $.cookie("oauth-token", null);
     $.cookie("avatar", null);
     window.location.href = "/#";
   },

@@ -3,8 +3,10 @@
   <div class="center">
     <label for="name" class="control-label">
     </label>
-    <% if(!$.cookie('git-oauth-token')) { %>
+    <% if(!$.cookie('oauth-token')) { %>
       <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>">Sign in with <b>GitHub</b>
+      </a>
+    <a class="btn-auth btn-dropbox large" href="<%= dropboxAuthUrl %>">Sign in with <b>DropBox</b>
       </a>
     <% } else { %>
       <p><img src="<%= gitAvatar %>" class="img-circle" /></p>

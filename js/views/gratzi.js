@@ -156,7 +156,7 @@ gratzi.ProfileView = Backbone.View.extend({
 
     var authUrl, gitUser, gitRepo, gitAvatar;
 
-    if (!$.cookie('git-oauth-token')) {
+    if (!$.cookie('oauth-token')) {
       authUrl = git.getAuthUrl(gratzi.Client.gitClientId);
     }
     else {

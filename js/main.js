@@ -65,7 +65,7 @@ gratzi.Router = Backbone.Router.extend({
         }
       });
     }
-    else if ($.cookie('git-oauth-token'))
+    else if ($.cookie('oauth-token'))
       slidePage(new gratzi.SendView());
     else {
       slidePage(new gratzi.ProfileView());
