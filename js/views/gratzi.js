@@ -24,6 +24,7 @@ gratzi.HeaderView = Backbone.View.extend({
 
   logout: function () {
     git.logout();
+    this.render();
     window.location.href = "/#";
   }
 

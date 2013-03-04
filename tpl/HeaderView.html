@@ -4,14 +4,14 @@
     <ul class="nav">
       <% if($.cookie('git-oauth-token')) { %>
       <li id="send"><a href="#send">Send</a></li>
-      <li id="profile"><a href="#profile">Profile</a></li>
+      <li id="view"><a href="#view">View</a></li>
       <% } %>
       <li id="about"><a href="#about">About</a></li>
     </ul>
     <% if($.cookie('git-oauth-token')) { %>
     <p class="navbar-text pull-right"><a href="#" id="logout">Logout</a></p>
     <% } else { %>
-    <p class="navbar-text pull-right"><a href="#login" id="login">Login</a></p>
+    <p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>
     <% } %>
   </div>
 </div>

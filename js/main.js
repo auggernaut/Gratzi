@@ -4,9 +4,9 @@ gratzi.Router = Backbone.Router.extend({
     "": "home",
     "send": "send",
     "about": "about",
-    "profile": "profile",
+    "view": "view",
     "auth": "auth",
-    "login": "auth"
+    "signin": "auth"
   },
 
   initialize: function () {
@@ -93,9 +93,9 @@ gratzi.Router = Backbone.Router.extend({
     slidePage(new gratzi.SendView());
   },
 
-  profile: function () {
+  view: function () {
     $('#header').html(new gratzi.HeaderView().el);
-    $("#profile").addClass("active");
+    $("#view").addClass("active");
     slidePage(new gratzi.ProfileView());
   }
 

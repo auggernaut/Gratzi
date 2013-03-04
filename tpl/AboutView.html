@@ -1,14 +1,57 @@
 <h1>About</h1>
 
-<div class="center">
-  
-  <p><%= description %></p>
+<div class="container">
 
-  <p>
-    The source code for this application is available in <a href="<%= gitRepo %>">this
+  <div class="row">
+    <div class="span12">
+      <h3>Gratzi are expressions of gratitude.</h3>
+      <p>
+        Our hope is that by creating enough Gratzi we can:
+      </p>
+      <ol>
+        <li>see how value directly, without need of a currency</li>
+        <li>identify who to help and how in order to reach a common goal.</li>
+      </ol>
+
+      <p>
+        We believe that an open standard for creating and sharing Gratzi's could help
+        usher in a new wave of people-centric technologies and services. 
+        
+        We are a part of the unhosted movement, where applications and data are separate.
+      </p>
+      <p>And it's also much more than that...</p>
+      <p></p>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="span4">
+      <h2>Distributed</h2>
+      <p>This web application is running on <a href="<%= url %>"><%= url %></a>, but it can run anywhere. Even on your local machine. Download, modify, and run it however you like.</p>
+    </div>
+
+    <div class="span4">
+      <h2>Personal</h2>
+      <p>Every Gratzi you create is stored in your DropBox, Google Drive, GitHub, or wherever you have cloud storage. They don't go anywhere else. A Gratzi is between you and the person you send it to.</p>
+    </div>
+
+    <div class="span4">
+      <h2>Open</h2>
+      <p>This is just the starting point. Anyone can change how Gratzi works or create new tools for it. Since no single organization owns this (see distributed and personal) it's free to evolve organically. </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12 center">
+      <p>
+        The source code for this application is available in <a href="<%= gitRepo %>">this
             repository</a> on GitHub.
-  </p>
+      </p>
 
-  <h3>Created by <%= createdBy %> © <%= year %></h3>
-  <a href="<%= url %>"><%= url %></a>
+      <h3>Created by <%= createdBy %> © <%= year %></h3>
+      <a href="<%= url %>"><%= url %></a>
+    </div>
+  </div>
 </div>
