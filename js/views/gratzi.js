@@ -17,10 +17,10 @@ gratzi.HeaderView = Backbone.View.extend({
     return this;
   },
 
- // selectNavItem: function (source) {
- //   this.render();
- //   $(source.target.getAttribute('href')).addClass("active");
- // },
+  // selectNavItem: function (source) {
+  //   this.render();
+  //   $(source.target.getAttribute('href')).addClass("active");
+  // },
 
   logout: function () {
     git.logout();
@@ -106,15 +106,31 @@ gratzi.SendView = Backbone.View.extend({
     //remoteStorage.semanticcurrency.addThankYou(this.model.toJSON()[0]);
 
     //GITHUB
-    git.addGratzi(newGratzi, function (err, res) {
-      if (!err) {
+    if ($.cookie('authenticated') == 'github') {
+      store = git;
+    }
+    //DROPBOX
+    else if ($.cookie('authenticated') == 'dropbox') {
+      store = drop;
+    }
+    
+
+    //Add Gratzi
+    store.addGratzi(newGratzi, function (path) {
+
+      //Get link to new file
+      store.getLink(path, function (url) {
+
+        var gratziLink = gratzi.Client.url + "/#view?" + url;
+
         var email = {
           "to": newGratzi.thankee,
           "from": gratzi.Server.emailFrom,
           "subject": newGratzi.thanker + " has sent you a Gratzi!",
-          "message": "You recieved a Gratzi! Click this link to view it: <br/><br/>" + gratzi.Client.url
+          "message": "You recieved a Gratzi! Click this link to view it: <br/><br/>" + gratziLink
         }
 
+        //Email link to recipient
         $.post(gratzi.Server.url + "/email", email,
           function (data) {
             if (data.token == "success") {
@@ -125,14 +141,13 @@ gratzi.SendView = Backbone.View.extend({
         $('#to').val('');
         $('#message').val('');
         $('#tags').val('');
-      }
-      else
-        $('#info').show().html("Gratzi failed to create!");
+
+      });
+
     });
-
-    
-
+      
   }
+
 
 });
 
@@ -144,7 +159,8 @@ gratzi.SendView = Backbone.View.extend({
 gratzi.ProfileView = Backbone.View.extend({
 
   events: {
-    "click #logout": "logout"
+    "click #logout": "logout",
+    "click #dropbox": "authDropBox"
   },
 
   initialize: function () {
@@ -152,23 +168,39 @@ gratzi.ProfileView = Backbone.View.extend({
     this.render();
   },
 
-  render: function (authUrl) {
+  render: function () {
 
-    var authUrl, gitUser, gitRepo, gitAvatar;
+    var gitAuthUrl, username, ui, avatar, store;
 
-    if (!$.cookie('oauth-token')) {
-      authUrl = git.getAuthUrl(gratzi.Client.gitClientId);
+    if ($.cookie('authenticated') == 'dropbox') {
+      username = $.cookie("username");
+      //avatar = $.cookie("avatar");
+      //url = $.cookie("store");
     }
-    else {
-      gitUser = $.cookie("username");
-      gitAvatar = $.cookie("avatar");
+    else if ($.cookie('authenticated') == 'github') {
+      username = $.cookie("username");
+      avatar = $.cookie("avatar");
+      ui = $.cookie("store");
       //gitRepo = $.cookie("repo");
     }
+    else {
+      gitAuthUrl = git.getAuthUrl(gratzi.Client.gitClientId);
+    }
 
-    $(this.el).html(this.template({ gitUser: gitUser, gitRepo: gitRepo, gitAvatar: gitAvatar, gitAuthUrl: authUrl }));
+    $(this.el).html(this.template({ username: username, avatar: avatar, gitAuthUrl: gitAuthUrl, ui: ui, store: store }));
 
     return this;
 
+  },
+
+  authDropBox: function() {
+    drop.authenticate(function (res) {
+      console.log("Gettings DropBox account details...");
+      drop.load(function (res) {
+        console.log(res);
+        window.location.href = "/#send";
+      });
+    });
   },
 
   logout: function () {

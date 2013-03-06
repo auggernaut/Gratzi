@@ -1,24 +1,89 @@
-﻿var dropbox = new Dropbox.Client({
-  key: "InhyNFQjbJA=|tRdHzxyrdUmc6PfXSK9gyJNbdcR9QNosDrJjoz9B0Q==", sandbox: true
-});
+﻿var dropbox;
 
-dropbox.authDriver(new Dropbox.Drivers.Redirect());
+drop = {
 
-dropbox.authenticate(function (error, dropbox) {
-  if (error) {
-    // Replace with a call to your own error-handling code.
-    //
-    // Don't forget to return from the callback, so you don't execute the code
-    // that assumes everything went well.
-    return showError(error);
+  authenticate: function (callback) {
+
+    this.dropbox = new Dropbox.Client({
+      key: "InhyNFQjbJA=|tRdHzxyrdUmc6PfXSK9gyJNbdcR9QNosDrJjoz9B0Q==", sandbox: true
+    });
+
+    this.dropbox.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
+
+    this.dropbox.authenticate(function (error, db) {
+      if (error) {
+        // Replace with a call to your own error-handling code.
+        //
+        // Don't forget to return from the callback, so you don't execute the code
+        // that assumes everything went well.
+        return showError(error);
+      }
+
+      // Replace with a call to your own application code.
+      //
+      // The user authorized your app, and everything went well.
+      // db is a Dropbox.Client instance that you can use to make API calls.
+      $.cookie('authenticated', 'dropbox');
+      this.dropbox = db;
+      callback(db);
+    });
+
+  },
+
+  load: function (callback) {
+
+    this.dropbox.getUserInfo(function (error, userInfo) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      //GET PROFILE PHOTO
+      //$.cookie("avatar", res.avatar_url);
+
+
+      $.cookie("username", userInfo.name);
+
+      callback("Hello, " + userInfo.name + "!");
+    });
+
+  },
+
+  addGratzi: function (newGratzi, callback) {
+
+    //var filename = newGratzi.thanker + "->" + newGratzi.thankee;
+    var filename = getHash(newGratzi);
+    
+    this.dropbox.writeFile(filename, JSON.stringify(newGratzi), function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      callback(stat.path);
+    });
+
+  },
+
+  getLink: function(path, callback){
+    
+    this.dropbox.makeUrl(path, {"download": "true"}, function (error, stat) {
+
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      callback(stat.url);
+
+    });
+
+
+  },
+
+  logout: function () {
+
   }
 
-  // Replace with a call to your own application code.
-  //
-  // The user authorized your app, and everything went well.
-  // dropbox is a Dropbox.Client instance that you can use to make API calls.
-  doSomethingCool(dropbox);
-});
+}
+
 
 var showError = function (error) {
   switch (error.status) {
@@ -58,6 +123,7 @@ var showError = function (error) {
   }
 };
 
+/*
 dropbox.onError.addListener(function (error) {
   if (window.console) {  // Skip the "if" in node.js code.
     console.error(error);
@@ -95,3 +161,4 @@ dropbox.readdir("/", function (error, entries) {
 
   alert("Your Dropbox contains " + entries.join(", "));
 });
+*/

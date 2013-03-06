@@ -71,3 +71,9 @@ function slidePage(page) {
     self.currentPage = page;
   });
 };
+
+
+function getHash(object) {
+  var shaObj = new jsSHA(JSON.stringify(object), "TEXT");
+  return shaObj.getHash("SHA-384", "HEX");
+}

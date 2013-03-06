@@ -1,17 +1,28 @@
-﻿  <h1>View</h1>
-
+﻿<% if(!$.cookie('authenticated')) { %>
+<div class="container">
   <div class="center">
-    <label for="name" class="control-label">
-    </label>
-    <% if(!$.cookie('oauth-token')) { %>
-      <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>">Sign in with <b>GitHub</b>
+    <h1>Start</h1>
+    <h3>Connect to your cloud.</h3>
+    <p>Gratzi are stored in cloud storage that you control. <br />So you need an account in one of the following services to send a Gratzi:</p>
+    <p>
+      <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
       </a>
-    <a class="btn-auth btn-dropbox large" href="<%= dropboxAuthUrl %>">Sign in with <b>DropBox</b>
+    </p>
+    <p>
+      <a class="btn-auth btn-dropBox large" id="dropbox"><b>DropBox</b>
       </a>
-    <% } else { %>
-      <p><img src="<%= gitAvatar %>" class="img-circle" /></p>
-      <h3><%= gitUser %></h3>
-        <p><a href="http://github.com/<%= gitUser %>">http://github.com/<%= gitUser %></a></p>
-    <span class="profProperty"><%= gitRepo %></span>
-    <% } %>
+    </p>
   </div>
+  <% } else { %>
+      <h1>View</h1>
+  <div class="container">
+    <div class="center">
+      <p>
+        <img src="<%= avatar %>" class="img-circle" />
+      </p>
+      <h3><%= username %></h3>
+      <p><a href="<%= store %>"><%= store %></a></p>
+      <p><a href="<%= ui %>"><%= ui %></a></p>
+    </div>
+  </div>
+<% } %>

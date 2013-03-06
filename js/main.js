@@ -3,10 +3,11 @@ gratzi.Router = Backbone.Router.extend({
   routes: {
     "": "home",
     "send": "send",
-    "about": "about",
     "view": "view",
-    "auth": "auth",
-    "signin": "auth"
+    ":url": "view",
+    "about": "about",
+    "signin": "send",
+    ":code": "home"
   },
 
   initialize: function () {
@@ -19,7 +20,7 @@ gratzi.Router = Backbone.Router.extend({
     //  return false;
     //});
 
-    $('#header').append(new gratzi.HeaderView().el);
+    //$('#header').append(new gratzi.HeaderView().el);
 
   },
 
@@ -33,44 +34,53 @@ gratzi.Router = Backbone.Router.extend({
     }
 
     $('#header').html(new gratzi.HeaderView().el);
-    slidePage(this.homeView);
-  },
-
-  auth: function (code) {
-    $('#header').html(new gratzi.HeaderView().el);
     var self = this;
-    var match = window.location.href.match(/\?code=([a-z0-9]*)/);
+    var gitMatch = window.location.href.match(/\?code=([a-z0-9]*)/);
+    var dropBoxMatch = window.location.href.match(/\&dboauth_token=([a-z0-9]*)/);
 
-    if (match) {
-      console.log("Getting access token...");
+    if (gitMatch) {
+      console.log("Getting GitHub access token...");
       $('#content').append("<div class='center'><h1>Loading</h1><img src='/css/images/loading.gif' /></div>");
-
-      git.authenticate(match[1], function (err) {
-
+      git.authenticate(gitMatch[1], function (err) {
         if (err)
-          console.log("Error authenticating with Git:" + err);
+          console.log("Error authenticating with GitHub:" + err);
         else {
-          console.log("Gettings Git account details...");
+          console.log("Gettings GitHub account details...");
           git.load(function (result, data) {
-            //if(result != null && result == "err")
-            //{
-            //    console.log(err);
-            //}
-            //else
-            //console.log(JSON.stringify(data));
-
             window.location.href = "/#send";
-
           });
         }
       });
     }
-    else if ($.cookie('oauth-token'))
-      slidePage(new gratzi.SendView());
+    else if (dropBoxMatch) {
+      console.log("Got DropBox access token: " + dropBoxMatch[1]);
+      drop.authenticate(function () {
+        console.log("Getting DropBox account details...");
+        drop.load(function (res) {
+          console.log(res);
+          window.location.href = "/#send";
+        });
+      });
+    }
     else {
-      slidePage(new gratzi.ProfileView());
+      slidePage(this.homeView)
     }
 
+  },
+
+  send: function () {
+    $('#header').html(new gratzi.HeaderView().el);
+    $("#send").addClass("active");
+    if ($.cookie('authenticated')) 
+      slidePage(new gratzi.SendView());
+    else
+      slidePage(new gratzi.ProfileView());
+  },
+
+  view: function (url) {
+    $('#header').html(new gratzi.HeaderView().el);
+    $("#view").addClass("active");
+    slidePage(new gratzi.ProfileView());
   },
 
   about: function () {
@@ -86,18 +96,6 @@ gratzi.Router = Backbone.Router.extend({
     $("#about").addClass("active");
     slidePage(this.aboutView);
   },
-
-  send: function () {
-    $('#header').html(new gratzi.HeaderView().el);
-    $("#send").addClass("active");
-    slidePage(new gratzi.SendView());
-  },
-
-  view: function () {
-    $('#header').html(new gratzi.HeaderView().el);
-    $("#view").addClass("active");
-    slidePage(new gratzi.ProfileView());
-  }
 
 });
 

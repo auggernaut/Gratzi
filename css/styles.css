@@ -106,3 +106,7 @@ h2 {
 .row {
   margin-bottom: 20px;
 }
+
+#username {
+  padding-right: 10px;
+}

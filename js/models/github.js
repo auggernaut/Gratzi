@@ -20,6 +20,7 @@ git = {
 
       if (data.token) {
         $.cookie('oauth-token', data.token);
+        $.cookie('authenticated', 'github');
         callback();
       }
       else
@@ -32,7 +33,7 @@ git = {
 
   },
 
-  load: function (cb) {
+  load: function (callback) {
 
     if ($.cookie('oauth-token')) {
       $.ajax({
@@ -70,29 +71,35 @@ git = {
               }
 
               github().createRepository(gratziRepo, function (err, res) {
-                cb(null, res);
+                callback(null, res);
               });
             }
             else
-              cb(null, repos);
+              callback(null, repos);
           });
         },
         error: function (err) {
-          cb('error', { "available_repos": [], "owners": {} });
+          callback('error', { "available_repos": [], "owners": {} });
         }
       });
 
     } else {
-      cb(null, "not logged in");
+      callback(null, "not logged in");
     }
   },
 
-  addGratzi: function (newGratzi, cb) {
-    var repo = github().getRepo($.cookie("username"), "Gratzi-Store");
+  addGratzi: function (newGratzi, callback) {
 
-    repo.write("master", newGratzi.thanker + "->" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.message + "-" + newGratzi.tags, function(err, res){
-      cb(err, res);
-    });
+    if ($.cookie('oauth-token')) {
+      var repo = github().getRepo($.cookie("username"), "Gratzi-Store");
+
+      repo.write("master", newGratzi.thanker + "->" + newGratzi.thankee, JSON.stringify(newGratzi), newGratzi.message + "-" + newGratzi.tags, function (err, res) {
+        callback(err, res);
+      });
+
+    } else {
+      callback(null, "not logged in");
+    }
 
   },
 
@@ -102,6 +109,7 @@ git = {
     $.cookie("username", null);
     $.cookie("oauth-token", null);
     $.cookie("avatar", null);
+    $.cookie('authenticated', null);
     window.location.href = "/#";
   },
 
