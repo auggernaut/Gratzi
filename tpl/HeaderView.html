@@ -10,7 +10,7 @@
     </ul>
     <% if($.cookie('authenticated')) { %>
     <p class="navbar-text pull-right">
-      <span id="username"><%=$.cookie('username')%></span>
+      <a href="#profile" id="username"><%=$.cookie('username')%></a>
       <a href="#" id="logout">Logout</a></p>
     <% } else { %>
     <p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>

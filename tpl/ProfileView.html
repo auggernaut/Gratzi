@@ -14,15 +14,42 @@
     </p>
   </div>
   <% } else { %>
-      <h1>View</h1>
-  <div class="container">
-    <div class="center">
-      <p>
-        <img src="<%= avatar %>" class="img-circle" />
-      </p>
-      <h3><%= username %></h3>
+ 
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <h1>Profile</h1>
+    </div>
+   <div id="form" class="span6">
+      
+      <div id="fields">
+        <h2>Photo</h2>
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+          <div class="input-append">
+            <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+          </div>
+        </div>
+        
+        <h2>Full name</h2>
+        <input type="text" id="fullname" name="fullname" class="input-block-level" placeholder="<%= username %>"/>
+
+        <h2>Bio</h2>
+        <textarea id="bio" name="bio" rows="3" class="input-block-level"/>
+      </div>
+
+      <div id="submit" class="form-actions">
+        <button id="update" class="btn btn-large btn-block btn-primary">Update</button>
+        <div id="info" class="hide text-success center"></div>
+      </div>
+    </div>
+
+    <div id="values" class="span4 center">
+      <img src="<%= avatar %>" class="img-circle" />
+      <h2><%= username %></h2>
       <p><a href="<%= store %>"><%= store %></a></p>
       <p><a href="<%= ui %>"><%= ui %></a></p>
     </div>
   </div>
+</div>
+
 <% } %>

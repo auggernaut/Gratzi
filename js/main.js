@@ -4,10 +4,10 @@ gratzi.Router = Backbone.Router.extend({
     "": "home",
     "send": "send",
     "view": "view",
-    ":url": "view",
     "about": "about",
+    "profile": "profile",
     "signin": "send",
-    ":code": "home"
+    ":code": "home",
   },
 
   initialize: function () {
@@ -80,7 +80,7 @@ gratzi.Router = Backbone.Router.extend({
   view: function (url) {
     $('#header').html(new gratzi.HeaderView().el);
     $("#view").addClass("active");
-    slidePage(new gratzi.ProfileView());
+    slidePage(new gratzi.ViewView());
   },
 
   about: function () {
@@ -97,10 +97,15 @@ gratzi.Router = Backbone.Router.extend({
     slidePage(this.aboutView);
   },
 
+  profile: function () {
+    $('#header').html(new gratzi.HeaderView().el);
+    slidePage(new gratzi.ProfileView());
+  },
+
 });
 
 //templateLoader function defined in utils.js
-templateLoader.load(["HomeView", "AboutView", "SendView", "ProfileView", "HeaderView"],
+templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();

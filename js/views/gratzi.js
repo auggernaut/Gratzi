@@ -32,6 +32,10 @@ gratzi.HeaderView = Backbone.View.extend({
 
 
 
+
+
+
+
 //*********************Home View***************************//
 gratzi.HomeView = Backbone.View.extend({
 
@@ -45,6 +49,11 @@ gratzi.HomeView = Backbone.View.extend({
   }
 
 });
+
+
+
+
+
 
 
 //*********************About View***************************//
@@ -152,6 +161,30 @@ gratzi.SendView = Backbone.View.extend({
 });
 
 
+
+//*********************About View***************************//
+gratzi.ViewView = Backbone.View.extend({
+
+  events: {
+    "click #update": "update"
+  },
+
+  initialize: function () {
+    console.log('Initializing View View');
+    this.render();
+  },
+
+  render: function () {
+    $(this.el).html(this.template());
+    return this;
+  },
+
+  update: function() {
+
+
+  }
+
+});
 
 
 
