@@ -14,7 +14,6 @@ h1 {
 
 h2 {
   font-size: 20px/1.6;
-  text-align: left;
 }
 
 
@@ -102,6 +101,9 @@ h2 {
   margin-top: 10px;
 }
 
+#values {
+  text-align:center;
+}
 
 .row {
   margin-bottom: 20px;
@@ -109,4 +111,23 @@ h2 {
 
 #username {
   padding-right: 10px;
+}
+
+#party h2 {
+  text-align:center;
+}
+
+#payload {
+  margin: 40px;
+}
+
+.grat {
+
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+
 }

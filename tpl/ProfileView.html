@@ -1,9 +1,15 @@
-﻿<% if(!$.cookie('authenticated')) { %>
+﻿<% if(!localStorage.getItem('authenticated')) { %>
+
 <div class="container">
   <div class="center">
     <h1>Start</h1>
     <h3>Connect to your cloud.</h3>
-    <p>Gratzi are stored in cloud storage that you control. <br />So you need an account in one of the following services to send a Gratzi:</p>
+    <p>
+      Gratzi only works with cloud storage that you control.
+    </p>
+    <p>
+      Choose where your profile and Gratzi's will be saved:
+    </p>
     <p>
       <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
       </a>
@@ -13,43 +19,54 @@
       </a>
     </p>
   </div>
+
   <% } else { %>
  
-<div class="container">
-  <div class="row">
-    <div class="span12">
-      <h1>Profile</h1>
-    </div>
-   <div id="form" class="span6">
-      
-      <div id="fields">
-        <h2>Photo</h2>
-        <div class="fileupload fileupload-new" data-provides="fileupload">
-          <div class="input-append">
-            <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>Profile</h1>
+      </div>
+
+
+      <% if(!this.options.grat) {%>
+      <div id="form" class="span6">
+
+        <div id="fields">
+          <h2>Photo</h2>
+          <input type="file" name="input_name" id="file" class="hide ie_show" />
+          <div class="input-append ie_hide">
+            <input id="pretty-input" class="input-large" type="text" />
+            <a class="btn" onclick="$('input[id=file]').click();">Browse</a>
           </div>
+
+          <h2>Full name</h2>
+          <input type="text" id="fullname" name="fullname" class="input-block-level" value="" />
+
+          <h2>Bio</h2>
+          <textarea id="bio" name="bio" rows="3" class="input-block-level"></textarea>
         </div>
-        
-        <h2>Full name</h2>
-        <input type="text" id="fullname" name="fullname" class="input-block-level" placeholder="<%= username %>"/>
 
-        <h2>Bio</h2>
-        <textarea id="bio" name="bio" rows="3" class="input-block-level"/>
+        <div id="submit" class="form-actions">
+          <button id="save" class="btn btn-large btn-block btn-primary">Save</button>
+          <div id="info" class="hide text-success center"></div>
+        </div>
       </div>
+      <% } %>
 
-      <div id="submit" class="form-actions">
-        <button id="update" class="btn btn-large btn-block btn-primary">Update</button>
-        <div id="info" class="hide text-success center"></div>
-      </div>
-    </div>
 
-    <div id="values" class="span4 center">
-      <img src="<%= avatar %>" class="img-circle" />
-      <h2><%= username %></h2>
-      <p><a href="<%= store %>"><%= store %></a></p>
-      <p><a href="<%= ui %>"><%= ui %></a></p>
+      <% if (profile) { %>
+        <div id="values" class="span4 center">
+          <img class="img-circle" id="profImage" src="<%= profile.image %>" />
+          <h2><%= profile.fullname %></h2>
+          <h3><%= profile.email %></h3>
+          <h4><%= profile.bio %></h4>
+          <p><a href="<%= profile.url %>">Profile.json</a></p>
+          <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
+
+        </div>
+      <% } %>
+
     </div>
   </div>
-</div>
-
 <% } %>

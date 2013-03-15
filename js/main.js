@@ -1,3 +1,21 @@
+
+
+
+gratzi.Store = function () {
+  var authed = localStorage.getItem('authenticated');
+  if (authed) {
+
+    if (authed == 'github') {
+      return git;
+    }
+    else if (authed == 'dropbox') {
+      return drop;
+    }
+  }
+  return null;
+}();
+
+
 gratzi.Router = Backbone.Router.extend({
 
   routes: {
@@ -7,24 +25,36 @@ gratzi.Router = Backbone.Router.extend({
     "about": "about",
     "profile": "profile",
     "signin": "send",
-    ":code": "home",
+    ":code": "home"
   },
 
   initialize: function () {
 
     var self = this;
 
-    // Register event listener for back button troughout the app
-    //$('#content').on('click', '.header-back-button', function (event) {
-    //  window.history.back();
-    //  return false;
-    //});
+    if (gratzi.Store)
+      //Do Auth
+      gratzi.Store.auth(function (error, profile) {
 
-    //$('#header').append(new gratzi.HeaderView().el);
+        if (error) {
+          console.log("Error with gratzi.Store.auth" + error);
+          return;
+        }
+        else if (profile) {
+          var jProf = JSON.stringify(profile);
+          console.log("Auth returned: " + jProf);
+          localStorage.setItem("profile", jProf);
+        }
+        else {
+          console.log("Auth failed: " + profile);
+        }
+
+      });
+
 
   },
 
-  home: function (code) {
+  home: function () {
     // Since the about view never changes, we instantiate it and render it only once
     if (!this.homeView) {
       this.homeView = new gratzi.HomeView();
@@ -53,17 +83,28 @@ gratzi.Router = Backbone.Router.extend({
       });
     }
     else if (dropBoxMatch) {
-      console.log("Got DropBox access token: " + dropBoxMatch[1]);
-      drop.authenticate(function () {
-        console.log("Getting DropBox account details...");
-        drop.load(function (res) {
-          console.log(res);
+
+      gratzi.Store = drop;
+
+      //Do Auth
+      gratzi.Store.auth(function (error, profile) {
+        if (error == "404") {
+          console.log("No Profile found. ");
+          window.location.href = "/#profile";
+        }
+        else if (error) {
+          console.log("Error with gratzi.Store.auth" + error);
+          return;
+        }
+        else {
+          console.log("Loaded Profile: " + profile);
           window.location.href = "/#send";
-        });
+        }
       });
+
     }
     else {
-      slidePage(this.homeView)
+      utils.slidePage(this.homeView)
     }
 
   },
@@ -71,16 +112,17 @@ gratzi.Router = Backbone.Router.extend({
   send: function () {
     $('#header').html(new gratzi.HeaderView().el);
     $("#send").addClass("active");
-    if ($.cookie('authenticated')) 
-      slidePage(new gratzi.SendView());
+    if (localStorage.getItem('profile'))
+      utils.slidePage(new gratzi.SendView());
     else
-      slidePage(new gratzi.ProfileView());
+      utils.slidePage(new gratzi.ProfileView());
   },
 
-  view: function (url) {
+  view: function (params) {
     $('#header').html(new gratzi.HeaderView().el);
     $("#view").addClass("active");
-    slidePage(new gratzi.ViewView());
+    utils.slidePage(new gratzi.ViewView(params));
+
   },
 
   about: function () {
@@ -94,18 +136,18 @@ gratzi.Router = Backbone.Router.extend({
 
     $('#header').html(new gratzi.HeaderView().el);
     $("#about").addClass("active");
-    slidePage(this.aboutView);
+    utils.slidePage(this.aboutView);
   },
 
-  profile: function () {
+  profile: function (params) {
     $('#header').html(new gratzi.HeaderView().el);
-    slidePage(new gratzi.ProfileView());
+    utils.slidePage(new gratzi.ProfileView(params));
   },
 
 });
 
 //templateLoader function defined in utils.js
-templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView"],
+utils.templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();

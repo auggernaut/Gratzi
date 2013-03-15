@@ -1,59 +1,149 @@
-﻿var dropbox;
+﻿var dropbox = new Dropbox.Client({
+  key: "InhyNFQjbJA=|tRdHzxyrdUmc6PfXSK9gyJNbdcR9QNosDrJjoz9B0Q==", sandbox: true
+});
+
+dropbox.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
 
 drop = {
 
-  authenticate: function (callback) {
+  auth: function (callback) {
 
-    this.dropbox = new Dropbox.Client({
-      key: "InhyNFQjbJA=|tRdHzxyrdUmc6PfXSK9gyJNbdcR9QNosDrJjoz9B0Q==", sandbox: true
-    });
+    if (localStorage.getItem('authenticated')) {
+      //Already authenticated
+      dropbox.authenticate({ interactive: false }, function (error, db) {
+        if (error) {
+          console.log("Error authenticating: " + error);
+          callback(showError(error), null);
+        }
 
-    this.dropbox.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
+        localStorage.setItem('authenticated', 'dropbox');
 
-    this.dropbox.authenticate(function (error, db) {
-      if (error) {
-        // Replace with a call to your own error-handling code.
-        //
-        // Don't forget to return from the callback, so you don't execute the code
-        // that assumes everything went well.
-        return showError(error);
-      }
+        callback(null, db);
+      });
+    }
 
-      // Replace with a call to your own application code.
-      //
-      // The user authorized your app, and everything went well.
-      // db is a Dropbox.Client instance that you can use to make API calls.
-      $.cookie('authenticated', 'dropbox');
-      this.dropbox = db;
-      callback(db);
-    });
+    else {
+      //Not yet authenticated
+      dropbox.authenticate({ interactive: true }, function (error, db) {
+        if (error) {
+          console.log("Error authenticating: " + error);
+          callback(showError(error), null);
+        }
+
+        localStorage.setItem('authenticated', 'dropbox');
+
+        //Load profile
+        drop.load(callback);
+
+      });
+
+    }
 
   },
 
   load: function (callback) {
 
-    this.dropbox.getUserInfo(function (error, userInfo) {
+    //GET USER INFO
+    dropbox.getUserInfo(function (error, userInfo) {
       if (error) {
         return showError(error);  // Something went wrong.
       }
 
-      //GET PROFILE PHOTO
-      //$.cookie("avatar", res.avatar_url);
+      localStorage.setItem("username", userInfo.email);
+      localStorage.setItem("userId", userInfo.uid);
+
+      //GET PROFILE FILE
+      //If more than one, get most recent
+      //this.dropbox.findByName("/", "profile", function (error, files) {
+
+      //  if (files.length > 0) {
+      //    var mostRecent = files[0];
+
+      //    for (var i = 0; i < files.length - 1; i++) {
+      //      if ((files[i].modifiedAt - files[i + 1].modifiedAt) < 0)
+      //        mostRecent = files[i + 1];
+      //    }
+      //    this.dropbox.readFile(mostRecent.path, function (error, stat) {
+      //      $.cookie("profile", stat);
+      //      callback(stat);
+      //    });
+      //  }
+      //});
+
+      //GET PROFILE FILE
+      var myProfile = "/profile.json";
+      dropbox.readFile(myProfile, function (error, stat) {
+
+        if (error) {
+          callback(showError(error), null);
+        }
+
+        //TODO: IF Profile doesn't exist, i.e. 404, callback("404", null);
 
 
-      $.cookie("username", userInfo.name);
+        var profile = JSON.parse(stat);
 
-      callback("Hello, " + userInfo.name + "!");
+        //Get public link to profile image
+        //TODO: move this to saveMyProfile
+        drop.getLink(profile.image, function (imageURL) {
+
+          profile.image = imageURL;
+
+          callback(null, profile);
+
+        });
+
+        //GET GRATs
+        drop.getFiles("grat", function (data) {
+          console.log(data);
+
+        });
+
+      });
+
     });
 
   },
 
-  addGratzi: function (newGratzi, callback) {
+  saveMyProfile: function (profile, callback) {
 
-    //var filename = newGratzi.thanker + "->" + newGratzi.thankee;
-    var filename = getHash(newGratzi);
-    
-    this.dropbox.writeFile(filename, JSON.stringify(newGratzi), function (error, stat) {
+    var filename = "/profile.json";
+
+    //Write profile
+    dropbox.writeFile(filename, JSON.stringify(profile), function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+
+      //Get profile link
+      drop.getLink(filename, function (profUrl) {
+
+        profile.url = profUrl;
+
+        //Rewrite profile
+        drop.updateMyProfile(profile, function (path) {
+          callback(url);
+        });
+
+
+
+      });
+
+
+
+      callback(stat.path);
+    });
+
+  },
+
+
+
+  updateMyProfile: function (profile, callback) {
+
+    var filename = "/profile.json";
+
+    dropbox.writeFile(filename, JSON.stringify(profile), function (error, stat) {
       if (error) {
         return showError(error);  // Something went wrong.
       }
@@ -63,9 +153,71 @@ drop = {
 
   },
 
-  getLink: function(path, callback){
-    
-    this.dropbox.makeUrl(path, {"download": "true"}, function (error, stat) {
+
+
+  addProfile: function (profile, callback) {
+    var filename = "profile_" + utils.getHash(profile) + ".json"
+
+    dropbox.writeFile(filename, JSON.stringify(profile), function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      callback(stat.path);
+    });
+  },
+
+
+
+  addGrat: function (grat, callback) {
+
+    var filename = "/grat/grat_" + utils.getHash(grat) + ".json";
+
+    dropbox.writeFile(filename, "gratCallback(" + JSON.stringify(grat) + ")", function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      callback(stat.path);
+    });
+
+  },
+
+
+
+  addZi: function (zi, callback) {
+
+    var filename = "/zi/zi_" + utils.getHash(zi) + ".json";
+
+    dropbox.writeFile(filename, "ziCallback(" + JSON.stringify(zi) + ")", function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      callback(stat.path);
+    });
+
+  },
+
+
+
+  addImage: function (image, filename, callback) {
+
+    //Write image
+    dropbox.writeFile("/images/" + filename, image, function (error, stat) {
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+      callback(stat.path);
+    });
+
+  },
+
+
+
+  getLink: function (path, callback) {
+
+    dropbox.makeUrl(path, { "download": "true", "downloadHack": "true" }, function (error, stat) {
 
       if (error) {
         return showError(error);  // Something went wrong.
@@ -75,11 +227,55 @@ drop = {
 
     });
 
+  },
 
+  getFiles: function (filepart, callback) {
+
+    dropbox.findByName("/" + filepart + "/", filepart, function (error, fileStats) {
+
+      if (error) {
+        return showError(error);  // Something went wrong.
+      }
+
+      if (fileStats.length > 0) {
+
+        var files = {};
+        var counter = 0;
+
+        $.each(fileStats, function (index, value) {
+
+          dropbox.readFile(fileStats[index].path,
+            function (error, stat) {
+              if (error) {
+                return showError(error);  // Something went wrong.
+              }
+              console.log("Got file: " + stat);
+              files[fileStats[index].path] = stat.replace(filepart + "Callback(", "").replace(")", "");
+              counter++;
+
+              if (fileStats.length == counter) {
+                localStorage.setItem('grats', JSON.stringify(files));
+                callback(files);
+              }
+
+            }
+          );
+
+        });
+
+      }
+
+
+    });
   },
 
   logout: function () {
-
+    console.log("Logging out.");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    localStorage.removeItem('authenticated');
+    localStorage.removeItem('profile');
+    localStorage.removeItem('grats');
   }
 
 }
@@ -123,12 +319,14 @@ var showError = function (error) {
   }
 };
 
-/*
+
 dropbox.onError.addListener(function (error) {
-  if (window.console) {  // Skip the "if" in node.js code.
-    console.error(error);
-  }
+
+    console.log(error);
+  
 });
+
+/*
 
 dropbox.getUserInfo(function (error, userInfo) {
   if (error) {
