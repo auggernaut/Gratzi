@@ -85,7 +85,7 @@ drop = {
 
         //Get public link to profile image
         //TODO: move this to saveMyProfile
-        drop.getLink(profile.image, function (imageURL) {
+        drop.getLink("/images/" + profile.image, function (imageURL) {
 
           profile.image = imageURL;
 
@@ -116,18 +116,15 @@ drop = {
       }
 
 
-      //Get profile link
+      //Get public link to profile
       drop.getLink(filename, function (profUrl) {
 
-        profile.url = profUrl;
+        callback(profUrl);
 
         //Rewrite profile
-        drop.updateMyProfile(profile, function (path) {
-          callback(url);
-        });
-
-
-
+        //drop.updateMyProfile(profile, function (path) {
+        //  callback(url);
+        //});
       });
 
 
@@ -208,7 +205,13 @@ drop = {
       if (error) {
         return showError(error);  // Something went wrong.
       }
-      callback(stat.path);
+
+      drop.getLink(stat.path, function (imageURL) {
+
+        callback(imageURL);
+
+      });
+
     });
 
   },
@@ -322,8 +325,8 @@ var showError = function (error) {
 
 dropbox.onError.addListener(function (error) {
 
-    console.log(error);
-  
+  console.log(error);
+
 });
 
 /*

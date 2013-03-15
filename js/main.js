@@ -1,20 +1,6 @@
 
 
 
-gratzi.Store = function () {
-  var authed = localStorage.getItem('authenticated');
-  if (authed) {
-
-    if (authed == 'github') {
-      return git;
-    }
-    else if (authed == 'dropbox') {
-      return drop;
-    }
-  }
-  return null;
-}();
-
 
 gratzi.Router = Backbone.Router.extend({
 
@@ -32,21 +18,37 @@ gratzi.Router = Backbone.Router.extend({
 
     var self = this;
 
+    //On page load/reload
+
+    //Set gratzi.Store
+    gratzi.Store = function () {
+      var authed = localStorage.getItem('authenticated');
+      if (authed) {
+
+        if (authed == 'github') {
+          return git;
+        }
+        else if (authed == 'dropbox') {
+          return drop;
+        }
+      }
+      return null;
+    }();
+
+
+
+    //Do/Redo Auth
     if (gratzi.Store)
-      //Do Auth
       gratzi.Store.auth(function (error, profile) {
 
         if (error) {
           console.log("Error with gratzi.Store.auth" + error);
+          gratzi.Store.logout();
+          window.location.href = "/#";
           return;
         }
-        else if (profile) {
-          var jProf = JSON.stringify(profile);
-          console.log("Auth returned: " + jProf);
-          localStorage.setItem("profile", jProf);
-        }
         else {
-          console.log("Auth failed: " + profile);
+          console.log("Authed: " + profile);          
         }
 
       });

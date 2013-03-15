@@ -121,14 +121,15 @@ gratzi.SendView = Backbone.View.extend({
   submit: function (e) {
 
     $("#save").attr("disabled", "disabled");
-    $("#save").html("Saving...");
+    $("#save").html("Sending...");
 
     var profile = JSON.parse(localStorage.getItem("profile"));
 
     //Create Grat
 
     var newGrat = {
-      "from": { "url": profile.url, "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
+      //"url": profile.url, 
+      "from": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
       "to": $('#to').val(),
       "message": $('#message').val(),
       "tags": $('#tags').val()
@@ -252,7 +253,8 @@ gratzi.ViewView = Backbone.View.extend({
         var profile = JSON.parse(localStorage.getItem("profile"));
         var newZi = {
           "to": cbGrat.from,
-          "from": { "url": profile.url, "fullname": profile.fullname, "email": profile.email, "image": profile.image },
+          //"url": profile.url, 
+          "from": { "fullname": profile.fullname, "email": profile.email, "image": profile.image },
           "grat": localStorage.getItem("gratLink"),
           "message": $('#response').val(),
           "tags": $('#tags').val()
@@ -347,9 +349,15 @@ gratzi.ProfileView = Backbone.View.extend({
     else if (localStorage.getItem('authenticated')) {
       //Load logged in user profile
       var profile = localStorage.getItem('profile');
-
-      if (profile)
+      if (profile) {
         profile = JSON.parse(profile);
+
+        //var image = localStorage.getItem('imagePath');
+        //if (image)
+        //  profile.image = image;
+
+      }
+
 
     }
     else {
@@ -393,6 +401,8 @@ gratzi.ProfileView = Backbone.View.extend({
     $("#save").attr("disabled", "disabled");
     $("#save").attr("value", "Saving...");
 
+
+
     //ADD IMAGE
     //http://www.html5rocks.com/en/tutorials/file/dndfiles/
     var files = $('input[id = file]')[0].files; // FileList object
@@ -421,35 +431,8 @@ gratzi.ProfileView = Backbone.View.extend({
       reader.readAsArrayBuffer(f);
     }
 
-    var profile = localStorage.getItem('profile');
-
-    //if (profile) {
-    //  //UDPATE EXISTING PROFILE
-
-    //  profile = JSON.parse(profile);
-
-    //  var updatedProfile = {
-    //    "userid": profile.userid,
-    //    "email": profile.email,
-    //    "fullname": $('#fullname').val(),
-    //    "bio": $('#bio').val(),
-    //    "image": fileName,
-    //    "ui": gratzi.Client.url,
-    //    "url": profile.url
-    //  }
-
-    //  gratzi.Store.updateMyProfile(updatedProfile, function (path) {
-    //    console.log("Profile Updated: " + path);
-    //    $("#save").removeAttr("disabled");
-    //    $("#save").attr("value", "Save");
-    //    localStorage.setItem('profile', JSON.stringify(updatedProfile));
-    //    window.location.reload();
-    //    //this.render();
-    //  });
-
-    //} else {
-
-    //CREATE NEW PROFILE
+    
+    //SAVE NEW PROFILE
     var newProfile = {
       "userid": localStorage.getItem("userId"),
       "email": localStorage.getItem("username"),
@@ -459,10 +442,13 @@ gratzi.ProfileView = Backbone.View.extend({
       "ui": gratzi.Client.url
     }
 
+
     gratzi.Store.saveMyProfile(newProfile, function (path) {
       console.log("Profile Saved: " + path);
       $("#save").removeAttr("disabled");
       $("#save").attr("value", "Save");
+      $('#info').show().html("Profile saved!");
+      newProfile.url = path;
       localStorage.setItem('profile', JSON.stringify(newProfile));
 
       gratzi.Store.load(function () {
