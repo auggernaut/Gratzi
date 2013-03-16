@@ -54,7 +54,7 @@ drop = {
 
       //GET PROFILE FILE
       //If more than one, get most recent
-      //this.dropbox.findByName("/", "profile", function (error, files) {
+      //dropbox.findByName("/", "profile", function (error, files) {
 
       //  if (files.length > 0) {
       //    var mostRecent = files[0];
@@ -63,7 +63,7 @@ drop = {
       //      if ((files[i].modifiedAt - files[i + 1].modifiedAt) < 0)
       //        mostRecent = files[i + 1];
       //    }
-      //    this.dropbox.readFile(mostRecent.path, function (error, stat) {
+      //    dropbox.readFile(mostRecent.path, function (error, stat) {
       //      $.cookie("profile", stat);
       //      callback(stat);
       //    });
@@ -227,6 +227,22 @@ drop = {
       }
 
       callback(stat.url);
+
+    });
+
+  },
+
+  getFile: function (filename, callback) {
+
+    var type = filename.split('_')[0];
+
+    dropbox.readFile("/" + type + "/" + filename, function (error, stat) {
+
+      if (error) {
+        callback(showError(error), null);
+      }
+      else
+        callback(JSON.parse(stat.replace(type + "Callback(", "").replace(")", "")));
 
     });
 

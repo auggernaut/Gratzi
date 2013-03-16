@@ -2,19 +2,47 @@
 //*********************JSONP CALLBACKS***********************//
 
 function gratCallback(json) {
-  $('#to').append(json.to);
-  $('#from').append(json.from.fullname);
-  $('#message').append(json.message);
-  $('#tags').append(json.tags);
-
+  $('#gTo').append(json.to);
+  $('#gFrom').append(json.from.fullname);
+  $('#gMessage').append(json.message);
+  $('#gTags').append(json.tags);
+  $('#gImage').attr("src", json.from.image);
   localStorage.setItem("cbGrat", JSON.stringify(json));
+  $('#auth').hide();
+  $('#saveForm').css('display', 'none');
 }
 
 function ziCallback(json) {
-  $('#to').append(json.to);
-  $('#from').append(json.from);
-  $('#message').append(json.message);
-  $('#tags').append(json.tags);
+  $('#zTo').append(json.to.fullname);
+  $('#zFrom').append(json.from.fullname);
+  $('#zMessage').append(json.message);
+  $('#zTags').append(json.tags);
+  $('#zImage').attr("src", json.from.image);
+  localStorage.setItem("cbZi", JSON.stringify(json));
+
+  if (localStorage.getItem('authenticated')) {
+    var gLink = json.grat;
+    var index = gLink.lastIndexOf("/");
+    var gFileName = gLink.substr(index + 1);
+    $('#sendForm').hide();
+    $('#auth').hide();
+    $('#grat').show();
+
+    gratzi.Store.getFile(gFileName, function (file) {
+      $('#gTo').append(file.to);
+      $('#gFrom').append(file.from.fullname);
+      $('#gMessage').append(file.message);
+      $('#gTags').append(file.tags);
+      $('#gImage').attr("src", file.from.image);
+    });
+
+  }
+  else {
+    $('#grat').hide();
+    $('#auth').show();
+  }
+
+
 }
 
 
@@ -103,7 +131,7 @@ gratzi.AboutView = Backbone.View.extend({
 gratzi.SendView = Backbone.View.extend({
 
   events: {
-    'click #save': 'submit'
+    'click #sendBtn': 'sendGrat'
     //'click #pickContact': 'pickContact'
     //'keyup .contact-key': 'findContact'
   },
@@ -118,10 +146,10 @@ gratzi.SendView = Backbone.View.extend({
     return this;
   },
 
-  submit: function (e) {
+  sendGrat: function (e) {
 
-    $("#save").attr("disabled", "disabled");
-    $("#save").html("Sending...");
+    $("#sendBtn").attr("disabled", "disabled");
+    $("#sendBtn").html("Sending...");
 
     var profile = JSON.parse(localStorage.getItem("profile"));
 
@@ -158,12 +186,12 @@ gratzi.SendView = Backbone.View.extend({
               $('#to').val('');
               $('#message').val('');
               $('#tags').val('');
-              $("#save").removeAttr("disabled");
-              $("#save").html("Save");
+              $("#sendBtn").removeAttr("disabled");
+              $("#sendBtn").html("Send");
             }
             else {
-              $("#save").removeAttr("disabled");
-              $("#save").html("Save");
+              $("#sendBtn").removeAttr("disabled");
+              $("#sendBtn").html("Send");
               $('#fail').show().html("Failed to send.");
             }
 
@@ -190,7 +218,8 @@ gratzi.SendView = Backbone.View.extend({
 gratzi.ViewView = Backbone.View.extend({
 
   events: {
-    "click #accept": "accept",
+    "click #sendBtn": "sendZi",
+    "click #save": "saveZi",
     "click #reload": "reload"
 
   },
@@ -203,7 +232,7 @@ gratzi.ViewView = Backbone.View.extend({
 
   render: function () {
 
-    var gratCallback, profCallback;
+    var cbScript;
 
     if (this.options && this.options.grat) {
       //DOESN'T WORK because Dropbox doesn't do CORS on this type of requests (only via REST API)
@@ -216,8 +245,14 @@ gratzi.ViewView = Backbone.View.extend({
       //});
 
       //Have to use the security hole that is JSONP
-      gratCallback = "<script type='text/javascript' src='" + this.options.grat + "'></script>";
+      cbScript = "<script type='text/javascript' src='" + this.options.grat + "'></script>";
       localStorage.setItem("gratLink", this.options.grat);
+
+    }
+    else if (this.options && this.options.zi) {
+      //Have to use the security hole that is JSONP
+      cbScript = "<script type='text/javascript' src='" + this.options.zi + "'></script>";
+      localStorage.setItem("ziLink", this.options.zi);
 
     }
     else {
@@ -225,25 +260,19 @@ gratzi.ViewView = Backbone.View.extend({
       var grats = JSON.parse(localStorage.getItem("grats"));
     }
 
-    $(this.el).html(this.template({ script: gratCallback, grats: grats }));
+    $(this.el).html(this.template({ script: cbScript, grats: grats }));
     return this;
   },
 
-  accept: function () {
+  sendZi: function () {
 
 
-    //if (!localStorage.getItem('authenticated')){
+    $("#sendBtn").attr("disabled", "disabled");
+    $("#sendBtn").html("Sending...");
 
 
-    //Recreate Grat
+    //Get Grat
     var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
-
-    //var newGrat = {
-    //  "from": $('#fromUrl').val(),
-    //  "to": $('#to').val(),
-    //  "message": $('#message').val(),
-    //  "tags": $('#tags').val()
-    //}
 
     if (localStorage.getItem('authenticated')) {
 
@@ -254,10 +283,10 @@ gratzi.ViewView = Backbone.View.extend({
         var newZi = {
           "to": cbGrat.from,
           //"url": profile.url, 
-          "from": { "fullname": profile.fullname, "email": profile.email, "image": profile.image },
+          "from": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
           "grat": localStorage.getItem("gratLink"),
-          "message": $('#response').val(),
-          "tags": $('#tags').val()
+          "message": $('#response').val()
+          //"tags": $('#tags').val()
         }
 
         //Create Zi
@@ -271,21 +300,21 @@ gratzi.ViewView = Backbone.View.extend({
             var email = {
               "to": newZi.to.email,
               "from": newZi.from.email,
-              "subject": profile.fullname + " has sent you a Gratzi!",
-              "message": "You recieved a Gratzi! Click this link to view it: <br/><br/>" + ziLink
+              "subject": profile.fullname + " has completed your Gratzi!",
+              "message": "You recieved a Zi! Click this link to view it: <br/><br/>" + ziLink
             }
 
             //Email Zi to recipient
             $.post(gratzi.Server.url + "/email", email,
               function (data) {
                 if (data.token == "Success") {
-                  $('#info').show().html("Gratzi sent!");
+                  $("#sendBtn").removeAttr("disabled");
+                  $("#sendBtn").html("Send");
+                  $('#info').show().html("Zi sent!");
                 }
               }, "json");
 
-            $('#to').val('');
-            $('#message').val('');
-            $('#tags').val('');
+            $('#response').val('');
 
           });
 
@@ -295,7 +324,31 @@ gratzi.ViewView = Backbone.View.extend({
     }
     else {
       //Redirect to login
+      window.location.href = "/#profile";
+    }
 
+  },
+
+  saveZi: function () {
+
+    $("#save").attr("disabled", "disabled");
+    $("#save").html("Saving...");
+
+    var cbZi = JSON.parse(localStorage.getItem("cbZi"));
+
+    if (localStorage.getItem('authenticated')) {
+
+      //Store Grat
+      gratzi.Store.addZi(cbZi, function (path) {
+        console.log("Zi stored: " + path);
+        $("#save").removeAttr("disabled");
+        $("#save").html("Save");
+        $('#info').show().html("Zi Saved!");
+      });
+
+    } else {
+      //Redirect to login
+      window.location.href = "/#profile";
     }
 
   },
@@ -322,7 +375,7 @@ gratzi.ProfileView = Backbone.View.extend({
   events: {
     "click #logout": "logout",
     "click #dropbox": "authDropBox",
-    "click #save": "save",
+    "click #save": "saveProfile",
     "change input": "pickFile"
   },
 
@@ -396,7 +449,7 @@ gratzi.ProfileView = Backbone.View.extend({
     $('#pretty-input').val($('input[id = file]').val().replace("C:\\fakepath\\", ""));
   },
 
-  save: function () {
+  saveProfile: function () {
 
     $("#save").attr("disabled", "disabled");
     $("#save").attr("value", "Saving...");
@@ -431,7 +484,7 @@ gratzi.ProfileView = Backbone.View.extend({
       reader.readAsArrayBuffer(f);
     }
 
-    
+
     //SAVE NEW PROFILE
     var newProfile = {
       "userid": localStorage.getItem("userId"),

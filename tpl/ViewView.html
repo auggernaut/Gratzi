@@ -1,40 +1,82 @@
 <div class="container">
-  <% if(script) { %>
-      <%=script%>
   <div class="center">
-    <h1>Grat</h1>
-    <div id="party">
-      <span class="hidden" id="fromUrl"></span>
-      <h2 id="from"></h2>
-      <h2 id="to"></h2>
-    </div>
-    <div id="payload">
-      <h3 id="message"></h3>
-      <h4 id="tags"></h4>
-    </div>
-    <div id="fields">
-      <h2>Response</h2>
-      <textarea id="response" name="response" rows="3" class="input-block-level" />
-    </div>
-  </div>
-  <div id="submit" class="form-actions">
-    <button id="accept" class="btn btn-large btn-block btn-primary">Accept</button>
-    <div id="info" class="hide text-success center"></div>
-  </div>
-  <% } else { %>
-  <button id="reload" class="btn btn-block btn-primary">Reload</button>
-  <%
-      for(grat in grats){
+    <div class="row">
+      <% if(script) { %>
 
-        var g = JSON.parse(grats[grat]);
-        console.log(g);
-  %>
-    <div class="grat">
-      <h3><a href="<%=gratzi.Client.url %>/#profile?grat=<%=grat %>"><%=g.from.fullname %></a></h3>
-      <h3><%=g.to %></h3>
-      <h2><%=g.message %></h2>
-      <h4><%=g.tags %></h4>
+      <%=script%>
+  
+      <div class="span6">
+
+        <div id="grat">
+          <h1>Grat</h1>
+          <div class="party">
+
+            <h2 id="gFrom">
+              <img src="" id="gImage" class="img-circle" /></h2>
+            <h2 id="gTo"></h2>
+          </div>
+
+          <div class="payload">
+            <h3 id="gMessage"></h3>
+            <h4 id="gTags"></h4>
+          </div>
+        </div>
+
+        <div id="auth">
+          Please login to view the Grat.
+        </div>
+
+      </div>
+
+      <div class="span6">
+        <div id="zi">
+
+          <h1>Zi</h1>
+          <div class="party">
+
+            <h2 id="zFrom">
+              <img src="" id="zImage" class="img-circle" /></h2>
+            <h2 id="zTo"></h2>
+          </div>
+
+          <div class="payload">
+            <h3 id="zMessage"></h3>
+            <h4 id="zTags"></h4>
+          </div>
+
+          <div id="sendForm" class="fields">
+            <h2>Message</h2>
+            <textarea id="response" name="response" rows="3" class="input-block-level" />
+
+            <div id="submit" class="form-actions">
+              <button id="sendBtn" class="btn btn-large btn-block btn-primary">Send</button>
+            </div>
+          </div>
+
+          <div id="saveForm" class="form-actions">
+            <button id="saveBtn" class="btn btn-large btn-block btn-primary">Save</button>
+          </div>
+          <div id="info" class="hide text-success center"></div>
+
+        </div>
+      </div>
+
+      <% } else { %>
+    <button id="reload" class="btn btn-block btn-primary">Reload</button>
+      <%
+        for(grat in grats){
+
+          var g = JSON.parse(grats[grat]);
+          console.log(g);
+        %>
+      <div class="grat">
+        <h3><a href="<%=gratzi.Client.url %>/#profile?grat=<%=grat %>"><%=g.from.fullname %></a></h3>
+        <h3><%=g.to %></h3>
+        <h2><%=g.message %></h2>
+        <h4><%=g.tags %></h4>
+      </div>
+      <% } %>
+    <% } %>
     </div>
-  <% } 
-  } %>
+  </div>
 </div>
