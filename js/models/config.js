@@ -9,7 +9,7 @@ gratzi.Client = {
   year: "2013",
   gitRepo: "http://github.com/auggernaut/gratzi",
   gitClientId: "bbee6e8255728de31711",
-  url: "http://localhost:8888"
+  url: "http://www.gratzi.org"
 
 };
 
