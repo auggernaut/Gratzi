@@ -62,20 +62,39 @@
       </div>
 
       <% } else { %>
-    <button id="reload" class="btn btn-block btn-primary">Reload</button>
-      <%
-        for(grat in grats){
-
-          var g = JSON.parse(grats[grat]);
-          console.log(g);
-        %>
-      <div class="grat">
-        <h3><a href="<%=gratzi.Client.url %>/#profile?grat=<%=grat %>"><%=g.from.fullname %></a></h3>
-        <h3><%=g.to %></h3>
-        <h2><%=g.message %></h2>
-        <h4><%=g.tags %></h4>
+    
+      <div class="row">
+        <div class="span6">
+          <h2>Grat</h2>
+        </div>
+        <div class="span6">
+          <h2>Zi</h2>
+        </div>
       </div>
+      <%
+        for(gz in gratzis){
+
+          var grat = gratzis[gz].grat;
+          var zi = gratzis[gz].zi;
+        %>
+      <div class="gratzi row">
+        <div class="grat span6">
+          <h3><a href="<%=gratzi.Client.url %>/#profile?grat=<%=grat.key %>"><%=grat.from.fullname %></a></h3>
+          <h3><%=grat.to %></h3>
+          <h2><%=grat.message %></h2>
+          <h4><%=grat.tags %></h4>
+        </div>
+
+        <div class="zi span6">
+          <h3><a href="<%=gratzi.Client.url %>/#profile?grat=<%=gz %>"><%=zi.from.fullname %></a></h3>
+          <h3><%=zi.to.fullname %></h3>
+          <h2><%=zi.message %></h2>
+        </div>
+      </div>
+
       <% } %>
+
+      <button id="reload" class="btn btn-block btn-primary">Reload</button>
     <% } %>
     </div>
   </div>

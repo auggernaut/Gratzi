@@ -258,9 +258,37 @@ gratzi.ViewView = Backbone.View.extend({
     else {
 
       var grats = JSON.parse(localStorage.getItem("grats"));
+      var zis = JSON.parse(localStorage.getItem("zis"));
+
+      var gratzi = [];
+
+      for (zi in zis) {
+        
+        var zi = JSON.parse(zis[zi]);
+
+        var index = zi.grat.lastIndexOf("/");
+        var gName = zi.grat.substr(index + 1);
+
+        for (grat in grats) {
+
+          if (grat == gName)
+            gratzi[gratzi.length] = { "grat": JSON.parse(grats[grat]), "zi": zi };
+        }
+
+      }
+
+      //for (gz in gratzi) {
+
+
+      //  var t = gratzi[gz];
+      //  var grat = gratzi[gz].grat;
+      //  var zi = JSON.parse(gratzi[gz][zi]);
+
+      //}
+
     }
 
-    $(this.el).html(this.template({ script: cbScript, grats: grats }));
+    $(this.el).html(this.template({ script: cbScript, gratzis: gratzi }));
     return this;
   },
 

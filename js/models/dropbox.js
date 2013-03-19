@@ -96,7 +96,13 @@ drop = {
         //GET GRATs
         drop.getFiles("grat", function (data) {
           console.log(data);
+          localStorage.setItem('grats', JSON.stringify(data));
+        });
 
+        //GET ZIs
+        drop.getFiles("zi", function (data) {
+          console.log(data);
+          localStorage.setItem('zis', JSON.stringify(data));
         });
 
       });
@@ -269,11 +275,11 @@ drop = {
                 return showError(error);  // Something went wrong.
               }
               console.log("Got file: " + stat);
-              files[fileStats[index].path] = stat.replace(filepart + "Callback(", "").replace(")", "");
+              files[fileStats[index].name] = stat.replace(filepart + "Callback(", "").replace(")", "");
               counter++;
 
               if (fileStats.length == counter) {
-                localStorage.setItem('grats', JSON.stringify(files));
+                
                 callback(files);
               }
 
