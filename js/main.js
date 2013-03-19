@@ -48,11 +48,12 @@ gratzi.Router = Backbone.Router.extend({
           return;
         }
         else {
-          console.log("Authed: " + profile);          
+          var jProf = JSON.stringify(profile);
+          //localStorage.setItem("profile", jProf);
+          console.log("Loaded Profile: " + jProf);
         }
 
       });
-
 
   },
 
@@ -99,7 +100,9 @@ gratzi.Router = Backbone.Router.extend({
           return;
         }
         else {
-          console.log("Loaded Profile: " + profile);
+          var jProf = JSON.stringify(profile);
+          localStorage.setItem("profile", jProf);
+          console.log("Loaded Profile: " + jProf);
           window.location.href = "/#send";
         }
       });
@@ -124,6 +127,24 @@ gratzi.Router = Backbone.Router.extend({
     $('#header').html(new gratzi.HeaderView().el);
     $("#view").addClass("active");
     utils.slidePage(new gratzi.ViewView(params));
+
+
+    // masonry initialization
+    $('.main_container').masonry({
+      // options
+      itemSelector: '.pin',
+      isAnimated: true,
+      isFitWidth: true
+    });
+
+    // onclick event handler (for comments)
+    $('.comment_tr').click(function () {
+      $(this).toggleClass('disabled');
+      $(this).parent().parent().parent().find('form').slideToggle(250, function () {
+        $('.main_container').masonry();
+      });
+    });
+
 
   },
 

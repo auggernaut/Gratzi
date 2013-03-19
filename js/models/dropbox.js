@@ -33,7 +33,10 @@ drop = {
         localStorage.setItem('authenticated', 'dropbox');
 
         //Load profile
-        drop.load(callback);
+        drop.loadUser(callback);
+
+        //Load gratzi
+        drop.loadGratzi();
 
       });
 
@@ -41,7 +44,7 @@ drop = {
 
   },
 
-  load: function (callback) {
+  loadUser: function (callback) {
 
     //GET USER INFO
     dropbox.getUserInfo(function (error, userInfo) {
@@ -93,21 +96,29 @@ drop = {
 
         });
 
-        //GET GRATs
-        drop.getFiles("grat", function (data) {
-          console.log(data);
-          localStorage.setItem('grats', JSON.stringify(data));
-        });
-
-        //GET ZIs
-        drop.getFiles("zi", function (data) {
-          console.log(data);
-          localStorage.setItem('zis', JSON.stringify(data));
-        });
-
       });
 
     });
+
+  },
+
+  loadGratzi: function(callback){
+
+    //GET GRATs
+    drop.getFiles("grat", function (data) {
+
+      //console.log(data);
+      localStorage.setItem('grats', JSON.stringify(data));
+
+      //GET ZIs
+      drop.getFiles("zi", function (data) {
+        //console.log(data);
+        localStorage.setItem('zis', JSON.stringify(data));
+        callback();
+      });
+
+    });
+
 
   },
 
@@ -301,6 +312,7 @@ drop = {
     localStorage.removeItem('authenticated');
     localStorage.removeItem('profile');
     localStorage.removeItem('grats');
+    localStorage.clear();
   }
 
 }

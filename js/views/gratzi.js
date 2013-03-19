@@ -2,7 +2,7 @@
 //*********************JSONP CALLBACKS***********************//
 
 function gratCallback(json) {
-  $('#gTo').append(json.to);
+  //$('#gTo').append(json.to);
   $('#gFrom').append(json.from.fullname);
   $('#gMessage').append(json.message);
   $('#gTags').append(json.tags);
@@ -13,7 +13,7 @@ function gratCallback(json) {
 }
 
 function ziCallback(json) {
-  $('#zTo').append(json.to.fullname);
+  //$('#zTo').append(json.to.fullname);
   $('#zFrom').append(json.from.fullname);
   $('#zMessage').append(json.message);
   $('#zTags').append(json.tags);
@@ -219,9 +219,9 @@ gratzi.ViewView = Backbone.View.extend({
 
   events: {
     "click #sendBtn": "sendZi",
-    "click #save": "saveZi",
-    "click #reload": "reload"
-
+    "click #saveBtn": "saveZi",
+    "click #reload": "reload",
+    "click .comment_tr": "comment"
   },
 
   initialize: function () {
@@ -263,28 +263,19 @@ gratzi.ViewView = Backbone.View.extend({
       var gratzi = [];
 
       for (zi in zis) {
-        
+
         var zi = JSON.parse(zis[zi]);
 
         var index = zi.grat.lastIndexOf("/");
-        var gName = zi.grat.substr(index + 1);
+        var gId = zi.grat.substr(index + 1);
 
         for (grat in grats) {
 
-          if (grat == gName)
-            gratzi[gratzi.length] = { "grat": JSON.parse(grats[grat]), "zi": zi };
+          if (grat == gId)
+            gratzi[gratzi.length] = { gratid: gId, "grat": JSON.parse(grats[grat]), "zi": zi };
         }
 
       }
-
-      //for (gz in gratzi) {
-
-
-      //  var t = gratzi[gz];
-      //  var grat = gratzi[gz].grat;
-      //  var zi = JSON.parse(gratzi[gz][zi]);
-
-      //}
 
     }
 
@@ -359,8 +350,8 @@ gratzi.ViewView = Backbone.View.extend({
 
   saveZi: function () {
 
-    $("#save").attr("disabled", "disabled");
-    $("#save").html("Saving...");
+    $("#saveBtn").attr("disabled", "disabled");
+    $("#saveBtn").html("Saving...");
 
     var cbZi = JSON.parse(localStorage.getItem("cbZi"));
 
@@ -369,8 +360,8 @@ gratzi.ViewView = Backbone.View.extend({
       //Store Grat
       gratzi.Store.addZi(cbZi, function (path) {
         console.log("Zi stored: " + path);
-        $("#save").removeAttr("disabled");
-        $("#save").html("Save");
+        $("#saveBtn").removeAttr("disabled");
+        $("#saveBtn").html("Save");
         $('#info').show().html("Zi Saved!");
       });
 
@@ -383,9 +374,16 @@ gratzi.ViewView = Backbone.View.extend({
 
   reload: function () {
 
-    gratzi.Store.getFiles("grat", function () {
+    gratzi.Store.loadGratzi(function () {
       window.location.reload();
-      //$("grats").append(grats);
+    });
+
+  },
+
+  comment: function () {
+    $(this).toggleClass('disabled');
+    $(this).parent().parent().parent().find('form').slideToggle(250, function () {
+      $('.main_container').masonry();
     });
   }
 
