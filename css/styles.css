@@ -134,6 +134,9 @@ h2 {
   border-radius: 6px;
   border: 1px dotted #F5E9FF;
   padding: 5px;
+  display: inline;
+  float: left;
+  width: 250px;
 }
 
 .zi {
@@ -142,8 +145,19 @@ h2 {
   border-radius: 6px;
   border: 1px dotted #F5E9FF;
   padding: 5px;
+  display: inline;
+  float: right;
+  width: 250px;
 }
 
+
+.arrow {
+  display: inline;
+}
+
+  .arrow img {
+    max-width: 50px;
+  }
 
 
 /* photo pins - general styles */
@@ -165,7 +179,7 @@ h2 {
   display: inline-block;
   float: right;
   font-weight: bold;
-  line-height: 1em;
+  line-height: 2em;
   margin: 0;
   padding: 5px 9px;
   text-align: center;
@@ -198,10 +212,11 @@ h2 {
   margin: 0 15px 15px 0;
   padding: 15px 15px 0;
   position: relative;
-  width: 192px;
+  width: 550px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
+  min-height: 250px;
 }
 
   .pin .holder {
@@ -249,7 +264,6 @@ h2 {
     text-shadow: 0 -1px rgba(0,0,0,.4);
     font-size: 20px;
     line-height: 25px;
-
   }
 
   .pin .info {
@@ -278,12 +292,12 @@ h2 {
     border: 1px solid #CCCCCC;
     color: #8C7E7E;
     font-size: 11px;
-    height: 21px;
+    height: 30px;
     line-height: 1em;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     padding: 4px 3px 3px;
     resize: none;
-    width: 185px;
+    width: 430px;
   }
 
     .comment textarea:focus {
@@ -291,10 +305,6 @@ h2 {
       box-shadow: 0 1px 1px rgba(34, 29, 29, 0.1) inset;
     }
 
-.arrow {
-  max-width: 50px;
-
-}
 
 #reload {
   position: absolute;
@@ -305,6 +315,6 @@ h2 {
   height: 22px;
 }
 
-#reload:hover {
- cursor: pointer;
-}
+  #reload:hover {
+    cursor: pointer;
+  }

@@ -15,7 +15,7 @@
 
             <h2 id="gFrom">
               <img src="" id="gImage" class="img-circle" /></h2>
-<!--            <h2 id="gTo"></h2>-->
+            <!--            <h2 id="gTo"></h2>-->
           </div>
 
           <div class="payload">
@@ -38,7 +38,7 @@
 
             <h2 id="zFrom">
               <img src="" id="zImage" class="img-circle" /></h2>
-<!--            <h2 id="zTo"></h2>-->
+            <!--            <h2 id="zTo"></h2>-->
           </div>
 
           <div class="payload">
@@ -73,7 +73,7 @@
           <h2>Zi</h2>
         </div>
       </div>-->
-      
+
       <div class="main_container">
         <%
         for(gz in gratzis){
@@ -108,26 +108,25 @@
               <a class="button">Share</a>
               <a class="button comment_tr">Comment</a>
             </div>
-            <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
-              <img src="<%=grat.from.image%>" alt="<%=grat.from.fullname %>" />
-              <p class="name"><%=grat.from.fullname %></p>
-            </a>
-          </div>
-          <div class="grat">
-            <p class="message"><%=grat.message %></p>
-            <p class="tags"><%=grat.tags %></p>
-          </div>
-          <img src="/img/arrow_m01_down.png" class="arrow" />
-          <div class="holder">
-            <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
-              <img src="<%=zi.from.image%>" alt="<%=zi.from.fullname %>" />
-              <p class="name"><%=zi.from.fullname %></p>
-            </a>
-          </div>
-          <div class="zi">
-            <p class="message"><%=zi.message %></p>
-          </div>
 
+            <div class="grat">
+              <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
+                <img src="<%=grat.from.image%>" alt="<%=grat.from.fullname %>" />
+                <p class="name"><%=grat.from.fullname %></p>
+              </a>
+              <p class="message"><%=grat.message %></p>
+              <p class="tags"><%=grat.tags %></p>
+            </div>
+
+            <div class="zi">
+
+              <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
+                <img src="<%=zi.from.image%>" alt="<%=zi.from.fullname %>" />
+                <p class="name"><%=zi.from.fullname %></p>
+              </a>
+              <p class="message"><%=zi.message %></p>
+            </div>
+          </div>
           <form class="comment" method="post" action="" style="display: none">
             <input type="hidden" name="id" value="1" />
             <textarea placeholder="Add a comment..." maxlength="1000"></textarea>
