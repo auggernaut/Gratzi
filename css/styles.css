@@ -1,7 +1,15 @@
+body {
+  background-color: #F2F2F2;
+}
+
 
 h1, h2, h3 {
   padding: 0;
-  text-shadow: 0 -1px rgba(0,0,0,.4);
+  text-shadow: 0 1px 1px rgba(0,0,0,.4);
+  font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
+  font-size-adjust: 0.71;
+  font-weight: normal;
+  font-style: normal;
 }
 
 h1 {
@@ -19,14 +27,21 @@ h2 {
 
 .hero-unit {
   padding: 40px;
+  background-color: #461973;
 }
 
+
 .jumbotron {
-  margin: 80px 0;
+  margin: 60px 0;
   text-align: center;
+  color: #fff;
 }
 
   .jumbotron h1 {
+    font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
+    font-size-adjust: 0.71;
+    font-weight: normal;
+    font-style: normal;
     font-size: 80px !important;
     line-height: 1;
   }
@@ -129,22 +144,12 @@ h2 {
 }
 
 .grat {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  border: 1px dotted #F5E9FF;
-  padding: 5px;
   display: inline;
   float: left;
   width: 250px;
 }
 
 .zi {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  border: 1px dotted #F5E9FF;
-  padding: 5px;
   display: inline;
   float: right;
   width: 250px;
@@ -181,7 +186,6 @@ h2 {
   font-weight: bold;
   line-height: 2em;
   margin: 0;
-  padding: 5px 9px;
   text-align: center;
   text-shadow: 0 1px rgba(255, 255, 255, 0.9);
   -webkit-transition: all 0.2s ease-in-out 0s;
@@ -205,18 +209,14 @@ h2 {
 
 /* single pin styles */
 .pin {
-  background-color: #FFFFFF;
+  background-color: #AA95BF;
   box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
   float: left;
   font-size: 11px;
-  margin: 0 15px 15px 0;
+  margin: 0 30px 30px 0;
   padding: 15px 15px 0;
   position: relative;
-  width: 550px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  min-height: 250px;
+
 }
 
   .pin .holder {
@@ -224,10 +224,13 @@ h2 {
   }
 
   .pin .actions {
-    left: -8px;
+    /*left: -8px;
     position: absolute;
     top: -8px;
-    z-index: 3;
+    z-index: 3;*/
+    clear: both;
+    display: block;
+    text-align: center;
   }
 
     .pin .actions a {
@@ -249,19 +252,24 @@ h2 {
   }
 
     .pin .image img {
-      max-width: 192px;
-      min-height: 75px;
+      box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
       opacity: 1;
-      -webkit-border-radius: 6px;
-      -moz-border-radius: 6px;
-      border-radius: 6px;
+
     }
+
+  .pin .name {
+    margin: 10px 0 5px;
+    word-wrap: break-word;
+    text-shadow: 0 -1px rgba(0,0,0,.4);
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 25px;
+    font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
+  }
 
   .pin .message {
     margin: 10px 0 5px;
-    overflow: hidden;
     word-wrap: break-word;
-    text-shadow: 0 -1px rgba(0,0,0,.4);
     font-size: 20px;
     line-height: 25px;
   }
@@ -284,7 +292,6 @@ h2 {
   box-shadow: 0 1px #FCFAFA inset;
   margin: 0 -15px;
   overflow: hidden;
-  padding: 10px 15px;
 }
 
   .comment textarea {
@@ -295,9 +302,7 @@ h2 {
     height: 30px;
     line-height: 1em;
     margin-bottom: 2px;
-    padding: 4px 3px 3px;
     resize: none;
-    width: 430px;
   }
 
     .comment textarea:focus {
@@ -317,4 +322,87 @@ h2 {
 
   #reload:hover {
     cursor: pointer;
+  }
+
+
+.about h1 {
+  font-size: 80px !important;
+  line-height: 1;
+}
+
+.about h2 {
+  font-size: 50px !important;
+  line-height: .5;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.navbar-inner {
+  -webkit-border-radius: initial;
+  border-radius: initial;
+}
+
+
+/*.navbar-inner {
+
+    background-color: #AA95BF;
+    background-image: none;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+    -webkit-border-radius: initial;
+    border: none;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+.navbar .nav > li > a {
+
+  text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  color: #000;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+
+  background-color: #F2F2F2;
+
+}
+
+.navbar .brand {
+  text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  color: #000;
+}
+
+.navbar-text.pull-right a{
+font-weight: bold;
+color: #0388A6;
+text-shadow: none;
+}*/
+
+.tags {
+   background-color: #0388A6;
+  color: #fff;
+
+}
+
+.tagCloud {
+  clear: both;
+  display: block;
+  margin: 0;
+}
+
+.tag {
+ background-color: #0388A6;
+  color: #fff;
+
+  width: 100px;
+  padding: 10px;
+  margin: 10px;
+  display: inline;
+  line-height: 3em;
+}
+
+  .tag:hover {
+  cursor:pointer;
+  }
+
+  .tag.picked {
+  background-color: #D1CDCD;
   }

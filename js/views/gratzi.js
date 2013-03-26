@@ -221,7 +221,8 @@ gratzi.ViewView = Backbone.View.extend({
     "click #sendBtn": "sendZi",
     "click #saveBtn": "saveZi",
     "click #reload": "reload",
-    "click .comment_tr": "comment"
+    "click .comment_tr": "comment",
+    "click .tag": "tagSelect"
   },
 
   initialize: function () {
@@ -230,7 +231,7 @@ gratzi.ViewView = Backbone.View.extend({
     this.render();
   },
 
-  render: function () {
+  render: function (pickTag) {
 
     var cbScript;
 
@@ -257,30 +258,65 @@ gratzi.ViewView = Backbone.View.extend({
     }
     else {
 
-      var grats = JSON.parse(localStorage.getItem("grats"));
       var zis = JSON.parse(localStorage.getItem("zis"));
+      var tags = [];
 
+      var grats = JSON.parse(localStorage.getItem("grats"));
       var gratzi = [];
 
-      for (zi in zis) {
+      
 
-        var zi = JSON.parse(zis[zi]);
+      for (grat in grats) {
+        var filter = false;
+        var gJSON = JSON.parse(grats[grat]);
+        var ts = gJSON.tags.split(",");
+        var tag;
+        for (t in ts) {
+          tag = ts[t].trim();
+          tags[tag] = tag;
+          if (pickTag == tag)
+            filter = true;
+        }
 
-        var index = zi.grat.lastIndexOf("/");
-        var gId = zi.grat.substr(index + 1);
+        if (!pickTag || filter) {
+          var match = false;
 
-        for (grat in grats) {
+          for (zi in zis) {
+            var ziJSON = JSON.parse(zis[zi]);
+            var gId = ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1);
 
-          if (grat == gId)
-            gratzi[gratzi.length] = { gratid: gId, "grat": JSON.parse(grats[grat]), "zi": zi };
+            if (grat == gId) {
+              match = true;
+              gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": ziJSON };
+            }
+          }
+
+          if (!match) {
+            gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } };
+          }
         }
 
       }
 
     }
 
-    $(this.el).html(this.template({ script: cbScript, gratzis: gratzi }));
+    $(this.el).html(this.template({ script: cbScript, gratzis: gratzi, tags: tags }));
     return this;
+
+  },
+
+  tagSelect: function (e) {
+    this.render($(e.target).text().trim());
+    $(e.target).className = "picked";
+
+    $('.actions').click(function () {
+      $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
+
+      $(this).parent().find('.zi').slideToggle(250, function () {
+        $('.main_container').masonry();
+      });
+    });
+
   },
 
   sendZi: function () {

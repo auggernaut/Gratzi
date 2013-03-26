@@ -1,4 +1,4 @@
-<h1>View</h1>
+<!--<h1>View</h1>-->
 
 <div class="container">
   <div class="center">
@@ -65,7 +65,7 @@
 
       <% } else { %>
     
-      <!--<div class="row">
+      <!--      <div class="row">
         <div class="span6">
           <h2>Grat</h2>
         </div>
@@ -74,68 +74,70 @@
         </div>
       </div>-->
 
-      <div class="main_container">
-        <%
+
+      <div class="row">
+        <ul class="tagCloud">
+          <%
+            for(tag in tags){
+            %>
+
+          
+          <li class="tag"><%=tags[tag]%></li>
+
+          <% } %>
+
+        </ul>
+        <div class="main_container">
+          <% 
+
         for(gz in gratzis){
         
           var id = gratzis[gz].gratid;
           var grat = gratzis[gz].grat;
           var zi = gratzis[gz].zi;
         %>
-        <!--      <div class="gratzi row">
-        <div class="grat span6">
-          <a href="<%=gratzi.Client.url %>/#profile?grat=<%=id %>"></a>
-        <h3>From</h3>
-        <h2><%=grat.from.fullname %></h2>
-        <p>
-          <img src="<%=grat.from.image%>" />
-        </p>
-        <h2><%=grat.message %></h2>
-        <h4><%=grat.tags %></h4>
-      </div>
 
-      <div class="zi span6">
-        <h3><%=zi.from.fullname %></h3>
-        <h3><%=zi.to.fullname %></h3>
-        <h2><%=zi.message %></h2>
-      </div>
-    </div>
-    -->
+          <div class="pin">
+            <div class="holder">
 
-        <div class="pin">
-          <div class="holder">
-            <div class="actions" pin_id="gz">
-              <a class="button">Share</a>
-              <a class="button comment_tr">Comment</a>
-            </div>
 
-            <div class="grat">
-              <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
-                <img src="<%=grat.from.image%>" alt="<%=grat.from.fullname %>" />
+              <div class="grat">
+
+                <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
+                  <img src="<%=grat.from.image%>" alt="<%=grat.from.fullname %>" />
+                </a>
                 <p class="name"><%=grat.from.fullname %></p>
-              </a>
-              <p class="message"><%=grat.message %></p>
-              <p class="tags"><%=grat.tags %></p>
+                <p class="message"><%=grat.message %></p>
+                <p class="tags"><%=grat.tags %></p>
+              </div>
+
+
+            </div>
+            <!--       <form class="comment" method="post" action="" style="display: none">
+              <input type="hidden" name="id" value="1" />
+              <textarea placeholder="Add a comment..." maxlength="1000"></textarea>
+              <button type="button" class="button">Comment</button>
+            </form>-->
+
+            <% if(zi.from.fullname) {%>
+            <div class="actions" pin_id="gz">
+              <div class="icon-chevron-down"></div>
             </div>
 
-            <div class="zi">
-
-              <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
+            <div class="zi" style="display: none">
+              <a class="image ajax" title="Photo <%=zi%>" pin_id="<%=zi%>">
                 <img src="<%=zi.from.image%>" alt="<%=zi.from.fullname %>" />
-                <p class="name"><%=zi.from.fullname %></p>
               </a>
+              <p class="name"><%=zi.from.fullname %></p>
               <p class="message"><%=zi.message %></p>
             </div>
+            <% } %>
+
           </div>
-          <form class="comment" method="post" action="" style="display: none">
-            <input type="hidden" name="id" value="1" />
-            <textarea placeholder="Add a comment..." maxlength="1000"></textarea>
-            <button type="button" class="button">Comment</button>
-          </form>
+
+
+          <% } %>
         </div>
-
-
-        <% } %>
       </div>
       <a id="reload"></a>
       <% } %>
