@@ -331,14 +331,15 @@ h2 {
 
 .about h1 {
   font-size: 80px !important;
-  line-height: 1;
+  line-height: 1.2;
+  margin-top: 30px;
 }
 
 .about h2 {
   font-size: 35px !important;
-  line-height: .5;
+  line-height: 1;
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 50px;
 }
 
 .navbar-inner {
