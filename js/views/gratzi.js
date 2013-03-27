@@ -123,6 +123,25 @@ gratzi.AboutView = Backbone.View.extend({
 });
 
 
+//*********************   FOOTER    ***************************//
+
+gratzi.FooterView = Backbone.View.extend({
+
+  initialize: function () {
+    console.log('Initializing Footer View');
+    this.model = gratzi.Client;
+    this.render();
+  },
+
+  render: function () {
+    $(this.el).html(this.template(this.model));
+    return this;
+  }
+
+});
+
+
+
 
 
 
@@ -175,7 +194,7 @@ gratzi.SendView = Backbone.View.extend({
           "to": newGrat.to,
           "from": newGrat.from.email,
           "subject": newGrat.from.fullname + " has sent you a Gratzi!",
-          "message": "You recieved a Gratzi! Click this link to view it: <br/><br/>" + gratLink
+          "message": "You recieved a Gratzi! Click this link to view and save it: <br/><br/>" + gratLink
         }
 
         //Email recipient
@@ -264,7 +283,7 @@ gratzi.ViewView = Backbone.View.extend({
       var grats = JSON.parse(localStorage.getItem("grats"));
       var gratzi = [];
 
-      
+
 
       for (grat in grats) {
         var filter = false;
@@ -332,7 +351,7 @@ gratzi.ViewView = Backbone.View.extend({
     if (localStorage.getItem('authenticated')) {
 
       //Store Grat
-      gratzi.Store.addGrat(cbGrat, function (path) {
+      gratzi.Store.addGrat(cbGrat, function (gPath) {
 
         var profile = JSON.parse(localStorage.getItem("profile"));
         var newZi = {
@@ -345,10 +364,10 @@ gratzi.ViewView = Backbone.View.extend({
         }
 
         //Create Zi
-        gratzi.Store.addZi(newZi, function (path) {
+        gratzi.Store.addZi(newZi, function (zPath) {
 
           //Get link to new Zi
-          gratzi.Store.getLink(path, function (url) {
+          gratzi.Store.getLink(zPath, function (url) {
 
             var ziLink = gratzi.Client.url + "/#view?zi=" + url;
 
@@ -356,7 +375,7 @@ gratzi.ViewView = Backbone.View.extend({
               "to": newZi.to.email,
               "from": newZi.from.email,
               "subject": profile.fullname + " has completed your Gratzi!",
-              "message": "You recieved a Zi! Click this link to view it: <br/><br/>" + ziLink
+              "message": "You recieved a Zi! Click this link to view and save it: <br/><br/>" + ziLink
             }
 
             //Email Zi to recipient
@@ -366,6 +385,9 @@ gratzi.ViewView = Backbone.View.extend({
                   $("#sendBtn").removeAttr("disabled");
                   $("#sendBtn").html("Send");
                   $('#info').show().html("Zi sent!");
+
+                  window.location.href = "/#view?zi=" + url;
+
                 }
               }, "json");
 
@@ -449,29 +471,36 @@ gratzi.ProfileView = Backbone.View.extend({
   render: function () {
 
     var gitAuthUrl, username, ui, avatar, store, fullname, bio, profile, profCallback;
+    var profile = {
+      "email": "",
+      "fullname": "",
+      "bio": "",
+      "image": ""
+    }
 
     if (this.options && this.options.grat) {
       //Load profile from Grat
       var grat = JSON.parse(JSON.parse(localStorage.getItem("grats"))[this.options.grat]);
-      var profile = {
-        "email": grat.from.email,
-        "fullname": grat.from.fullname,
-        "bio": grat.from.bio,
-        "image": grat.from.image
-      }
+
+      profile.email = grat.from.email,
+      profile.fullname = grat.from.fullname,
+      profile.bio = grat.from.bio,
+      profile.image = grat.from.image
+
 
     }
     else if (localStorage.getItem('authenticated')) {
+
       //Load logged in user profile
-      var profile = localStorage.getItem('profile');
-      if (profile) {
-        profile = JSON.parse(profile);
+      if (localStorage.getItem('profile')) {
+        profile = JSON.parse(localStorage.getItem('profile'));
 
         //var image = localStorage.getItem('imagePath');
         //if (image)
         //  profile.image = image;
 
       }
+
 
 
     }
@@ -499,8 +528,11 @@ gratzi.ProfileView = Backbone.View.extend({
         localStorage.setItem("profile", jProf);
         window.location.href = "/#send";
       }
-      else {
-        console.log("Auth failed: " + profile);
+      else if (error == "404") {
+        console.log("No Profile found. ");
+        //window.location.href = "/#profile";
+      } else {
+        console.log("Auth failed: " + error);
       }
 
     });
@@ -563,18 +595,16 @@ gratzi.ProfileView = Backbone.View.extend({
       $("#save").removeAttr("disabled");
       $("#save").attr("value", "Save");
       $('#info').show().html("Profile saved!");
-      newProfile.url = path;
-      localStorage.setItem('profile', JSON.stringify(newProfile));
+      
 
-      gratzi.Store.load(function () {
+      gratzi.Store.loadUser(function (error, profile) {
+        var jProf = JSON.stringify(profile);
+        jProf.url = path;
+        localStorage.setItem("profile", jProf);
         window.location.reload();
       });
 
-
-      //this.render();
     });
-    //}
-
 
 
   },

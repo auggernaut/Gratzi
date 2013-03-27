@@ -114,6 +114,9 @@ gratzi.Router = Backbone.Router.extend({
       $('#content').html(this.homeView.el);
     }
 
+    $('#footer').html(new gratzi.FooterView().el);
+
+
   },
 
   send: function () {
@@ -125,6 +128,8 @@ gratzi.Router = Backbone.Router.extend({
     else
       //utils.slidePage(new gratzi.ProfileView());
       $('#content').html(new gratzi.ProfileView().el);
+
+    $('#footer').html(new gratzi.FooterView().el);
   },
 
   view: function (params) {
@@ -153,6 +158,8 @@ gratzi.Router = Backbone.Router.extend({
       });
     });
 
+    $('#footer').html(new gratzi.FooterView().el);
+
   },
 
   about: function () {
@@ -168,18 +175,21 @@ gratzi.Router = Backbone.Router.extend({
     $("#about").addClass("active");
     //utils.slidePage(this.aboutView);
     $('#content').html(this.aboutView.el);
+    $('#footer').html(new gratzi.FooterView().el);
   },
+
 
   profile: function (params) {
     $('#header').html(new gratzi.HeaderView().el);
     //utils.slidePage(new gratzi.ProfileView(params));
     $('#content').html(new gratzi.ProfileView(params).el);
+    $('#footer').html(new gratzi.FooterView().el);
   },
 
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView"],
+utils.templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView", "FooterView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();

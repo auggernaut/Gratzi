@@ -79,6 +79,7 @@ drop = {
 
         if (error) {
           callback(showError(error), null);
+          return;
         }
 
         //TODO: IF Profile doesn't exist, i.e. 404, callback("404", null);
@@ -329,6 +330,7 @@ var showError = function (error) {
     case Dropbox.ApiError.NOT_FOUND:
       // The file or folder you tried to access is not in the user's Dropbox.
       // Handling this error is specific to your application.
+      return "404";
       break;
 
     case Dropbox.ApiError.OVER_QUOTA:

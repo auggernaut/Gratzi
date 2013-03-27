@@ -6,6 +6,7 @@ gratzi.Client = {
   appName: "Gratzi",
   description: "Send a digital, signed thank you.",
   createdBy: "Datacosmos",
+  createdByUrl: "http://www.datacosmos.com",
   year: "2013",
   gitRepo: "http://github.com/auggernaut/gratzi",
   gitClientId: "bbee6e8255728de31711",

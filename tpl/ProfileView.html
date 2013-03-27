@@ -10,10 +10,10 @@
     <p>
       Choose where your profile and Gratzi's will be saved:
     </p>
-    <p>
+<!--    <p>
       <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
       </a>
-    </p>
+    </p>-->
     <p>
       <a class="btn-auth btn-dropBox large" id="dropbox"><b>DropBox</b>
       </a>
@@ -24,9 +24,9 @@
  
   <div class="container">
     <div class="row">
-      <div class="span12">
+ 
         <h1>Profile</h1>
-      </div>
+
 
 
       <% if(!this.options.grat) {%>
@@ -37,7 +37,7 @@
           <input type="file" name="input_name" id="file" class="hide ie_show" />
           <div class="input-append ie_hide">
             <input id="pretty-input" class="input-large" type="text" />
-            <a class="btn" onclick="$('input[id=file]').click();">Browse</a>
+            <a class="btn btn-inverse" onclick="$('input[id=file]').click();">Browse</a>
           </div>
 
           <h2>Full name</h2>
@@ -57,7 +57,7 @@
 
       <% if (profile) { %>
         <div id="values" class="span4 center">
-          <img class="img-circle" id="profImage" src="<%= profile.image %>" />
+          <img class="img-prof" id="profImage" src="<%= profile.image %>" />
           <h2><%= profile.fullname %></h2>
           <h3><%= profile.email %></h3>
           <h4><%= profile.bio %></h4>
