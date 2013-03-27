@@ -29,6 +29,7 @@ h2 {
 .hero-unit {
   padding: 40px;
   background-color: #461973;
+  box-shadow: 0 3px 3px rgba(34, 25, 25, 0.4);
 }
 
 
@@ -144,12 +145,6 @@ a {
   margin: 40px;
 }
 
-.gratzi {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  border: 1px dotted #8C00FF;
-}
 
 .grat {
   display: inline;
