@@ -1,22 +1,30 @@
-﻿<div id="form">
+﻿<div class="container">
 
-<!--  <h1>Send</h1>-->
+  <div class="row top">
+    <div class="span8 offset2">
 
-  <div id="fields">
-    <h2>To</h2>
-    <input type="text" id="to" name="to" class="input-block-level"/>
-    <!--<button id="pickContact" class="body-button small">Pick a Contact</button>-->
 
-    <h2>For</h2>
-    <textarea id="message" name="message" rows="3" class="input-block-level"/>
+      <h1>Grat</h1>
 
-    <h2>Tags</h2>
-    <input type="text" id="tags" name="tags" class="input-block-level"/>
+      <div id="fields">
+        <h2>To</h2>
+        <input type="text" id="to" name="to" class="input-block-level" placeholder="human@earth.com" />
+        <!--<button id="pickContact" class="body-button small">Pick a Contact</button>-->
+
+        <h2>Message</h2>
+        <textarea id="message" name="message" rows="3" class="input-block-level" placeholder="Thanks for all the fish!" />
+
+        <h2>Tags</h2>
+        <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
+      </div>
+
+      <div id="submit">
+        <button id="sendBtn" class="btn btn-inverse btn-large btn-block">Send</button>
+        <div id="info" class="hide text-success center"></div>
+        <div id="fail" class="hide text-failure center"></div>
+      </div>
+    </div>
+
   </div>
 
-  <div id="submit" class="form-actions">
-    <button id="sendBtn" class="btn btn-inverse btn-large btn-block">Send</button>
-    <div id="info" class="hide text-success center"></div>
-    <div id="fail" class="hide text-failure center"></div>
-  </div>
 </div>

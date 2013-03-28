@@ -1,16 +1,17 @@
-﻿<% if(!localStorage.getItem('authenticated')) { %>
+﻿<div class="container">
+  <div class="row top">
+    <% if(!localStorage.getItem('authenticated')) { %>
+  <div class="span8 offset2">
 
-<div class="container">
-  <div class="center">
     <h1>Start</h1>
     <h3>Connect to your cloud.</h3>
     <p>
       Gratzi only works with cloud storage that you control.
     </p>
-    <p>
-      Choose where your profile and Gratzi's will be saved:
-    </p>
-<!--    <p>
+    <!--      <p>
+        Choose where your profile and Gratzi's will be saved:
+      </p>-->
+    <!--    <p>
       <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
       </a>
     </p>-->
@@ -18,19 +19,27 @@
       <a class="btn-auth btn-dropBox large" id="dropbox"><b>DropBox</b>
       </a>
     </p>
+
   </div>
 
-  <% } else { %>
+    <% } else { %>
  
-  <div class="container">
-    <div class="row">
- 
-        <h1>Profile</h1>
+      <h1>Profile</h1>
 
 
+    <% if (profile) { %>
+        <div id="values" class="span6 center">
+          <img class="img-prof" id="profImage" src="<%= profile.image %>" />
+          <h2><%= profile.fullname %></h2>
+          <h3><%= profile.email %></h3>
+          <h4><%= profile.bio %></h4>
+          <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
 
-      <% if(!this.options.grat) {%>
-      <div id="form" class="span6">
+        </div>
+    <% } %>
+
+    <% if(!this.options.grat) {%>
+      <div id="form" class="span5">
 
         <div id="fields">
           <h2>Photo</h2>
@@ -47,25 +56,18 @@
           <textarea id="bio" name="bio" rows="3" class="input-block-level"><%=profile.bio%></textarea>
         </div>
 
-        <div id="submit" class="form-actions">
+        <div id="submit">
           <button id="save" class="btn btn-large btn-block btn-inverse">Save</button>
           <div id="info" class="hide text-success center"></div>
         </div>
       </div>
-      <% } %>
+    <% } %>
 
 
-      <% if (profile) { %>
-        <div id="values" class="span4 center">
-          <img class="img-prof" id="profImage" src="<%= profile.image %>" />
-          <h2><%= profile.fullname %></h2>
-          <h3><%= profile.email %></h3>
-          <h4><%= profile.bio %></h4>
-          <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
 
-        </div>
-      <% } %>
 
-    </div>
+
+    <% } %>
+  
   </div>
-<% } %>
+</div>

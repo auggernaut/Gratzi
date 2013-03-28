@@ -1,23 +1,23 @@
 <!--<h1>View</h1>-->
 
 <div class="container">
-  <div class="center">
-    <div class="row">
-      <% if(script) { %>
+
+  <div class="row top">
+    <% if(script) { %>
 
       <%=script%>
   
-      <div class="span6">
-
+      <div class="span5">
         <div id="grat">
           <h1>Grat</h1>
-          <div class="party">
+          <div class="party center">
             <div>
-              <img src="" id="gImage" class="img-prof" /></div>
+              <img src="" id="gImage" class="img-prof" />
+            </div>
             <h2 id="gFrom"></h2>
           </div>
 
-          <div class="payload">
+          <div class="payload center">
             <h3 id="gMessage"></h3>
             <h4 id="gTags"></h4>
           </div>
@@ -26,42 +26,42 @@
         <div id="auth">
           Please login to view the Grat.
         </div>
-
       </div>
 
-      <div class="span6">
-        <div id="zi">
+    <div class="span5 offset2">
+      <div id="zi">
 
-          <h1>Zi</h1>
-          <div class="party">
-            <div>
-              <img src="" id="zImage" class="img-prof" /></div>
-            <h2 id="zFrom"></h2>
+        <h1>Zi</h1>
+        <div class="party center">
+          <div>
+            <img src="" id="zImage" class="img-prof" />
           </div>
-
-          <div class="payload">
-            <h3 id="zMessage"></h3>
-            <h4 id="zTags"></h4>
-          </div>
-
-          <div id="sendForm" class="fields">
-            <h2>Reply</h2>
-            <textarea id="response" name="response" rows="3" class="input-block-level" />
-
-            <div id="submit" class="form-actions">
-              <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send</button>
-            </div>
-          </div>
-
-          <div id="saveForm" class="form-actions">
-            <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
-          </div>
-          <div id="info" class="hide text-success center"></div>
-
+          <h2 id="zFrom"></h2>
         </div>
-      </div>
 
-      <% } else { %>
+        <div class="payload center">
+          <h3 id="zMessage"></h3>
+          <h4 id="zTags"></h4>
+        </div>
+
+        <div id="sendForm" class="fields">
+          <h2 class="center">Reply</h2>
+          <textarea id="response" name="response" rows="3" class="input-block-level" />
+
+          <div id="submit">
+            <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send</button>
+          </div>
+        </div>
+
+        <div id="saveForm">
+          <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
+        </div>
+        <div id="info" class="hide text-success center"></div>
+
+      </div>
+    </div>
+
+    <% } else { %>
     
       <!--      <div class="row">
         <div class="span6">
@@ -72,21 +72,20 @@
         </div>
       </div>-->
 
-
-      <div class="row">
-        <ul class="tagCloud">
-          <%
+    <div class="span12">
+      <ul class="tagCloud">
+        <%
             for(tag in tags){
             %>
 
           
           <li class="tag"><%=tags[tag]%></li>
 
-          <% } %>
+        <% } %>
 
-        </ul>
-        <div class="main_container">
-          <% 
+      </ul>
+      <div class="main_container">
+        <% 
 
         for(gz in gratzis){
         
@@ -95,7 +94,7 @@
           var zi = gratzis[gz].zi;
         %>
 
-          <div class="pin">
+          <div class="pin center">
             <div class="holder">
 
 
@@ -134,11 +133,10 @@
           </div>
 
 
-          <% } %>
-        </div>
+        <% } %>
       </div>
-      <a id="reload"></a>
-      <% } %>
     </div>
+    <a id="reload"></a>
+    <% } %>
   </div>
 </div>
