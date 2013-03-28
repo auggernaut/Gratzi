@@ -208,6 +208,9 @@ gratzi.SendView = Backbone.View.extend({
               $('#tags').val('');
               $("#sendBtn").removeAttr("disabled");
               $("#sendBtn").html("Send");
+              gratzi.Store.loadGratzi(function () {
+                window.location.href = "/#view";
+              });
             }
             else {
               $("#sendBtn").removeAttr("disabled");
@@ -248,7 +251,10 @@ gratzi.ViewView = Backbone.View.extend({
   initialize: function () {
     console.log('Initializing View View');
     //alert(this.options.gLink);
+
+    
     this.render();
+    
   },
 
   render: function (pickTag) {
@@ -387,8 +393,10 @@ gratzi.ViewView = Backbone.View.extend({
                   $("#sendBtn").html("Send");
                   $('#info').show().html("Zi sent!");
 
-                  window.location.href = "/#view?zi=" + url;
-
+                  //window.location.href = "/#view?zi=" + url;
+                  gratzi.Store.loadGratzi(function () {
+                    window.location.href = "/#view";
+                  });
                 }
               }, "json");
 
@@ -422,6 +430,9 @@ gratzi.ViewView = Backbone.View.extend({
         $("#saveBtn").removeAttr("disabled");
         $("#saveBtn").html("Save");
         $('#info').show().html("Zi Saved!");
+        gratzi.Store.loadGratzi(function () {
+          window.location.href = "/#view"
+        });
       });
 
     } else {
@@ -547,7 +558,7 @@ gratzi.ProfileView = Backbone.View.extend({
   saveProfile: function () {
 
     $("#save").attr("disabled", "disabled");
-    $("#save").attr("value", "Saving...");
+    $("#save").html("Saving...");
 
 
 
@@ -594,7 +605,7 @@ gratzi.ProfileView = Backbone.View.extend({
     gratzi.Store.saveMyProfile(newProfile, function (path) {
       console.log("Profile Saved: " + path);
       $("#save").removeAttr("disabled");
-      $("#save").attr("value", "Save");
+      $("#save").html("Save");
       $('#info').show().html("Profile saved!");
       
 
@@ -603,7 +614,7 @@ gratzi.ProfileView = Backbone.View.extend({
 
         var jProf = JSON.stringify(profile);
         localStorage.setItem("profile", jProf);
-        window.location.reload();
+        window.location.href = "/#send";
       });
 
     });
