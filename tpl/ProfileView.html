@@ -28,7 +28,7 @@
 
 
     <% if (profile) { %>
-        <div id="values" class="span6 center">
+        <div id="values" class="span5 offset1 center">
           <img class="img-prof" id="profImage" src="<%= profile.image %>" />
           <h2><%= profile.fullname %></h2>
           <h3><%= profile.email %></h3>
@@ -39,9 +39,9 @@
     <% } %>
 
     <% if(!this.options.grat) {%>
-      <div id="form" class="span5">
+      <div  class="span5 offset1">
 
-        <div id="fields">
+        <div >
           <h2>Photo</h2>
           <input type="file" name="input_name" id="file" class="hide ie_show" />
           <div class="input-append ie_hide">
@@ -50,7 +50,7 @@
           </div>
 
           <h2>Full name</h2>
-          <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>" />
+          <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>" placeholder="Arthur Dent" />
 
           <h2>Bio</h2>
           <textarea id="bio" name="bio" rows="3" class="input-block-level"><%=profile.bio%></textarea>
