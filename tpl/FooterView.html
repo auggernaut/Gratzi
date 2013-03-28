@@ -10,14 +10,16 @@
         </p>
 
         <h4>Created by <%= createdBy %> © <%= year %></h4>
-        <a href="<%= url %>"><%= url %></a>
+        <a href="<%= createdByUrl %>"><%= createdByUrl %></a>
       </div>
     </div>
 
     <ul class="footer-links">
-      <li><a href="<%= createdByUrl %>">Blog</a></li>
+      <li><a href="<%= createdByBlog %>">Blog</a></li>
       <li class="muted">&middot;</li>
       <li><a href="<%= gitRepo %>/issues">Issues</a></li>
+      <li class="muted">&middot;</li>
+      <li><a href="<%= createdByTwitter %>">Twitter</a></li>
     </ul>
   </div>
 </footer>

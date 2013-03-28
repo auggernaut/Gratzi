@@ -36,7 +36,9 @@ drop = {
         drop.loadUser(callback);
 
         //Load gratzi
-        drop.loadGratzi();
+        drop.loadGratzi(function (data) {
+
+        });
 
       });
 
@@ -115,7 +117,7 @@ drop = {
       drop.getFiles("zi", function (data) {
         //console.log(data);
         localStorage.setItem('zis', JSON.stringify(data));
-        callback();
+        callback(data);
       });
 
     });

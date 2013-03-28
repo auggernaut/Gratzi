@@ -81,6 +81,25 @@ gratzi.HeaderView = Backbone.View.extend({
 
 
 
+//*********************   FOOTER    ***************************//
+
+gratzi.FooterView = Backbone.View.extend({
+
+  initialize: function () {
+    console.log('Initializing Footer View');
+    this.model = gratzi.Client;
+    this.render();
+  },
+
+  render: function () {
+    $(this.el).html(this.template(this.model));
+    return this;
+  }
+
+});
+
+
+
 
 
 
@@ -113,24 +132,6 @@ gratzi.AboutView = Backbone.View.extend({
   initialize: function () {
     console.log('Initializing About View');
     this.model = gratzi.Client;
-  },
-
-  render: function () {
-    $(this.el).html(this.template(this.model));
-    return this;
-  }
-
-});
-
-
-//*********************   FOOTER    ***************************//
-
-gratzi.FooterView = Backbone.View.extend({
-
-  initialize: function () {
-    console.log('Initializing Footer View');
-    this.model = gratzi.Client;
-    this.render();
   },
 
   render: function () {
@@ -598,8 +599,9 @@ gratzi.ProfileView = Backbone.View.extend({
       
 
       gratzi.Store.loadUser(function (error, profile) {
+        profile.url = path;
+
         var jProf = JSON.stringify(profile);
-        jProf.url = path;
         localStorage.setItem("profile", jProf);
         window.location.reload();
       });
