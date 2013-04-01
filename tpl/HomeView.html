@@ -1,11 +1,15 @@
 <div class="container">
 
-    <div class="jumbotron">
-      <h1>Gratzi</h1>
-      <p class="lead">Thank the people in your life.</p>
-      <a class="btn btn-large btn-inverse" href="#signin">Create a Gratzi</a>
+  <div class="jumbotron">
+    <h1>Gratzi</h1>
+    <p class="lead">Thank the people in your life.</p>
+    <p class="homeButton"><a class="btn btn-large btn-inverse" href="#signin">Create Gratzi</a></p>
+
+    <% if(localStorage.getItem("grats")) { %>
+      <p class="homeButton"><a class="btn btn-large btn-inverse" href="#view">View Gratzi</a></p>
+    <% } %>
       <p style="margin-top: 20px;"><a href="/#about">What is Gratzi?</a></p>
-    </div>
+  </div>
 
 
 

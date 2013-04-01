@@ -69,6 +69,8 @@ a {
   .jumbotron .btn {
     font-size: 22px;
     padding: 16px 35px;
+    width: 180px;
+    margin-bottom: 20px;
   }
 
 
