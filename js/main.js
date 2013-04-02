@@ -6,11 +6,11 @@ gratzi.Router = Backbone.Router.extend({
 
   routes: {
     "": "home",
-    "send": "send",
+    "create": "create",
     "view": "view",
     "about": "about",
     "profile": "profile",
-    "signin": "send",
+    "signin": "create",
     ":code": "home"
   },
 
@@ -68,6 +68,7 @@ gratzi.Router = Backbone.Router.extend({
     }
 
     $('#header').html(new gratzi.HeaderView().el);
+    $("#home").addClass("active");
     var self = this;
     var gitMatch = window.location.href.match(/\?code=([a-z0-9]*)/);
     var dropBoxMatch = window.location.href.match(/\&dboauth_token=([a-z0-9]*)/);
@@ -81,7 +82,7 @@ gratzi.Router = Backbone.Router.extend({
         else {
           console.log("Gettings GitHub account details...");
           git.load(function (result, data) {
-            window.location.href = "/#send";
+            window.location.href = "/#create";
           });
         }
       });
@@ -104,7 +105,7 @@ gratzi.Router = Backbone.Router.extend({
           var jProf = JSON.stringify(profile);
           localStorage.setItem("profile", jProf);
           console.log("Loaded Profile: " + jProf);
-          window.location.href = "/#send";
+          window.location.href = "/#create";
         }
       });
 
@@ -119,12 +120,12 @@ gratzi.Router = Backbone.Router.extend({
 
   },
 
-  send: function () {
+  create: function () {
     $('#header').html(new gratzi.HeaderView().el);
-    $("#send").addClass("active");
+    $("#create").addClass("active");
     if (localStorage.getItem('profile'))
-      //utils.slidePage(new gratzi.SendView());
-      $('#content').html(new gratzi.SendView().el);
+      //utils.slidePage(new gratzi.CreateView());
+      $('#content').html(new gratzi.CreateView().el);
     else
       //utils.slidePage(new gratzi.ProfileView());
       $('#content').html(new gratzi.ProfileView().el);
@@ -189,7 +190,7 @@ gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "SendView", "ViewView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ViewView", "ProfileView", "HeaderView", "FooterView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();

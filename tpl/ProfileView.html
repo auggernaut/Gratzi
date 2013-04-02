@@ -25,13 +25,12 @@
 
     <% } else { %>
  
-      <h1>Profile</h1>
+      <h1><%= profile.fullname %></h1>
 
       <div class="span8 offset2">
     <% if (profile) { %>
         <div id="values" class="center">
           <img class="img-prof" id="profImage" src="<%= profile.image %>" />
-          <h2><%= profile.fullname %></h2>
           <h3><%= profile.email %></h3>
           <h4><%= profile.bio %></h4>
           <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
@@ -41,7 +40,6 @@
 
     <% if(!this.options.grat) {%>
       <div  class="">
-
         <div >
           <h2>Photo</h2>
           <input type="file" name="input_name" id="file" class="hide ie_show" />

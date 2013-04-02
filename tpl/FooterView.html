@@ -28,6 +28,13 @@
       <li class="muted">&middot;</li>
       <li>
         <a href="#privacy">Privacy</a>
+      </li>
+    </ul>
+    <% if(localStorage.getItem('authenticated')) { %>
+    <div>
+      <a href="#" id="logout">Logout</a>
+    </div>
+    <% } %>
     </div>
   </div>
 </footer>

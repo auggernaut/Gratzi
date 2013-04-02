@@ -52,7 +52,6 @@ gratzi.HeaderView = Backbone.View.extend({
 
   events: {
     //"click a": 'selectNavItem',
-    "click #logout": "logout"
   },
 
   initialize: function () {
@@ -64,17 +63,6 @@ gratzi.HeaderView = Backbone.View.extend({
   render: function () {
     $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) }));
     return this;
-  },
-
-  // selectNavItem: function (source) {
-  //   this.render();
-  //   $(source.target.getAttribute('href')).addClass("active");
-  // },
-
-  logout: function () {
-    gratzi.Store.logout();
-    this.render();
-    window.location.href = "/#";
   }
 
 });
@@ -85,6 +73,10 @@ gratzi.HeaderView = Backbone.View.extend({
 
 gratzi.FooterView = Backbone.View.extend({
 
+  events: {
+    "click #logout": "logout"
+  },
+
   initialize: function () {
     console.log('Initializing Footer View');
     this.model = gratzi.Client;
@@ -94,6 +86,12 @@ gratzi.FooterView = Backbone.View.extend({
   render: function () {
     $(this.el).html(this.template(this.model));
     return this;
+  },
+
+  logout: function () {
+    gratzi.Store.logout();
+    this.render();
+    window.location.href = "/#";
   }
 
 });
@@ -146,18 +144,18 @@ gratzi.AboutView = Backbone.View.extend({
 
 
 
-//************************   SEND   *************************//
+//************************   CREATE   *************************//
 
-gratzi.SendView = Backbone.View.extend({
+gratzi.CreateView = Backbone.View.extend({
 
   events: {
-    'click #sendBtn': 'sendGrat'
+    'click #createBtn': 'createGrat'
     //'click #pickContact': 'pickContact'
     //'keyup .contact-key': 'findContact'
   },
 
   initialize: function () {
-    console.log('Initializing Send View');
+    console.log('Initializing Create View');
     this.render();
   },
 
@@ -166,10 +164,10 @@ gratzi.SendView = Backbone.View.extend({
     return this;
   },
 
-  sendGrat: function (e) {
+  createGrat: function (e) {
 
-    $("#sendBtn").attr("disabled", "disabled");
-    $("#sendBtn").html("Sending...");
+    $("#createBtn").attr("disabled", "disabled");
+    $("#createBtn").html("Creating...");
 
     var profile = JSON.parse(localStorage.getItem("profile"));
 
@@ -198,6 +196,7 @@ gratzi.SendView = Backbone.View.extend({
           "message": "You recieved a Gratzi! Click this link to view and save it: <br/><br/>" + gratLink
         }
 
+        $("#createBtn").html("Emailing...");
         //Email recipient
         $.post(gratzi.Server.url + "/email", email,
           function (data) {
@@ -206,17 +205,16 @@ gratzi.SendView = Backbone.View.extend({
               $('#to').val('');
               $('#message').val('');
               $('#tags').val('');
-              $("#sendBtn").removeAttr("disabled");
-              $("#sendBtn").html("Send");
               gratzi.Store.loadGratzi(function () {
                 window.location.href = "/#view";
               });
             }
             else {
-              $("#sendBtn").removeAttr("disabled");
-              $("#sendBtn").html("Send");
-              $('#fail').show().html("Failed to send.");
+              $('#fail').show().html("Failed to email.");
             }
+
+            $("#createBtn").removeAttr("disabled");
+            $("#createBtn").html("Create and Send");
 
           }, "json");
 
@@ -245,7 +243,7 @@ gratzi.ViewView = Backbone.View.extend({
     "click #saveBtn": "saveZi",
     "click #reload": "reload",
     "click .comment_tr": "comment",
-    "click .tag": "tagSelect"
+    "change #tags": "tagSelect"
   },
 
   initialize: function () {
@@ -332,8 +330,9 @@ gratzi.ViewView = Backbone.View.extend({
   },
 
   tagSelect: function (e) {
-    this.render($(e.target).text().trim());
-    $(e.target).className = "picked";
+    this.render($(e.currentTarget).val());
+    //$(e.target).text().trim());
+    //$(e.target).className = "picked";
 
     $('.actions').click(function () {
       $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
@@ -376,7 +375,7 @@ gratzi.ViewView = Backbone.View.extend({
           //Get link to new Zi
           gratzi.Store.getLink(zPath, function (url) {
 
-            var ziLink = gratzi.Client.url + "/#view?zi=" + url;
+            var ziLink = "<a href='" + gratzi.Client.url + "/#view?zi=" + url + "'>Zi from " + newZi.from.email + "</a>";
 
             var email = {
               "to": newZi.to.email,
@@ -510,10 +509,7 @@ gratzi.ProfileView = Backbone.View.extend({
         //var image = localStorage.getItem('imagePath');
         //if (image)
         //  profile.image = image;
-
       }
-
-
 
     }
     else {
@@ -538,7 +534,7 @@ gratzi.ProfileView = Backbone.View.extend({
         var jProf = JSON.stringify(profile);
         console.log("Auth returned: " + jProf);
         localStorage.setItem("profile", jProf);
-        window.location.href = "/#send";
+        window.location.href = "/#create";
       }
       else if (error == "404") {
         console.log("No Profile found. ");
@@ -614,7 +610,7 @@ gratzi.ProfileView = Backbone.View.extend({
 
         var jProf = JSON.stringify(profile);
         localStorage.setItem("profile", jProf);
-        window.location.href = "/#send";
+        window.location.href = "/#create";
       });
 
     });

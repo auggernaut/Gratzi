@@ -73,17 +73,17 @@
       </div>-->
 
     <div class="span12 center">
-      <ul class="tagCloud">
-        <%
-            for(tag in tags){
-            %>
-
-          
-          <li class="tag"><%=tags[tag]%></li>
-
+      <select id="tags" class="btn-inverse">
+        <option>All Tags</option>
+        <% for(tag in tags){ %>
+          <option><%=tags[tag]%></option>
         <% } %>
-
-      </ul>
+      </select>
+      <select id="types" class="btn-inverse">
+        <option>All Types</option>
+        <option>Sent</option>
+        <option>Received</option>
+      </select>
       <div class="main_container">
         <% 
 

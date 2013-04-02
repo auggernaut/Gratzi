@@ -1,4 +1,12 @@
-﻿<p class="navbar-text pull-left"><a href="/#">Home</a></p>
+﻿
+<ul class="nav nav-pills pull-left">
+  <li id="home"><a href="#">Home</a></li>
+  <% if(localStorage.getItem('authenticated')) { %>
+  <li id="create"><a href="#create">Create</a></li>
+  <li id="view"><a href="#view">View</a></li>
+  <% } %>
+</ul>
+
 <% if(localStorage.getItem('authenticated')) { %>
     <p class="navbar-text pull-right">
       <% if(profile) { %>
@@ -6,7 +14,7 @@
       <% } else { %>
         <a href="#profile" id="A1"><%= localStorage.getItem("username") %></a>
       <% } %>
-        <a href="#" id="logout">Logout</a>
+        
 </p>
 <% } else { %>
     <p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>
