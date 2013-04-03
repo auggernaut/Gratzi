@@ -92,6 +92,25 @@ utils = {
 
     }
 
+  },
+
+  json2hashtrix: function(json){
+
+    for(key in json){
+      content = json[key];
+      if (_.isObject(content)) {
+        this.json2hashtrix(content);
+      }
+      else {
+        // I am a leaf on the wind...
+        content_filename = this.getHash(content);
+        key_filename = this.getHash(key);
+        console.log( key_filename, key, "~", content_filename, content  );
+      }
+      // console.log( key, val );
+
+    }
+
   }
 
 };

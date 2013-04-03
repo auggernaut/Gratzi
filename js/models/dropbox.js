@@ -200,7 +200,11 @@ drop = {
 
   },
 
+  addBlob: function(grat, callback) {
 
+    utils.json2hashtrix(grat);
+
+  },
 
   addZi: function (zi, callback) {
 

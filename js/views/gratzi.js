@@ -174,12 +174,16 @@ gratzi.CreateView = Backbone.View.extend({
     //Create Grat
 
     var newGrat = {
-      //"url": profile.url, 
-      "from": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
-      "to": $('#to').val(),
+      "type": "grat",
+      "sender": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
+      "recipient": $('#to').val(),
       "message": $('#message').val(),
       "tags": $('#tags').val()
     }
+
+    gratzi.Store.addBlob(newGrat, function(result){
+      console.log("addBlob returned: " + result);
+    });
 
     //Add Grat
     gratzi.Store.addGrat(newGrat, function (path) {
