@@ -3,10 +3,10 @@
 
 function gratCallback(json) {
   //$('#gTo').append(json.to);
-  $('#gFrom').append(json.from.fullname);
+  $('#gFrom').append(json.sender.fullname);
   $('#gMessage').append(json.message);
   $('#gTags').append(json.tags);
-  $('#gImage').attr("src", json.from.image);
+  $('#gImage').attr("src", json.sender.image);
   localStorage.setItem("cbGrat", JSON.stringify(json));
   $('#auth').hide();
   $('#saveForm').css('display', 'none');
@@ -14,10 +14,10 @@ function gratCallback(json) {
 
 function ziCallback(json) {
   //$('#zTo').append(json.to.fullname);
-  $('#zFrom').append(json.from.fullname);
+  $('#zFrom').append(json.sender.fullname);
   $('#zMessage').append(json.message);
   $('#zTags').append(json.tags);
-  $('#zImage').attr("src", json.from.image);
+  $('#zImage').attr("src", json.sender.image);
   localStorage.setItem("cbZi", JSON.stringify(json));
 
   if (localStorage.getItem('authenticated')) {
@@ -29,11 +29,11 @@ function ziCallback(json) {
     $('#grat').show();
 
     gratzi.Store.getFile(gFileName, function (file) {
-      $('#gTo').append(file.to);
-      $('#gFrom').append(file.from.fullname);
+      $('#gTo').append(file.sender);
+      $('#gFrom').append(file.sender.fullname);
       $('#gMessage').append(file.message);
       $('#gTags').append(file.tags);
-      $('#gImage').attr("src", file.from.image);
+      $('#gImage').attr("src", file.sender.image);
     });
 
   }
@@ -179,11 +179,11 @@ gratzi.CreateView = Backbone.View.extend({
       "recipient": $('#to').val(),
       "message": $('#message').val(),
       "tags": $('#tags').val()
-    }
+    };
 
-    gratzi.Store.addBlob(newGrat, function(result){
-      console.log("addBlob returned: " + result);
-    });
+    //gratzi.Store.addBlob(newGrat, function(result){
+    //  console.log("addBlob returned: " + result);
+    //});
 
     //Add Grat
     gratzi.Store.addGrat(newGrat, function (path) {
@@ -194,11 +194,13 @@ gratzi.CreateView = Backbone.View.extend({
         var gratLink = gratzi.Client.url + "/#view?grat=" + url;
 
         var email = {
-          "to": newGrat.to,
-          "from": newGrat.from.email,
-          "subject": newGrat.from.fullname + " has sent you a Gratzi!",
-          "message": "You recieved a Gratzi! Click this link to view and save it: <br/><br/>" + gratLink
-        }
+          "to": newGrat.recipient,
+          "from": newGrat.sender.email,
+          "subject": newGrat.sender.fullname + " has sent you a Gratzi!",
+          "message": "You recieved a Gratzi!<br/><br/>" +
+                      "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
+                      "<a href='" + gratLink + "' style='color: #fff; text-decoration: none;'>Click to view and save!</a></td></tr></table>"
+        };
 
         $("#createBtn").html("Emailing...");
         //Email recipient
@@ -218,7 +220,7 @@ gratzi.CreateView = Backbone.View.extend({
             }
 
             $("#createBtn").removeAttr("disabled");
-            $("#createBtn").html("Create and Send");
+            $("#createBtn").html("Create");
 
           }, "json");
 
@@ -294,12 +296,12 @@ gratzi.ViewView = Backbone.View.extend({
 
 
 
-      for (grat in grats) {
+      for (var grat in grats) {
         var filter = false;
         var gJSON = JSON.parse(grats[grat]);
         var ts = gJSON.tags.split(",");
         var tag;
-        for (t in ts) {
+        for (var t in ts) {
           tag = ts[t].trim();
           tags[tag] = tag;
           if (pickTag == tag)
@@ -309,7 +311,7 @@ gratzi.ViewView = Backbone.View.extend({
         if (!pickTag || filter) {
           var match = false;
 
-          for (zi in zis) {
+          for (var zi in zis) {
             var ziJSON = JSON.parse(zis[zi]);
             var gId = ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1);
 
@@ -365,13 +367,14 @@ gratzi.ViewView = Backbone.View.extend({
 
         var profile = JSON.parse(localStorage.getItem("profile"));
         var newZi = {
-          "to": cbGrat.from,
+          "type": "zi",
+          "recipient": cbGrat.sender,
           //"url": profile.url, 
-          "from": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
+          "sender": { "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
           "grat": localStorage.getItem("gratLink"),
           "message": $('#response').val()
           //"tags": $('#tags').val()
-        }
+        };
 
         //Create Zi
         gratzi.Store.addZi(newZi, function (zPath) {
@@ -379,14 +382,17 @@ gratzi.ViewView = Backbone.View.extend({
           //Get link to new Zi
           gratzi.Store.getLink(zPath, function (url) {
 
-            var ziLink = "<a href='" + gratzi.Client.url + "/#view?zi=" + url + "'>Zi from " + newZi.from.email + "</a>";
+            var ziLink = "<a href='" + gratzi.Client.url + "/#view?zi=" + url + "' style='color: #fff; text-decoration: none;'>Click to view and save!</a>";
 
             var email = {
-              "to": newZi.to.email,
-              "from": newZi.from.email,
+              "to": newZi.recipient.email,
+              "from": newZi.sender.email,
               "subject": profile.fullname + " has completed your Gratzi!",
-              "message": "You recieved a Zi! Click this link to view and save it: <br/><br/>" + ziLink
-            }
+              "message": "You recieved a Zi!<br/><br/>" +
+                          "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
+                          ziLink + "</td></tr></table>"
+        
+            };
 
             //Email Zi to recipient
             $.post(gratzi.Server.url + "/email", email,
@@ -434,7 +440,7 @@ gratzi.ViewView = Backbone.View.extend({
         $("#saveBtn").html("Save");
         $('#info').show().html("Zi Saved!");
         gratzi.Store.loadGratzi(function () {
-          window.location.href = "/#view"
+          window.location.href = "/#view";
         });
       });
 
@@ -485,23 +491,22 @@ gratzi.ProfileView = Backbone.View.extend({
 
   render: function () {
 
-    var gitAuthUrl, username, ui, avatar, store, fullname, bio, profile, profCallback;
+    var gitAuthUrl, username, ui, avatar, store, fullname, bio, profCallback;
     var profile = {
       "email": "",
       "fullname": "",
       "bio": "",
       "image": ""
-    }
+    };
 
     if (this.options && this.options.grat) {
       //Load profile from Grat
       var grat = JSON.parse(JSON.parse(localStorage.getItem("grats"))[this.options.grat]);
 
-      profile.email = grat.from.email,
-      profile.fullname = grat.from.fullname,
-      profile.bio = grat.from.bio,
-      profile.image = grat.from.image
-
+      profile.email = grat.sender.email;
+      profile.fullname = grat.sender.fullname;
+      profile.bio = grat.sender.bio;
+      profile.image = grat.sender.image;
 
     }
     else if (localStorage.getItem('authenticated')) {

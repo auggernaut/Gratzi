@@ -75,7 +75,7 @@
     <div class="span12 center">
       <select id="tags" class="btn-inverse">
         <option>All Tags</option>
-        <% for(tag in tags){ %>
+        <% for(var tag in tags){ %>
           <option><%=tags[tag]%></option>
         <% } %>
       </select>
@@ -87,7 +87,7 @@
       <div class="main_container">
         <% 
 
-        for(gz in gratzis){
+        for(var gz in gratzis){
         
           var id = gratzis[gz].gratid;
           var grat = gratzis[gz].grat;
@@ -101,9 +101,9 @@
               <div class="grat">
 
                 <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
-                  <img src="<%=grat.from.image%>" alt="<%=grat.from.fullname %>" />
+                  <img src="<%=grat.sender.image%>" alt="<%=grat.sender.fullname %>" />
                 </a>
-                <p class="name"><%=grat.from.fullname %></p>
+                <p class="name"><%=grat.sender.fullname %></p>
                 <p class="message"><%=grat.message %></p>
                 <p class="tags"><%=grat.tags %></p>
               </div>
@@ -116,16 +116,16 @@
               <button type="button" class="button">Comment</button>
             </form>-->
 
-            <% if(zi.from.fullname) {%>
+            <% if(zi.sender) { %>
             <div class="actions" pin_id="gz">
               <div class="icon-chevron-down"></div>
             </div>
 
             <div class="zi" style="display: none">
               <a class="image ajax" title="Photo <%=zi%>" pin_id="<%=zi%>">
-                <img src="<%=zi.from.image%>" alt="<%=zi.from.fullname %>" />
+                <img src="<%=zi.sender.image%>" alt="<%=zi.sender.fullname %>" />
               </a>
-              <p class="name"><%=zi.from.fullname %></p>
+              <p class="name"><%=zi.sender.fullname %></p>
               <p class="message"><%=zi.message %></p>
             </div>
             <% } %>
