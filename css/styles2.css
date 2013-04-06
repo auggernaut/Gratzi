@@ -5,7 +5,7 @@
 }
 
 #bg {
-
+  max-width: 600px;
   width:80%;
   z-index: -1;
   opacity: 0.8;
@@ -116,7 +116,7 @@ a {
 #content {
   min-height: 700px;
   position:relative;
-  top: -50px;
+  top: -75px;
 }
 
 #content-wrapper {
@@ -357,7 +357,7 @@ a {
 
 
 .about h1 {
-  font-size: 60px !important;
+  font-size: 45px !important;
   line-height: 1.1;
   margin-bottom: 10px;
 }
@@ -492,4 +492,12 @@ input {
   /*border: 2px solid black !important;
   font-size: 18px !important;
   padding: 5px !important;*/
+}
+
+
+@media only screen and (max-device-width: 480px) {
+
+  #content {
+    top: -50px;
+  }
 }
