@@ -1,6 +1,13 @@
 ﻿html, body {
-  background: url("/img/waves.jpg") no-repeat;
+  /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
   font-size: 16px;
+}
+
+#bg {
+
+  width:100%;
+  z-index: -1;
+  opacity: 0.8;
 }
 
 input[type='text'], input[type='number'], textarea, select {
@@ -47,7 +54,6 @@ a {
 
 
 .jumbotron {
-  margin: 150px 0;
   text-align: center;
   color: #000;
 }
@@ -66,7 +72,13 @@ a {
     font-size: 24px;
     line-height: 1.25;
     margin-top: 10px;
+  }
 
+  .jumbotron .signup {
+    font-size: 24px;
+    line-height: 1.25;
+    margin-top: 10px;
+    font-weight: bold;
   }
 
   .jumbotron .btn {
@@ -100,6 +112,8 @@ a {
 
 #content {
   min-height: 700px;
+  position:relative;
+  top: -80px;
 }
 
 #content-wrapper {
@@ -353,8 +367,6 @@ a {
 }
 
 .blog {
-  background-color: #fff;
-  padding: 30px;
 }
 
 .nav {
