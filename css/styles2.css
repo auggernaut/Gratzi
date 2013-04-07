@@ -90,7 +90,7 @@ a {
 
   .jumbotron .btn {
     font-size: 22px;
-    padding: 16px 35px;
+    padding: 10px 10px;
     width: 180px;
     margin-bottom: 20px;
   }
@@ -109,6 +109,7 @@ a {
 
     .jumbotron #mc_embed_signup .email {
       height: 40px;
+      max-width: 270px;
     }
 
 
@@ -116,7 +117,7 @@ a {
 #content {
   min-height: 700px;
   position:relative;
-  top: -75px;
+  top: -85px;
 }
 
 #content-wrapper {
