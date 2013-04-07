@@ -6,9 +6,9 @@
 
 #bg {
   max-width: 600px;
-  width:80%;
+  width:100%;
   z-index: -1;
-  opacity: 0.8;
+  opacity: 0.9;
   clear:both;
 }
 
@@ -358,13 +358,13 @@ a {
 
 
 .about h1 {
-  font-size: 45px !important;
+  font-size: 60px !important;
   line-height: 1.1;
   margin-bottom: 10px;
 }
 
 .about h2 {
-  font-size: 25px !important;
+  font-size: 30px !important;
   line-height: 1;
   text-align: center;
   margin-bottom: 40px;
@@ -499,6 +499,14 @@ input {
 @media only screen and (max-device-width: 480px) {
 
   #content {
-    top: -50px;
+    top: -30px;
+  }
+
+  .about h1 {
+    font-size: 40px !important;
+  }
+
+  .about h2 {
+    font-size: 25px !important;
   }
 }
