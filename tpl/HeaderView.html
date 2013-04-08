@@ -1,14 +1,16 @@
 ﻿
-<ul class="nav nav-pills pull-left">
-  <li id="home"><a href="#">Home</a></li>
-  <li id="about"><a href="#about">About</a></li>
-  <% if(localStorage.getItem('authenticated')) { %>
-  <li id="create"><a href="#create">Create</a></li>
-  <li id="view"><a href="#view">View</a></li>
-  <% } %>
-</ul>
 
-<% if(localStorage.getItem('authenticated')) { %>
+  <div class="row">
+    <ul class="nav nav-pills pull-left">
+      <li id="home"><a href="#">Home</a></li>
+      <li id="about"><a href="#about">About</a></li>
+      <% if(localStorage.getItem('authenticated')) { %>
+      <li id="create"><a href="#create">Create</a></li>
+      <li id="view"><a href="#view">View</a></li>
+      <% } %>
+    </ul>
+
+    <% if(localStorage.getItem('authenticated')) { %>
     <p class="navbar-text pull-right">
       <% if(profile) { %>
         <a href="#profile" id="username"><%= profile.fullname %></a>
@@ -16,7 +18,10 @@
         <a href="#profile" id="A1"><%= localStorage.getItem("username") %></a>
       <% } %>
         
-</p>
-<% } else { %>
+    </p>
+    <% } else { %>
     <!--<p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>-->
-<% } %>
+    <% } %>
+
+  </div>
+

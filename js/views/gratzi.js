@@ -160,7 +160,7 @@ gratzi.CreateView = Backbone.View.extend({
   },
 
   render: function () {
-    $(this.el).html(this.template());
+    $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) } ));
     return this;
   },
 

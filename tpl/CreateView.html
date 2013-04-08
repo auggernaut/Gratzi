@@ -1,10 +1,21 @@
 ﻿<div class="container">
 
-  <div class="row top">
+  <div class="row">
+    <div id="Gircles" class="span10 offset1">
+
+      <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo">
+      <div id="gircle">
+        <img src="<%= profile.image %>" id="gImage" class="img-circle" />
+        <h3 id="gName"><%=profile.fullname%></h3>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row gtop">
+
     <div class="span8 offset2">
-
-
-     <!-- <h1>Gratzi</h1> -->
+      <h1>GRAT<span id="ziHeader">Zi</span></h1>
 
       <div id="fields">
         <h2>To</h2>
@@ -15,7 +26,7 @@
         <textarea id="message" name="message" rows="3" class="input-block-level" placeholder="Thanks for all the fish!" />
 
         <h2>Tags</h2>
-        <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
+        <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle" />
       </div>
 
       <div id="submit">

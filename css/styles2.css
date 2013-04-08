@@ -1,19 +1,16 @@
 ﻿html, body {
   /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
   font-size: 16px;
-
 }
 
 #bg {
-  max-width: 600px;
-  width:100%;
+  max-width: 700px;
+  width: 100%;
   z-index: -1;
-  opacity: 0.9;
-  clear:both;
 }
 
 #logo {
-text-align: center;
+  text-align: center;
 }
 
 input[type='text'], input[type='number'], textarea, select {
@@ -30,7 +27,7 @@ h1, h2, h3 {
 
 h1 {
   text-align: center;
-  font-size: 60px !important;
+  font-size: 70px !important;
   line-height: 1;
   margin-bottom: 40px;
   text-shadow: 0 1px 1px rgba(0,0,0,.4);
@@ -58,10 +55,16 @@ a {
 }
 
 
+#header .row {
+  margin: 10px;
+}
+
 
 .jumbotron {
   text-align: center;
   color: #000;
+  position: relative;
+  top: -100px;
 }
 
   .jumbotron h1 {
@@ -79,13 +82,13 @@ a {
     line-height: 1.25;
     margin-top: 10px;
     margin-bottom: 40px;
+    font-weight: bold;
   }
 
   .jumbotron .signup {
     font-size: 24px;
     line-height: 1.25;
     margin-top: 10px;
-    font-weight: bold;
   }
 
   .jumbotron .btn {
@@ -116,8 +119,6 @@ a {
 
 #content {
   min-height: 700px;
-  position:relative;
-  top: -85px;
 }
 
 #content-wrapper {
@@ -141,8 +142,13 @@ a {
 }
 
 .top {
-  margin-top: 80px;
+  position: relative;
+  top: -80px;
 }
+
+  .top #ziHeader {
+    color: rgba(0,0,0,.4);
+  }
 
 #form {
   margin: 0px 20px;
@@ -161,10 +167,6 @@ a {
 
 #values {
   text-align: center;
-}
-
-.row {
-  margin-bottom: 20px;
 }
 
 #username {
@@ -375,7 +377,6 @@ a {
 
 .nav {
   margin: 2px 10px;
-  width: 100%;
 }
 
 .navbar-inner {
@@ -452,10 +453,7 @@ text-shadow: none;
     background-color: #D1CDCD;
   }
 
-.img-prof {
-  max-height: 300px;
-  border: 1px solid black;
-}
+
 
 .clearfix {
   clear: both;
@@ -509,4 +507,80 @@ input {
   .about h2 {
     font-size: 25px !important;
   }
+}
+
+
+#gFrom {
+  position: relative;
+  top: -240px;
+  left: 20px;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+#zFrom {
+  position: relative;
+  top: -390px;
+  left: -10px;
+  font-family: inherit;
+  font-size: 20px;
+  background-color: #fff;
+  z-index: -10;
+}
+
+/*
+#gImage {
+  position: relative;
+  top: -320px;
+  z-index: -100;
+  left: -290px;
+  max-width: 230px;
+}
+  */
+
+#zImage {
+  position: relative;
+  top: -270px;
+  z-index: -100;
+  left: -130px;
+  max-width: 230px;
+}
+
+#zi {
+  position: relative;
+  top: -230px;
+}
+
+.payload {
+  position: relative;
+  top: -50px;
+}
+
+#Gircles #gircle {
+  position: relative;
+  top: -365px;
+  z-index: -100;
+  left: 50px;
+  max-width: 230px;
+}
+
+#Gircles #gImage {
+  width: 100%;
+  height: auto;
+  width: auto\9; /* ie8 */
+}
+
+#Gircles #gName {
+  position: relative;
+  left: 80px;
+  font-family: inherit;
+  font-size: 20px;
+  background-color: #fff;
+  z-index: -10;
+}
+
+
+.gtop {
+  position: relative;
+  top: -300px;
 }

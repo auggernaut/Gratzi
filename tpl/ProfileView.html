@@ -1,6 +1,14 @@
 ﻿<div class="container">
+  <div class="row">
+    <div class="span10 offset1">
+      <div id="logo">
+        <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo" />
+      </div>
+    </div>
+  </div>
   <div class="row top">
     <% if(!localStorage.getItem('authenticated')) { %>
+
   <div class="span8 offset2 center">
 
     <h1>Start</h1>
@@ -27,8 +35,8 @@
  
       <h1><%= profile.fullname %></h1>
 
-      <div class="span8 offset2">
-    <% if (profile) { %>
+    <div class="span8 offset2">
+      <% if (profile) { %>
         <div id="values" class="center">
           <img class="img-prof" id="profImage" src="<%= profile.image %>" />
           <h3><%= profile.email %></h3>
@@ -36,11 +44,11 @@
           <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
 
         </div>
-    <% } %>
+      <% } %>
 
     <% if(!this.options.grat) {%>
-      <div  class="">
-        <div >
+      <div class="">
+        <div>
           <h2>Photo</h2>
           <input type="file" name="input_name" id="file" class="hide ie_show" />
           <div class="input-append ie_hide">
@@ -60,10 +68,10 @@
           <div id="info" class="hide text-success center"></div>
         </div>
       </div>
-    <% } %>
+      <% } %>
 
 
-  </div>
+    </div>
 
 
     <% } %>
