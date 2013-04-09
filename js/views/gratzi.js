@@ -160,7 +160,7 @@ gratzi.CreateView = Backbone.View.extend({
   },
 
   render: function () {
-    $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) } ));
+    $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) }));
     return this;
   },
 
@@ -239,26 +239,21 @@ gratzi.CreateView = Backbone.View.extend({
 
 
 
-//*********************  VIEW   ***************************//
+//*********************  GRATZI   ***************************//
 
 
-gratzi.ViewView = Backbone.View.extend({
+gratzi.GratziView = Backbone.View.extend({
 
   events: {
     "click #sendBtn": "sendZi",
     "click #saveBtn": "saveZi",
-    "click #reload": "reload",
-    "click .comment_tr": "comment",
-    "change #tags": "tagSelect"
+    "click .comment_tr": "comment"
   },
 
   initialize: function () {
-    console.log('Initializing View View');
-    //alert(this.options.gLink);
-
-    
+    console.log('Initializing Gratzi View');
     this.render();
-    
+
   },
 
   render: function (pickTag) {
@@ -266,89 +261,24 @@ gratzi.ViewView = Backbone.View.extend({
     var cbScript;
 
     if (this.options && this.options.grat) {
-      //DOESN'T WORK because Dropbox doesn't do CORS on this type of requests (only via REST API)
-      //$.ajax({
-      //  url: this.options.grat,
-      //  type: 'GET',
-      //  success: function (res) {
-      //    alert(res);
-      //  }
-      //});
-
-      //Have to use the security hole that is JSONP
+      //JSONP Callback
       cbScript = "<script type='text/javascript' src='" + this.options.grat + "'></script>";
       localStorage.setItem("gratLink", this.options.grat);
 
     }
     else if (this.options && this.options.zi) {
-      //Have to use the security hole that is JSONP
+      //JSONP Callback
       cbScript = "<script type='text/javascript' src='" + this.options.zi + "'></script>";
       localStorage.setItem("ziLink", this.options.zi);
 
     }
-    else {
-
-      var zis = JSON.parse(localStorage.getItem("zis"));
-      var tags = [];
-
-      var grats = JSON.parse(localStorage.getItem("grats"));
-      var gratzi = [];
 
 
-
-      for (var grat in grats) {
-        var filter = false;
-        var gJSON = JSON.parse(grats[grat]);
-        var ts = gJSON.tags.split(",");
-        var tag;
-        for (var t in ts) {
-          tag = ts[t].trim();
-          tags[tag] = tag;
-          if (pickTag == tag)
-            filter = true;
-        }
-
-        if (!pickTag || filter) {
-          var match = false;
-
-          for (var zi in zis) {
-            var ziJSON = JSON.parse(zis[zi]);
-            var gId = ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1);
-
-            if (grat == gId) {
-              match = true;
-              gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": ziJSON };
-            }
-          }
-
-          if (!match) {
-            gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } };
-          }
-        }
-
-      }
-
-    }
-
-    $(this.el).html(this.template({ script: cbScript, gratzis: gratzi, tags: tags }));
+    $(this.el).html(this.template({ script: cbScript, profile: JSON.parse(localStorage.getItem("profile")) }));
     return this;
 
   },
 
-  tagSelect: function (e) {
-    this.render($(e.currentTarget).val());
-    //$(e.target).text().trim());
-    //$(e.target).className = "picked";
-
-    $('.actions').click(function () {
-      $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
-
-      $(this).parent().find('.zi').slideToggle(250, function () {
-        $('.main_container').masonry();
-      });
-    });
-
-  },
 
   sendZi: function () {
 
@@ -391,7 +321,7 @@ gratzi.ViewView = Backbone.View.extend({
               "message": "You recieved a Zi!<br/><br/>" +
                           "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
                           ziLink + "</td></tr></table>"
-        
+
             };
 
             //Email Zi to recipient
@@ -451,13 +381,6 @@ gratzi.ViewView = Backbone.View.extend({
 
   },
 
-  reload: function () {
-
-    gratzi.Store.loadGratzi(function () {
-      window.location.reload();
-    });
-
-  },
 
   comment: function () {
     $(this).toggleClass('disabled');
@@ -470,6 +393,88 @@ gratzi.ViewView = Backbone.View.extend({
 });
 
 
+//************************  LIST *********************************//
+gratzi.ListView = Backbone.View.extend({
+
+  events: {
+    "click #reload": "reload",
+    "change #tags": "tagSelect"
+  },
+
+  initialize: function () {
+    console.log('Initializing List View');
+
+    this.render();
+
+  },
+
+  render: function (pickTag) {
+
+    var zis = JSON.parse(localStorage.getItem("zis"));
+    var tags = [];
+
+    var grats = JSON.parse(localStorage.getItem("grats"));
+    var gratzi = [];
+
+    for (var grat in grats) {
+      var filter = false;
+      var gJSON = JSON.parse(grats[grat]);
+      var ts = gJSON.tags.split(",");
+      var tag;
+      for (var t in ts) {
+        tag = ts[t].trim();
+        tags[tag] = tag;
+        if (pickTag == tag)
+          filter = true;
+      }
+
+      if (!pickTag || filter) {
+        var match = false;
+
+        for (var zi in zis) {
+          var ziJSON = JSON.parse(zis[zi]);
+          var gId = ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1);
+
+          if (grat == gId) {
+            match = true;
+            gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": ziJSON };
+          }
+        }
+
+        if (!match) {
+          gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } };
+        }
+      }
+    }
+
+    $(this.el).html(this.template({ gratzis: gratzi, tags: tags }));
+
+  },
+
+  tagSelect: function (e) {
+    this.render($(e.currentTarget).val());
+    //$(e.target).text().trim());
+    //$(e.target).className = "picked";
+
+    $('.actions').click(function () {
+      $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
+
+      $(this).parent().find('.zi').slideToggle(250, function () {
+        $('.main_container').masonry();
+      });
+    });
+
+  },
+
+  reload: function () {
+
+    gratzi.Store.loadGratzi(function () {
+      window.location.reload();
+    });
+
+  }
+
+});
 
 
 
@@ -612,7 +617,7 @@ gratzi.ProfileView = Backbone.View.extend({
       $("#save").removeAttr("disabled");
       $("#save").html("Save");
       $('#info').show().html("Profile saved!");
-      
+
 
       gratzi.Store.loadUser(function (error, profile) {
         profile.url = path;

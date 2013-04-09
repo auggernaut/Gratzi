@@ -2,84 +2,23 @@
 
 <div class="container">
 
-  <div class="row top">
-    <% if(script) { %>
-
-      <%=script%>
-  
-      <div class="span5">
-        <div id="grat">
-          <h1>Grat</h1>
-          <div class="party center">
-            <div>
-              <img src="" id="gImage" class="img-prof" />
-            </div>
-            <h2 id="gFrom"></h2>
-          </div>
-
-          <div class="payload center">
-            <h3 id="gMessage"></h3>
-            <h4 id="gTags"></h4>
-          </div>
-        </div>
-
-        <div id="auth">
-          Please login to view the Grat.
-        </div>
-      </div>
-
-    <div class="span5 offset2">
-      <div id="zi">
-
-        <h1>Zi</h1>
-        <div class="party center">
-          <div>
-            <img src="" id="zImage" class="img-prof" />
-          </div>
-          <h2 id="zFrom"></h2>
-        </div>
-
-        <div class="payload center">
-          <h3 id="zMessage"></h3>
-          <h4 id="zTags"></h4>
-        </div>
-
-        <div id="sendForm" class="fields">
-          <h2 class="center">Reply</h2>
-          <textarea id="response" name="response" rows="3" class="input-block-level" />
-
-          <div id="submit">
-            <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send</button>
-          </div>
-        </div>
-
-        <div id="saveForm">
-          <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
-        </div>
-        <div id="info" class="hide text-success center"></div>
-
+  <div class="row">
+    <div class="span10 offset1">
+      <div id="logo">
+        <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo" />
       </div>
     </div>
-
-    <% } else { %>
-    
-      <!--      <div class="row">
-        <div class="span6">
-          <h2>Grat</h2>
-        </div>
-        <div class="span6">
-          <h2>Zi</h2>
-        </div>
-      </div>-->
+  </div>
+  <div class="row top">
 
     <div class="span12 center">
-      <select id="tags" class="btn-inverse">
+      <select id="tags">
         <option>All Tags</option>
         <% for(var tag in tags){ %>
           <option><%=tags[tag]%></option>
         <% } %>
       </select>
-      <select id="types" class="btn-inverse">
+      <select id="types">
         <option>All Types</option>
         <option>Sent</option>
         <option>Received</option>
@@ -136,7 +75,5 @@
         <% } %>
       </div>
     </div>
-    <!--<a id="reload"></a>-->
-    <% } %>
   </div>
 </div>

@@ -1,0 +1,71 @@
+<%=script%>
+
+<div class="container">
+
+  <div class="row">
+    <div id="Gircles" class="span10 offset1">
+
+      <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo">
+      <div id="gircle">
+        <img src="" id="gImage" class="img-circle" />
+        <h3 id="gName"></h3>
+      </div>
+
+      <div id="zircle">
+        <img src="<%= profile.image %>" id="zImage" class="img-circle" />
+        <h3 id="zName"></h3>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row gtop">
+    
+    <div class="span4 offset2">
+
+      <div id="grat">
+        <h1>Grat</h1>
+        <div class="payload center">
+          <h3 id="gMessage"></h3>
+          <h4 id="gTags"></h4>
+        </div>
+      </div>
+
+      <div id="auth">
+        Please login to view the Grat.
+      </div>
+    </div>
+
+    <div class="span4">
+      <div id="zi">
+
+        <h1>Zi</h1>
+        <div class="party center">
+          <h3 id="zFrom"></h3>
+        </div>
+
+        <div class="payload center">
+          <h3 id="zMessage"></h3>
+          <h4 id="zTags"></h4>
+        </div>
+
+        <div id="sendForm" class="fields">
+          <h2 class="center">Reply</h2>
+          <textarea id="response" name="response" rows="3" class="input-block-level" />
+
+          <div id="submit">
+            <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send</button>
+          </div>
+        </div>
+
+        <div id="saveForm">
+          <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
+        </div>
+        <div id="info" class="hide text-success center"></div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>

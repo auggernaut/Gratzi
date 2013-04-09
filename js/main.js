@@ -139,7 +139,10 @@ gratzi.Router = Backbone.Router.extend({
 
     //utils.slidePage(new gratzi.ViewView(params));
 
-    $('#content').html(new gratzi.ViewView(params).el);
+    if (params)
+      $('#content').html(new gratzi.GratziView(params).el);
+    else
+      $('#content').html(new gratzi.ListView(params).el);
 
     var $container = $('.main_container');
 
@@ -190,7 +193,7 @@ gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ViewView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "GratziView", "ListView", "ProfileView", "HeaderView", "FooterView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();
