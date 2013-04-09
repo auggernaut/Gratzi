@@ -496,8 +496,12 @@ input {
 
 @media only screen and (max-device-width: 480px) {
 
-  #content {
+  .jumbotron {
     top: -30px;
+  }
+
+  .top {
+    top: -10px;
   }
 
   .about h1 {
