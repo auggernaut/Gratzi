@@ -1,0 +1,28 @@
+<div class="gratzi row center">
+
+  <div class="grat span5 offset1">
+    <a title="<%=grat.sender.fullname %>">
+      <img src="<%=grat.sender.image%>" alt="<%=grat.sender.fullname %>" class="gImage img-circle" />
+    </a>
+    <p class="name"><%=grat.sender.fullname %></p>
+    <p class="message"><%=grat.message %></p>
+    <p class="tags"><%=grat.tags %></p>
+  </div>
+
+  <% if(zi.sender) { %>
+    <div class="zi span5 offset1">
+      <a title="<%=zi.sender.fullname%>">
+        <img src="<%=zi.sender.image%>" alt="<%=zi.sender.fullname %>" class="zImage img-circle" />
+      </a>
+      <p class="name"><%=zi.sender.fullname %></p>
+      <p class="message"><%=zi.message %></p>
+    </div>
+
+  <% } else { %>
+    <div class="zi span2 offset1">
+      
+    </div>
+
+  <% } %>
+
+</div>

@@ -3,7 +3,7 @@
 
 function gratCallback(json) {
   //$('#gTo').append(json.to);
-  $('#gFrom').append(json.sender.fullname);
+  $('#gName').append(json.sender.fullname);
   $('#gMessage').append(json.message);
   $('#gTags').append(json.tags);
   $('#gImage').attr("src", json.sender.image);
@@ -14,7 +14,7 @@ function gratCallback(json) {
 
 function ziCallback(json) {
   //$('#zTo').append(json.to.fullname);
-  $('#zFrom').append(json.sender.fullname);
+  $('#zName').append(json.sender.fullname);
   $('#zMessage').append(json.message);
   $('#zTags').append(json.tags);
   $('#zImage').attr("src", json.sender.image);
@@ -30,7 +30,7 @@ function ziCallback(json) {
 
     gratzi.Store.getFile(gFileName, function (file) {
       $('#gTo').append(file.sender);
-      $('#gFrom').append(file.sender.fullname);
+      $('#gName').append(file.sender.fullname);
       $('#gMessage').append(file.message);
       $('#gTags').append(file.tags);
       $('#gImage').attr("src", file.sender.image);
@@ -92,6 +92,7 @@ gratzi.FooterView = Backbone.View.extend({
     gratzi.Store.logout();
     this.render();
     window.location.href = "/#";
+    window.location.reload();
   }
 
 });
@@ -240,8 +241,6 @@ gratzi.CreateView = Backbone.View.extend({
 
 
 //*********************  GRATZI   ***************************//
-
-
 gratzi.GratziView = Backbone.View.extend({
 
   events: {
@@ -256,7 +255,7 @@ gratzi.GratziView = Backbone.View.extend({
 
   },
 
-  render: function (pickTag) {
+  render: function () {
 
     var cbScript;
 
@@ -411,22 +410,28 @@ gratzi.ListView = Backbone.View.extend({
   render: function (pickTag) {
 
     var zis = JSON.parse(localStorage.getItem("zis"));
+    var grats = JSON.parse(localStorage.getItem("grats"));
     var tags = [];
 
-    var grats = JSON.parse(localStorage.getItem("grats"));
-    var gratzi = [];
-
+    //Render tags in ListView
     for (var grat in grats) {
       var filter = false;
-      var gJSON = JSON.parse(grats[grat]);
-      var ts = gJSON.tags.split(",");
       var tag;
+      var ts = JSON.parse(grats[grat]).tags.split(",");
+
       for (var t in ts) {
         tag = ts[t].trim();
         tags[tag] = tag;
         if (pickTag == tag)
           filter = true;
       }
+
+      $(this.el).html(this.template({ tags: tags }));
+    }
+
+    //Render all gratzi in ListItemViews
+    for (var grat in grats) {
+      var gJSON = JSON.parse(grats[grat]);
 
       if (!pickTag || filter) {
         var match = false;
@@ -437,37 +442,25 @@ gratzi.ListView = Backbone.View.extend({
 
           if (grat == gId) {
             match = true;
-            gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": ziJSON };
+            $(this.el).append(new gratzi.ListItemView({ model: { gratid: gId, "grat": gJSON, "zi": ziJSON } }).render().el);
           }
         }
 
         if (!match) {
-          gratzi[gratzi.length] = { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } };
+          $(this.el).append(new gratzi.ListItemView({ model: { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } } }).render().el);
         }
       }
     }
 
-    $(this.el).html(this.template({ gratzis: gratzi, tags: tags }));
+    
 
   },
 
   tagSelect: function (e) {
     this.render($(e.currentTarget).val());
-    //$(e.target).text().trim());
-    //$(e.target).className = "picked";
-
-    $('.actions').click(function () {
-      $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
-
-      $(this).parent().find('.zi').slideToggle(250, function () {
-        $('.main_container').masonry();
-      });
-    });
-
   },
 
   reload: function () {
-
     gratzi.Store.loadGratzi(function () {
       window.location.reload();
     });
@@ -476,6 +469,20 @@ gratzi.ListView = Backbone.View.extend({
 
 });
 
+
+
+//************************   LIST ITEM   *************************//
+
+gratzi.ListItemView = Backbone.View.extend({
+
+
+  render: function () {
+    $(this.el).html(this.template(this.model));
+    return this;
+  }
+
+
+});
 
 
 //************************    PROFILE    *************************//

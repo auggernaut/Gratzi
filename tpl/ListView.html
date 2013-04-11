@@ -1,79 +1,20 @@
-<!--<h1>View</h1>-->
-
-<div class="container">
-
-  <div class="row">
-    <div class="span10 offset1">
-      <div id="logo">
-        <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo" />
-      </div>
-    </div>
-  </div>
-  <div class="row top">
-
-    <div class="span12 center">
-      <select id="tags">
-        <option>All Tags</option>
-        <% for(var tag in tags){ %>
+<div class="row center">
+  <div>
+    <select id="tags">
+      <option>All Tags</option>
+      <% for(var tag in tags){ %>
           <option><%=tags[tag]%></option>
-        <% } %>
-      </select>
-      <select id="types">
-        <option>All Types</option>
-        <option>Sent</option>
-        <option>Received</option>
-      </select>
-      <div class="main_container">
-        <% 
-
-        for(var gz in gratzis){
-        
-          var id = gratzis[gz].gratid;
-          var grat = gratzis[gz].grat;
-          var zi = gratzis[gz].zi;
-        %>
-
-          <div class="pin center">
-            <div class="holder">
-
-
-              <div class="grat">
-
-                <a class="image ajax" title="Photo <%=gz%>" pin_id="<%=gz%>">
-                  <img src="<%=grat.sender.image%>" alt="<%=grat.sender.fullname %>" />
-                </a>
-                <p class="name"><%=grat.sender.fullname %></p>
-                <p class="message"><%=grat.message %></p>
-                <p class="tags"><%=grat.tags %></p>
-              </div>
-
-
-            </div>
-            <!--<form class="comment" method="post" action="" style="display: none">
-              <input type="hidden" name="id" value="1" />
-              <textarea placeholder="Add a comment..." maxlength="1000"></textarea>
-              <button type="button" class="button">Comment</button>
-            </form>-->
-
-            <% if(zi.sender) { %>
-            <div class="actions" pin_id="gz">
-              <div class="icon-chevron-down"></div>
-            </div>
-
-            <div class="zi" style="display: none">
-              <a class="image ajax" title="Photo <%=zi%>" pin_id="<%=zi%>">
-                <img src="<%=zi.sender.image%>" alt="<%=zi.sender.fullname %>" />
-              </a>
-              <p class="name"><%=zi.sender.fullname %></p>
-              <p class="message"><%=zi.message %></p>
-            </div>
-            <% } %>
-
-          </div>
-
-
-        <% } %>
-      </div>
-    </div>
+      <% } %>
+    </select>
   </div>
 </div>
+
+<!--<div class="row">
+  <div class="span4 offset2">
+    <h1>Grat</h1>
+  </div>
+  <div class="span4 offset1">
+    <h1>Zi</h1>
+  </div>
+</div>-->
+

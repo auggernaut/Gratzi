@@ -1,28 +1,29 @@
 ﻿<div class="container">
 
-  <div class="row">
-    <div id="Gircles" class="span10 offset1">
+<!-- <div class="row center">
 
-      <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo">
+    <div id="Gircles" class="span8 offset2">
+
       <div id="gircle">
+        <h2 id="gName"><%=profile.fullname%></h2>
         <img src="<%= profile.image %>" id="gImage" class="img-circle" />
-        <h3 id="gName"><%=profile.fullname%></h3>
+        
       </div>
 
     </div>
-  </div>
+  </div>-->
 
-  <div class="row gtop">
+  <div class="row">
 
     <div class="span8 offset2">
-      <h1>GRAT<span id="ziHeader">Zi</span></h1>
 
+      <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo" />
       <div id="fields">
-        <h2>To</h2>
+        <h2>Who are you grateful for?</h2>
         <input type="text" id="to" name="to" class="input-block-level" placeholder="human@earth.com" />
         <!--<button id="pickContact" class="body-button small">Pick a Contact</button>-->
 
-        <h2>Message</h2>
+        <h2>Why?</h2>
         <textarea id="message" name="message" rows="3" class="input-block-level" placeholder="Thanks for all the fish!" />
 
         <h2>Tags</h2>

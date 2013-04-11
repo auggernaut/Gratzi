@@ -64,7 +64,7 @@ gratzi.Router = Backbone.Router.extend({
       this.homeView = new gratzi.HomeView();
       this.homeView.render();
     } else {
-      this.homeView.delegateEvents(); // delegate events when the view is recycled
+      this.homeView.delegateEvents();
     }
 
     $('#header').html(new gratzi.HeaderView().el);
@@ -111,7 +111,6 @@ gratzi.Router = Backbone.Router.extend({
 
     }
     else {
-      //utils.slidePage(this.homeView);
       $('#content').html(this.homeView.el);
     }
 
@@ -124,10 +123,8 @@ gratzi.Router = Backbone.Router.extend({
     $('#header').html(new gratzi.HeaderView().el);
     $("#create").addClass("active");
     if (localStorage.getItem('profile'))
-      //utils.slidePage(new gratzi.CreateView());
       $('#content').html(new gratzi.CreateView().el);
     else
-      //utils.slidePage(new gratzi.ProfileView());
       $('#content').html(new gratzi.ProfileView().el);
 
     $('#footer').html(new gratzi.FooterView().el);
@@ -135,32 +132,14 @@ gratzi.Router = Backbone.Router.extend({
 
   view: function (params) {
     $('#header').html(new gratzi.HeaderView().el);
-    $("#view").addClass("active");
-
-    //utils.slidePage(new gratzi.ViewView(params));
+    
 
     if (params)
       $('#content').html(new gratzi.GratziView(params).el);
-    else
+    else {
       $('#content').html(new gratzi.ListView(params).el);
-
-    var $container = $('.main_container');
-
-    $container.imagesLoaded(function () {
-      $container.masonry({
-        itemSelector: '.pin',
-        isAnimated: true,
-        isFitWidth: true
-      });
-    });
-
-    $('.actions').click(function () {
-      $(this).children().toggleClass('icon-chevron-up icon-chevron-down');
-
-      $(this).parent().find('.zi').slideToggle(250, function () {
-        $('.main_container').masonry();
-      });
-    });
+      $("#view").addClass("active");
+    }
 
     $('#footer').html(new gratzi.FooterView().el);
 
@@ -172,12 +151,11 @@ gratzi.Router = Backbone.Router.extend({
       this.aboutView = new gratzi.AboutView();
       this.aboutView.render();
     } else {
-      this.aboutView.delegateEvents(); // delegate events when the view is recycled
+      this.aboutView.delegateEvents();
     }
 
     $('#header').html(new gratzi.HeaderView().el);
     $("#about").addClass("active");
-    //utils.slidePage(this.aboutView);
     $('#content').html(this.aboutView.el);
     $('#footer').html(new gratzi.FooterView().el);
   },
@@ -185,7 +163,6 @@ gratzi.Router = Backbone.Router.extend({
 
   profile: function (params) {
     $('#header').html(new gratzi.HeaderView().el);
-    //utils.slidePage(new gratzi.ProfileView(params));
     $('#content').html(new gratzi.ProfileView(params).el);
     $('#footer').html(new gratzi.FooterView().el);
   },
@@ -193,7 +170,7 @@ gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "GratziView", "ListView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "GratziView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();
