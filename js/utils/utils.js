@@ -74,7 +74,7 @@ utils = {
   },
 
   getHash: function(object) {
-    var shaObj = new jsSHA(JSON.stringify(object), "TEXT");
+    var shaObj = new jsSHA(object, "TEXT");
     return shaObj.getHash("SHA-384", "HEX");
   },
 
