@@ -3,7 +3,7 @@
 
 function gratCallback(json) {
   //$('#gTo').append(json.to);
-  $('#gName').append(json.sender.fullname);
+  $('#gName').append(json.sender.fullname + " has sent you a Grat.");
   $('#gMessage').append(json.message);
   $('#gTags').append(json.tags);
   $('#gImage').attr("src", json.sender.image);
