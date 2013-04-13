@@ -99,7 +99,9 @@ a {
 }
 
 
-
+.tight {
+  letter-spacing:-6px;
+}
 
 .jumbotron {
   text-align: center;
@@ -327,5 +329,9 @@ a {
 
   .row h2 {
     font-size: 15px !important;
+  }
+
+  .nav {
+    margin: 2px 0px;
   }
 }
