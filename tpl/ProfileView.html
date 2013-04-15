@@ -1,12 +1,6 @@
 ﻿<div class="container">
+
   <div class="row">
-    <div class="span10 offset1">
-      <div id="logo">
-        <img src="/img/gratzi-infinity.svg" id="bg" alt="Gratzi Logo" />
-      </div>
-    </div>
-  </div>
-  <div class="row top">
     <% if(!localStorage.getItem('authenticated')) { %>
 
   <div class="span8 offset2 center">
@@ -59,8 +53,8 @@
           <h2>Full name</h2>
           <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>" placeholder="Arthur Dent" />
 
-          <h2>Bio</h2>
-          <textarea id="bio" name="bio" rows="3" class="input-block-level" placeholder="I seem to be having this tremendous difficulty with my lifestyle."><%=profile.bio%></textarea>
+          <h2>Superhero Skills</h2>
+          <textarea id="bio" name="bio" rows="3" class="input-block-level" placeholder="I walk old ladies across streets."><%=profile.bio%></textarea>
         </div>
 
         <div id="submit">

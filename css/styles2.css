@@ -19,7 +19,7 @@ h1 {
   text-align: center;
   font-size: 70px !important;
   line-height: 1;
-  margin-bottom: 40px;
+
   text-shadow: 0 1px 1px rgba(0,0,0,.4);
 }
 
@@ -79,9 +79,9 @@ a {
     padding: 3px 15px;
   }
 
-#header #homeButton {
-  width: 60px;
-}
+  #header #homeButton {
+    width: 60px;
+  }
 
 #content {
   min-height: 700px;
@@ -100,7 +100,7 @@ a {
 
 
 .tight {
-  letter-spacing:-6px;
+  letter-spacing: -6px;
 }
 
 .jumbotron {
@@ -231,20 +231,32 @@ a {
 -------------------------------------------------- */
 
 .gratzi {
-  margin-bottom: 20px;
+  /*background: url("/img/gratzi-infinity.svg") no-repeat;
+  background-size: 100% auto;
+  height: 400px;
+  opacity:0.4;
+filter:alpha(opacity=40); /* For IE8 and earlier */ */;
 }
+
+  .gratzi #saveForm, #sendForm, .message, .tags {
+    padding: 0px 10px 0px 10px;
+  }
 
   .gratzi .gImage, .zImage {
     max-height: 180px;
-    text-align: center;
   }
 
   .gratzi .gImage {
     border: 10px solid #77C4F3;
+    float: right;
   }
 
   .gratzi .zImage {
     border: 10px solid #7D6CB0;
+  }
+
+  .gratzi .zMessage {
+    text-align: right;
   }
 
   .gratzi .name {
@@ -257,6 +269,27 @@ a {
     font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
   }
 
+  .gratzi .email {
+    margin: 10px 0 5px;
+    word-wrap: break-word;
+    font-size: 15px;
+    line-height: 20px;
+    font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
+  }
+
+  .gratzi .gName {
+    background-color: #77C4F3;
+    border-top: 10px solid #77C4F3;
+    border-bottom: 10px solid #77C4F3;
+  }
+
+  .gratzi .zName {
+    background-color: #7D6CB0;
+    border: 10px solid #7D6CB0;
+    text-align: right;
+  }
+
+
   .gratzi .message {
     margin: 10px 0 5px;
     word-wrap: break-word;
@@ -265,18 +298,51 @@ a {
   }
 
   .gratzi .tags {
-    margin: 10px 0 5px;
     word-wrap: break-word;
     font-size: 12px;
     line-height: 20px;
   }
 
-#tagline {
-  text-align:center;
-  margin-bottom: 100px;
+  .gratzi .right {
+    margin-left: 0px;
+  }
 
+  .gratzi .middle {
+    margin: 0px;
+  }
+
+  .gratzi .arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #77C4F3;
+    position:relative;
+    float: right;
+    right: -10px;
+  }
+
+  .gratzi .arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #7D6CB0;
+    position:relative;
+    float: left;
+    left: -20px;
+  }
+
+
+
+#tagline {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
+.shadow img {
+  width: 100%;
+}
 
 /* Footer
 -------------------------------------------------- */
@@ -333,5 +399,9 @@ a {
 
   .nav {
     margin: 2px 0px;
+  }
+
+  .gratzi .gImage {
+    float: none;
   }
 }

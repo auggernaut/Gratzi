@@ -2,54 +2,46 @@
 
 <div class="container">
 
-  <h1>GRATZi</h1>
-  <h4 id="tagline">Thank different.</h4>
+  <h1><span class="tight">G</span>RAT<span class="tight">Zi</span></h1>
 
   <div class="row gratzi">
 
-    <div class="span3">
-      <img src="" id="gImage" class="img-circle gImage" />
+    <div class="span3 offset1 left">
+      <img src="" id="gImage" class="gImage" />
     </div>
 
-    <div class="span8 offset1">
-      <p class="name" id="gName"></p>
-      <p class="message" id="gMessage"></p>
-      <p class="tags" id="gTags"></p>
+    <div class="span5 middle">
+      <p class="name gName" id="gName"><span class="arrow-right"></span></p>
+      <p class="message gMessage" id="gMessage"></p>
+      <p class="tags gTags" id="gTags"></p>
+
+      <p class="name zName" id="zName"><%= profile.fullname %><span class="arrow-left"></span></p>
+      <p class="message zMessage" id="zMessage"></p>
+      <p class="tags zTags" id="zTags"></p>
+
+
+      <div id="sendForm" class="fields">
+        <textarea id="response" name="response" rows="3" class="input-block-level" placeholder="You're welcome!" />
+        <div id="submit">
+          <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Reply</button>
+        </div>
+      </div>
+
+      <div id="saveForm">
+        <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
+      </div>
+      <div id="info" class="hide text-success center"></div>
+    </div>
+
+    <div class="span3 right">
+      <img src="<%= profile.image %>" id="zImage" class="zImage" />
     </div>
 
     <div id="auth">
       Please login to view the Grat.
     </div>
 
-  </div>
-
-  <div class="span4 offset1">
-    <div id="zircle">
-      <h1>Zi</h1>
-      <img src="<%= profile.image %>" id="zImage" class="img-circle" />
-    </div>
-
-    <div class="payload center">
-      <h2 id="zName"></h2>
-      <h3 id="zMessage"></h3>
-      <h4 id="zTags"></h4>
-    </div>
-
-    <div id="sendForm" class="fields">
-      <h2 class="center">Reply</h2>
-      <textarea id="response" name="response" rows="3" class="input-block-level" />
-
-      <div id="submit">
-        <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send</button>
-      </div>
-    </div>
-
-    <div id="saveForm">
-      <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
-    </div>
-    <div id="info" class="hide text-success center"></div>
 
   </div>
+</div>
 
-</div>
-</div>
