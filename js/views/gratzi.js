@@ -2,7 +2,7 @@
 //*********************JSONP CALLBACKS***********************//
 
 function gratCallback(json) {
-  //$('#gTo').append(json.to);
+
   $('#gName').append(json.sender.fullname);
   $('#gMessage').append(json.message);
   $('#gTags').append(json.tags);
@@ -10,10 +10,15 @@ function gratCallback(json) {
   localStorage.setItem("cbGrat", JSON.stringify(json));
   $('#auth').hide();
   $('#saveForm').css('display', 'none');
+
+  //Profile details:
+  var prof = JSON.parse(localStorage.getItem("profile"));
+  $('#zName').append(prof.fullname);
+  $('#zImage').attr("src", prof.image);
 }
 
 function ziCallback(json) {
-  //$('#zTo').append(json.to.fullname);
+
   $('#zName').append(json.sender.fullname);
   $('#zMessage').append(json.message);
   $('#zTags').append(json.tags);
@@ -272,8 +277,7 @@ gratzi.GratziView = Backbone.View.extend({
 
     }
 
-
-    $(this.el).html(this.template({ script: cbScript, profile: JSON.parse(localStorage.getItem("profile")) }));
+    $(this.el).html(this.template({ script: cbScript }));
     return this;
 
   },
