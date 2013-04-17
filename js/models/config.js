@@ -4,10 +4,10 @@ $.support.cors = true;
 gratzi.Client = {
 
   appName: "Gratzi",
-  description: "Send a digital, signed thank you.",
-  createdBy: "Datacosmos",
+  description: "The easiest way to send, recieve, and store gratitude.",
+  createdBy: "Augustin Bralley",
   createdByUrl: "http://www.datacosmos.com",
-  createdByBlog: "http://gratzi.postach.io",
+  createdByBlog: "http://blog.gratzi.org",
   createdByTwitter: "http://twitter.com/gratziorg",
   year: "2013",
   gitRepo: "http://github.com/auggernaut/gratzi",
@@ -18,7 +18,7 @@ gratzi.Client = {
 
 gratzi.Server = {
   url: "http://mighty-plateau-1604.herokuapp.com",
-  emailFrom: "gratzi@datacosmos.com"
+  emailFrom: "augustin@gratzi.org"
 }
 
 

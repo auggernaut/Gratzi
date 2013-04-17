@@ -417,17 +417,15 @@ gratzi.ListView = Backbone.View.extend({
     var grats = JSON.parse(localStorage.getItem("grats"));
     var tags = [];
 
+
     //Render tags in ListView
     for (var grat in grats) {
-      var filter = false;
       var tag;
       var ts = JSON.parse(grats[grat]).tags.split(",");
 
       for (var t in ts) {
         tag = ts[t].trim();
         tags[tag] = tag;
-        if (pickTag == tag)
-          filter = true;
       }
 
       $(this.el).html(this.template({ tags: tags }));
@@ -437,7 +435,7 @@ gratzi.ListView = Backbone.View.extend({
     for (var grat in grats) {
       var gJSON = JSON.parse(grats[grat]);
 
-      if (!pickTag || filter) {
+      if (!pickTag || gJSON.tags.indexOf(pickTag) != -1) {
         var match = false;
 
         for (var zi in zis) {
