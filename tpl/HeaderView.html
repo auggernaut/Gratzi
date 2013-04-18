@@ -6,18 +6,19 @@
       <% if(localStorage.getItem('authenticated')) { %>
       <li id="create"><a href="#create">Create</a></li>
       <li id="view"><a href="#view">View</a></li>
-      <% } %>
+      <% } else { %>
       <li id="about"><a href="#about">About</a></li>
+      <% } %>
     </ul>
 
     <% if(localStorage.getItem('authenticated')) { %>
     <p class="navbar-text pull-right">
       <% if(profile) { %>
-        <a href="#profile" id="username"><%= profile.fullname %></a>
+        <!--<a href="#profile" id="fullname"><%= profile.fullname %></a>-->
       <% } else { %>
-        <a href="#profile" id="A1"><%= localStorage.getItem("username") %></a>
+        <!--<a href="#profile" id="username"><%= localStorage.getItem("username") %></a>-->
       <% } %>
-        
+        <a href="#profile" id="profile">Profile</a>
     </p>
     <% } else { %>
     <!--<p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>-->
