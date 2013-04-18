@@ -188,7 +188,7 @@ drop = {
 
   addGrat: function (grat, callback) {
 
-    var filename = "/grat/grat_" + utils.getHash(grat) + ".json";
+    var filename = "/grat/grat_" + utils.getHash(JSON.stringify(grat)) + ".json";
 
     dropbox.writeFile(filename, "gratCallback(" + JSON.stringify(grat) + ")", function (error, stat) {
       if (error) {
@@ -208,7 +208,7 @@ drop = {
 
   addZi: function (zi, callback) {
 
-    var filename = "/zi/zi_" + utils.getHash(zi) + ".json";
+    var filename = "/zi/zi_" + utils.getHash(JSON.stringify(zi)) + ".json";
 
     dropbox.writeFile(filename, "ziCallback(" + JSON.stringify(zi) + ")", function (error, stat) {
       if (error) {

@@ -175,3 +175,19 @@ utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "GratziView", 
       app = new gratzi.Router();
       Backbone.history.start();
     });
+
+
+
+//FACEBOOK JAVSCRIPT API STUFFS
+window.fbAsyncInit = function () {
+
+  FB.init({ appId: '295452973919932', status: true, cookie: false, xfbml: false, oauth: true });
+
+};
+
+(function () {
+  var e = document.createElement('script');
+  e.async = true;
+  e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+  document.getElementById('fb-root').appendChild(e);
+}());
