@@ -277,7 +277,8 @@ drop = {
     dropbox.findByName("/" + filepart + "/", filepart, function (error, fileStats) {
 
       if (error) {
-        return showError(error);  // Something went wrong.
+        showError(error);  // Something went wrong.
+        callback(files);
       }
 
       if (fileStats.length > 0) {
@@ -290,7 +291,8 @@ drop = {
           dropbox.readFile(fileStats[index].path,
             function (error, stat) {
               if (error) {
-                return showError(error);  // Something went wrong.
+                showError(error);  // Something went wrong.
+                callback(files);
               }
               console.log("Got file: " + stat);
               files[fileStats[index].name] = stat.replace(filepart + "Callback(", "").replace(")", "");

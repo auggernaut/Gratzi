@@ -1,7 +1,7 @@
 ﻿
 
 utils = {
-  
+
   templateLoader: {
     // The Template Loader. Used to asynchronously load templates located in separate .html files
     load: function (views, callback) {
@@ -27,15 +27,15 @@ utils = {
     }
   },
 
-  getHash: function(object) {
+  getHash: function (object) {
     var shaObj = new jsSHA(object, "TEXT");
     return shaObj.getHash("SHA-384", "HEX");
   },
 
 
-  json2hashtrix: function(json){
+  json2hashtrix: function (json) {
 
-    for(key in json){
+    for (key in json) {
       content = json[key];
       if (_.isObject(content)) {
         this.json2hashtrix(content);
@@ -44,12 +44,21 @@ utils = {
         // I am a leaf on the wind...
         content_filename = this.getHash(content);
         key_filename = this.getHash(key);
-        console.log( key_filename, key, "~", content_filename, content  );
+        console.log(key_filename, key, "~", content_filename, content);
       }
       // console.log( key, val );
 
     }
 
+  },
+
+  utf8_to_b64: function (str) {
+    return window.btoa(encodeURIComponent(str));
+  },
+
+
+  b64_to_utf8: function (str) {
+    return decodeURIComponent(window.atob(str));
   }
 
 };

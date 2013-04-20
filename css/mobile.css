@@ -1,6 +1,7 @@
 ﻿html, body {
   /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
   font-size: 16px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 input[type='text'], input[type='number'], input[type='email'], textarea, select {
@@ -9,13 +10,13 @@ input[type='text'], input[type='number'], input[type='email'], textarea, select 
 
 h1, h2, h3 {
   padding: 0;
-  font-family: 'Candal', sans-serif;
   font-size-adjust: 0.71;
   font-weight: normal;
   font-style: normal;
 }
 
 h1 {
+  font-family: 'Candal', sans-serif;
   text-align: center;
   font-size: 70px !important;
   line-height: 1;
@@ -24,7 +25,10 @@ h1 {
 
 
 h2 {
-  font-size: 20px/1.6;
+  font-size: 18px;
+  margin-bottom: 3px;
+  padding-bottom: 0px;
+  line-height: 25px;
 }
 
 
@@ -159,17 +163,14 @@ p {
 
 
 
-#form {
-  margin: 0px 20px;
-  padding-right: 10px;
+#fields #or {
+   font-size: 20px/1.6;
+   font-weight: bold;
+   margin: 0px 20px;
 }
 
 #submit {
   margin-top: 20px;
-}
-
-#form #form-actions {
-  margin-top: 10px;
 }
 
 
@@ -227,11 +228,7 @@ p {
 -------------------------------------------------- */
 
 .gratzi {
-  /*background: url("/img/gratzi-infinity.svg") no-repeat;
-  background-size: 100% auto;
-  height: 400px;
-  opacity:0.4;
-filter:alpha(opacity=40); /* For IE8 and earlier */ */;
+
 }
 
   .gratzi #saveForm, #sendForm, .message, .tags {
@@ -239,17 +236,21 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
   }
 
   .gratzi .gImage, .zImage {
-    max-height: 200px;
+    max-width: 80px;
   }
 
   .gratzi .gImage {
-    border: 10px solid #77C4F3;
-    float: right;
+    border: 3px solid #77C4F3;
+    float: left;
+    margin-right: 10px;
   }
 
   .gratzi .zImage {
-    border: 10px solid #7D6CB0;
-    margin-top: 30px;
+    border: 3px solid #7D6CB0;
+    float: right;
+    
+    position: relative;
+    top: -70px;
   }
 
   .gratzi #zMessage {
@@ -260,9 +261,9 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
     margin: 10px 0 5px;
     word-wrap: break-word;
     text-shadow: 0 -1px rgba(0,0,0,.4);
-    font-size: 25px;
+    font-size: 18px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 25px;
     font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
   }
 
@@ -279,21 +280,17 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
   }
 
   .gratzi #gDetails {
-    padding-left: 15px;
-    border-bottom: 10px solid #77C4F3;
-    z-index: -1;
-    position: relative;
-    left: -18px;
-    margin-bottom: 10px;
+ 
+   border-bottom: 5px solid #77C4F3;
+  /*-webkit-border-radius: 15px; 
+  -moz-border-radius: 15px; 
+  border-radius: 15px;*/ 
   }
 
     .gratzi #zDetails {
     padding-right: 25px;
-    border-top: 10px solid #7D6CB0;
-    z-index: -1;
-    position: relative;
-    left: 18px;
-    text-align: right;
+    border-top: 5px solid #7D6CB0;
+
   }
 
   .gratzi #zName {
@@ -338,7 +335,7 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
 
 #tagline {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .shadow img {

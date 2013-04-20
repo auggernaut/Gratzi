@@ -1,6 +1,7 @@
 ﻿html, body {
   /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
   font-size: 16px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 input[type='text'], input[type='number'], input[type='email'], textarea, select {
@@ -9,13 +10,13 @@ input[type='text'], input[type='number'], input[type='email'], textarea, select 
 
 h1, h2, h3 {
   padding: 0;
-  font-family: 'Candal', sans-serif;
   font-size-adjust: 0.71;
   font-weight: normal;
   font-style: normal;
 }
 
 h1 {
+  font-family: 'Candal', sans-serif;
   text-align: center;
   font-size: 70px !important;
   line-height: 1;
@@ -24,7 +25,11 @@ h1 {
 
 
 h2 {
-  font-size: 20px/1.6;
+  font-size: 25px;
+  margin-bottom: 8px;
+  padding-bottom: 3px;
+  line-height: 25px;
+
 }
 
 
@@ -160,11 +165,22 @@ a {
 
 
 
+#fields #to {
 
+  width: 42%;
+}
 
-#form {
-  margin: 0px 20px;
-  padding-right: 10px;
+#fields #or {
+   font-size: 20px/1.6;
+   font-weight: bold;
+   margin: 0 20px;
+}
+
+#fields #pickfbContact {
+  padding: 4px 8px;
+  position: relative;
+  top: -5px;
+  width: 42%;
 }
 
 #submit {
@@ -286,16 +302,15 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
     border-bottom: 10px solid #77C4F3;
     z-index: -1;
     position: relative;
-    left: -18px;
+    left: -8px;
     margin-bottom: 10px;
   }
 
     .gratzi #zDetails {
     padding-right: 25px;
     border-top: 10px solid #7D6CB0;
-    z-index: -1;
     position: relative;
-    left: 18px;
+    left: 8px;
     text-align: right;
   }
 
@@ -375,37 +390,3 @@ filter:alpha(opacity=40); /* For IE8 and earlier */ */;
       padding-left: 0;
     }
 
-
-
-/* Mobile
--------------------------------------------------- */
-@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
-
-  .jumbotron {
-    top: -30px;
-  }
-
-  .top {
-    top: -10px;
-  }
-
-  .about h1 {
-    font-size: 40px !important;
-  }
-
-  .about h2 {
-    font-size: 25px !important;
-  }
-
-  .row h2 {
-    font-size: 15px !important;
-  }
-
-  .nav {
-    margin: 2px 0px;
-  }
-
-  .gratzi .gImage {
-    float: none;
-  }
-}

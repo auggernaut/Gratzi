@@ -51,7 +51,7 @@ gratzi.Router = Backbone.Router.extend({
         else {
           var jProf = JSON.stringify(profile);
           //localStorage.setItem("profile", jProf);
-          console.log("Loaded Profile: " + jProf);
+          console.log("Loaded Profile");
         }
 
       });
@@ -135,7 +135,7 @@ gratzi.Router = Backbone.Router.extend({
     
 
     if (params)
-      $('#content').html(new gratzi.GratziView(params).el);
+      $('#content').html(new gratzi.ReplyView(params).el);
     else {
       $('#content').html(new gratzi.ListView(params).el);
       $("#view").addClass("active");
@@ -170,7 +170,7 @@ gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "GratziView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
     function () {
       app = new gratzi.Router();
       Backbone.history.start();
