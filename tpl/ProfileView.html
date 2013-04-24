@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container profile">
 
   <div class="row">
     <% if(!localStorage.getItem('authenticated')) { %>
@@ -32,7 +32,7 @@
     <div class="span10 offset1">
       <% if (profile) { %>
         <div id="values" class="center">
-          <img class="img-prof" id="profImage" src="<%= profile.image %>" />
+          <img class="img-prof img-circle" id="imgProf" src="<%= profile.image %>" />
           <h3><%= profile.email %></h3>
           <h4><%= profile.bio %></h4>
           <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>

@@ -46,7 +46,7 @@ function ziCallback(json) {
    localStorage.setItem("cbZi", JSON.stringify(json));
 
    if (localStorage.getItem('authenticated')) {
-      var gLink = json.grat;
+      var gLink = utils.b64_to_utf8(json.grat);
       var index = gLink.lastIndexOf("/");
       var gFileName = gLink.substr(index + 1);
       $('#sendForm').hide();
@@ -130,10 +130,10 @@ gratzi.ReplyView = Backbone.View.extend({
 
 
    sendZi: function () {
+      var $btnSend = $("#btnSend");
 
-
-      $("#sendBtn").attr("disabled", "disabled");
-      $("#sendBtn").html("Sending...");
+      $btnSend.attr("disabled", "disabled");
+      $btnSend.html("Sending...");
 
 
       //Get Grat
@@ -150,13 +150,13 @@ gratzi.ReplyView = Backbone.View.extend({
             "recipient": cbGrat.sender,
             //"url": profile.url,
             "sender": { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
-            "grat": localStorage.getItem("gratLink"),
-            "message": $('#response').val()
-            //"tags": $('#tags').val()
+            "grat": localStorage.getItem("loc"),
+            "message": $('#response').val(),
+            "tags": $('#tags').val()
          };
 
-         if (localStorage.getItem("gratLink"))
-            localStorage.removeItem("gratLink");
+         if (localStorage.getItem("loc"))
+            localStorage.removeItem("loc");
 
          //Create Zi
          gratzi.Store.addZi(newZi, function (zPath) {
@@ -180,9 +180,13 @@ gratzi.ReplyView = Backbone.View.extend({
                $.post(gratzi.Server.url + "/email", email,
                   function (data) {
                      if (data.token === "Success") {
-                        $("#sendBtn").removeAttr("disabled");
-                        $("#sendBtn").html("Send");
+                        $btnSend.removeAttr("disabled");
+                        $btnSend.html("Send");
                         $('#info').show().html("Zi sent!");
+                        $('#zMessage').html($('#response').val());
+                        $('#zTags').html($('#tags').val());
+
+                        $('#sendForm').hide();
 
                         //window.location.href = "/#view?zi=" + url;
                         //gratzi.Store.loadGratzi(function () {
@@ -191,7 +195,7 @@ gratzi.ReplyView = Backbone.View.extend({
                      }
                   }, "json");
 
-               $('#response').val('');
+
 
             });
 
@@ -204,8 +208,10 @@ gratzi.ReplyView = Backbone.View.extend({
 
    saveZi: function () {
 
-      $("#saveBtn").attr("disabled", "disabled");
-      $("#saveBtn").html("Saving...");
+      var $btnSave = $("#btnSave");
+
+      $btnSave.attr("disabled", "disabled");
+      $btnSave.html("Saving...");
 
       var cbZi = JSON.parse(localStorage.getItem("cbZi"));
 
@@ -214,8 +220,7 @@ gratzi.ReplyView = Backbone.View.extend({
          //Store Grat
          gratzi.Store.addZi(cbZi, function (path) {
             console.log("Zi stored: " + path);
-            $("#saveBtn").removeAttr("disabled");
-            $("#saveBtn").html("Save");
+            $('#saveForm').hide();
             $('#info').show().html("Zi Saved!");
             //gratzi.Store.loadGratzi(function () {
             //  window.location.href = "/#view";

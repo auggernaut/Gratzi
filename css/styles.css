@@ -130,6 +130,11 @@ a {
     margin-top: 10px;
 }
 
+.container .tagline {
+    font-size: 25px;
+    text-align: center;
+}
+
 /*HOME
 --------------------------------------------------*/
 .home {
@@ -290,8 +295,7 @@ a {
 
 .listitem .zDetails {
     text-align: right;
-    position: relative;
-    left: -70px;
+    width: 83%;
 }
 
 .listitem .zName {
@@ -392,7 +396,7 @@ a {
 
 .create #zDetails {
     text-align: right;
-    position: relative;
+    width: 83%;
 }
 
 .create #zName {
@@ -493,6 +497,14 @@ a {
     min-height: 200px;
     min-width: 200px;
 }
+
+/* Profile
+-------------------------------------------------- */
+.profile #imgProf {
+    border: 5px solid #7D6CB0;
+
+}
+
 
 /* Footer
 -------------------------------------------------- */
