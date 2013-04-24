@@ -46,7 +46,7 @@ function ziCallback(json) {
    localStorage.setItem("cbZi", JSON.stringify(json));
 
    if (localStorage.getItem('authenticated')) {
-      var gLink = utils.b64_to_utf8(json.grat);
+      var gLink = json.grat;
       var index = gLink.lastIndexOf("/");
       var gFileName = gLink.substr(index + 1);
       $('#sendForm').hide();
@@ -97,7 +97,7 @@ gratzi.ReplyView = Backbone.View.extend({
          //JSONP Callback
          cbScript = "<script type='text/javascript' src='" + url + "'></script>";
 
-         localStorage.setItem("loc", this.options.loc);
+         localStorage.setItem("loc", url);
 
       }
 

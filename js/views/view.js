@@ -43,7 +43,8 @@ gratzi.ListView = Backbone.View.extend({
 
         for (var zi in zis) {
           var ziJSON = JSON.parse(zis[zi]);
-          var gId = ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1);
+           //Should never be empty... TODO: test for empty grat in zi
+          var gId = ziJSON.grat ? ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1) : "empty";
 
           if (grat == gId) {
             match = true;
