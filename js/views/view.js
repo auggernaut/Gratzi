@@ -4,7 +4,7 @@ gratzi.ListView = Backbone.View.extend({
 
   events: {
     "click #reload": "reload",
-    "change #tags": "tagSelect"
+    "change #ddTags": "tagSelect"
   },
 
   initialize: function () {

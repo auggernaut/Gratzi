@@ -70,7 +70,7 @@ gratzi.ProfileView = Backbone.View.extend({
         var jProf = JSON.stringify(profile);
         console.log("Auth returned: " + jProf);
         localStorage.setItem("profile", jProf);
-        window.location.href = "/#create";
+        //window.location.href = "/#create";
       }
       else if (error == "404") {
         console.log("No Profile found. ");
@@ -136,17 +136,27 @@ gratzi.ProfileView = Backbone.View.extend({
 
     gratzi.Store.saveMyProfile(newProfile, function (path) {
       console.log("Profile Saved: " + path);
-      $("#save").removeAttr("disabled");
-      $("#save").html("Save");
-      $('#info').show().html("Profile saved!");
+
 
 
       gratzi.Store.loadUser(function (error, profile) {
-        profile.url = path;
 
-        var jProf = JSON.stringify(profile);
-        localStorage.setItem("profile", jProf);
-        window.location.href = "/#create";
+        if (!error) {
+          console.log("Profile Loaded: " + profile);
+          $("#save").removeAttr("disabled");
+          $("#save").html("Save");
+          $('#info').show().html("Profile saved!");
+
+          profile.url = path;
+          var jProf = JSON.stringify(profile);
+          localStorage.setItem("profile", jProf);
+        }
+        else {
+          $("#save").removeAttr("disabled");
+          $("#save").html("Save");
+          $('#info').show().html("Save failed!");
+        }
+        //window.location.href = "/#create";
       });
 
     });
@@ -156,7 +166,7 @@ gratzi.ProfileView = Backbone.View.extend({
 
   logout: function () {
     gratzi.Store.logout();
-    window.location.href = "/#";
+    //window.location.href = "/#";
   }
 
 });

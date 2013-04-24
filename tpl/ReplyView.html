@@ -1,52 +1,75 @@
 <%=script%>
 
-<div class="container">
+<div class="container reply">
 
-  <h1><span class="tight">G</span>RAT<span class="tight">Zi</span></h1>
-  <p id="tagline">Thank different.</p>
+  <div class="pad">
+    <h1><span class="tight">G</span>RAT<span class="tight">Zi</span></h1>
+    <p class="center">Thank different.</p>
+  </div>
 
-  <div class="row gratzi">
+  <div class="row">
 
-    <div class="span3 offset1">
-      <img src="" class="gImage img-circle" id="gImage" />
+    <div class="span3 gup">
+      <img src="/img/loading-icon.gif" class="gImage img-circle" id="gImage" />
     </div>
 
-    <div class="span5 middle">
-      <div id="gDetails">
-        <p class="name" id="gName"></p>
-        <p class="message" id="gMessage"></p>
-        <p class="tags" id="gTags"></p>
+    <div class="span6 middle">
+      <div id="zLine">
+        <div id="gDetails">
+          <p class="name" id="gName"></p>
+          <p class="message" id="gMessage"></p>
+          <p class="tags" id="gTags"></p>
+        </div>
       </div>
-
       <div id="zDetails">
         <p class="name" id="zName"></p>
         <p class="tags" id="zTags"></p>
         <p class="message" id="zMessage"></p>
-
-        <div id="sendForm" class="fields">
-          <textarea id="response" name="response" rows="3" class="input-block-level" placeholder="You're welcome!" />
-          <div id="submit">
-            <button id="sendBtn" class="btn btn-large btn-block btn-inverse">Send a Zi</button>
-          </div>
-        </div>
-
-        <div id="saveForm">
-          <button id="saveBtn" class="btn btn-large btn-block btn-inverse">Save</button>
-        </div>
-        <div id="info" class="hide text-success center"></div>
-
       </div>
-    </div>
-
-    <div class="span3 right">
-      <img src="" id="zImage" class="img-circle zImage" />
-    </div>
-
-    <div id="auth">
-      Please login to view the Grat.
     </div>
 
 
   </div>
+
+  <div class="row">
+    <div id="gForm" class="span6 offset3">
+      <% if(localStorage.getItem('authenticated')) { %>
+      <div id="sendForm" class="fields">
+        <input type="text" id="fullname" name="fullname" class="input-block-level" value="" placeholder="Name" />
+        <textarea id="response" name="response" rows="3" class="input-block-level" placeholder="You're welcome!" />
+        <div id="submit">
+          <button id="btnSend" class="btn btn-large btn-block btn-inverse">Send Zi</button>
+        </div>
+      </div>
+
+      <div id="saveForm">
+        <button id="btnSave" class="btn btn-large btn-block btn-inverse">Save</button>
+      </div>
+      <div id="info" class="hide text-success center"></div>
+      <% } else { %>
+        <p class="center">
+          <a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
+        </p>
+      <% } %>
+
+    </div>
+
+    <div class="span3 zup">
+      <% if(localStorage.getItem('authenticated')) { %>
+      <img src="/img/loading-icon.gif" id="zImage" class="img-circle zImage" />
+      <% } else { %>
+      <div>
+        <img src="../img/blank-user.jpg" id="imgZi" class="img-circle zImage" />
+        <!--<div id="ziSteps">
+          <input type="file" name="input_name" id="upImage" class="hide ie_show" />
+          <button id="btnUploadImgur" class="btn btn-inverse" onclick="$('input[id=upImage]').click();">Upload Image</button>
+          <p style="margin-left: 37px;"><a href="/#signin">Login</a></p>
+        </div>-->
+      </div>
+      <% } %>
+    </div>
+  </div>
+
 </div>
+
 

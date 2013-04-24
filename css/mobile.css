@@ -232,7 +232,7 @@ p {
 }
 
   .gratzi #saveForm, #sendForm, .message, .tags {
-    padding: 0px 10px 0px 10px;
+
   }
 
   .gratzi .gImage, .zImage {
@@ -250,11 +250,11 @@ p {
     float: right;
     
     position: relative;
-    top: -70px;
+    top: -10px;
   }
 
   .gratzi #zMessage {
- 
+
   }
 
   .gratzi .name {
@@ -301,7 +301,7 @@ p {
   .gratzi .message {
     margin: 10px 0 5px;
     word-wrap: break-word;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 20px;
   }
 
@@ -319,18 +319,10 @@ p {
     margin: 0px;
   }
 
-  .gratzi .arrow-right {
+  .gratzi .zup {
     position: relative;
-    float: right;
-    top: -2px;
+    left: -5px;
   }
-
-  .gratzi .arrow-left {
-    position: relative;
-    float: left;
-    top: -2px;
-  }
-
 
 
 #tagline {

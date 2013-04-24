@@ -1,392 +1,522 @@
 ﻿html, body {
-  /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
-  font-size: 16px;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
+    font-size: 16px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 input[type='text'], input[type='number'], input[type='email'], textarea, select {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 h1, h2, h3 {
-  padding: 0;
-  font-size-adjust: 0.71;
-  font-weight: normal;
-  font-style: normal;
-}
-
-h1 {
-  font-family: 'Candal', sans-serif;
-  text-align: center;
-  font-size: 70px !important;
-  line-height: 1;
-  text-shadow: 0 1px 1px rgba(0,0,0,.4);
-}
-
-
-h2 {
-  font-size: 25px;
-  margin-bottom: 8px;
-  padding-bottom: 3px;
-  line-height: 25px;
-
-}
-
-
-.hero-unit {
-  padding: 40px;
-  background-color: #461973;
-  box-shadow: 0 3px 3px rgba(34, 25, 25, 0.4);
-}
-
-
-p {
-  line-height: 1.6;
-}
-
-a {
-  /*color: #461973;*/
-}
-
-
-.center {
-  text-align: center;
-}
-
-.clearfix {
-  clear: both;
-}
-
-.top {
-  position: relative;
-  top: -80px;
-}
-
-  .top #ziHeader {
-    color: rgba(0,0,0,.4);
-  }
-
-.gtop {
-  position: relative;
-  top: -300px;
-}
-
-#header {
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  background-color: #fff;
-  z-index: 100;
-}
-
-  #header .row {
-    padding: 3px 15px;
-  }
-
-  #header #homeButton {
-    width: 60px;
-  }
-
-#content {
-  min-height: 700px;
-  margin-top: 60px;
-}
-
-#bg {
-  max-width: 700px;
-  width: 100%;
-  z-index: -1;
-}
-
-#logo {
-  text-align: center;
-}
-
-
-.tight {
-  letter-spacing: -6px;
-}
-
-.jumbotron {
-  text-align: center;
-  color: #000;
-  position: relative;
-  top: -100px;
-}
-
-  .jumbotron h1 {
+    padding: 0;
     font-size-adjust: 0.71;
     font-weight: normal;
     font-style: normal;
-    font-size: 80px !important;
+}
+
+h1 {
+    font-family: 'Life Savers', sans-serif;
+    text-align: center;
+    font-size: 70px !important;
+    line-height: 1;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+}
+
+h2 {
+
+    line-height: 25px;
+    font-size: 30px !important;
+}
+
+p {
+    line-height: 1.6;
+}
+
+a {
+    /*color: #461973;*/
+}
+
+.center {
+    text-align: center;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.tight {
+    letter-spacing: -6px;
+}
+
+#header {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 100;
+}
+
+#header .row {
+    padding: 3px 15px;
+}
+
+#header #homeButton {
+    width: 60px;
+}
+
+#logoBig {
+    max-width: 500px;
+    width: 100%;
+    z-index: -1;
+}
+
+.nav {
+    margin: 2px 10px;
+}
+
+.navbar-inner {
+    -webkit-border-radius: initial;
+    border-radius: initial;
+    box-shadow: 0 2px 4px #461973;
+}
+
+.navbar-text {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#content {
+    min-height: 700px;
+    margin-top: 60px;
+}
+
+/* Container
+-------------------------------------------------- */
+
+.container {
+    margin: 0 auto;
+}
+
+.container .name {
+    word-wrap: break-word;
+    text-shadow: 0 -1px rgba(0, 0, 0, .4);
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 35px;
+}
+
+.container .message {
+    word-wrap: break-word;
+    font-size: 18px;
+    line-height: 20px;
+    clear: both;
+}
+
+.container .email {
+
+}
+
+.container .gtop {
+    position: relative;
+    top: -300px;
+}
+
+.container #submit {
+    margin-top: 20px;
+}
+
+.container #form #form-actions {
+    margin-top: 10px;
+}
+
+/*HOME
+--------------------------------------------------*/
+.home {
+    text-align: center;
+    color: #000;
+    position: relative;
+    top: -20px;
+}
+
+.home h1 {
+    font-size-adjust: 0.71;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 70px !important;
     line-height: 1;
     text-shadow: 0 3px 3px rgba(0,0,0,.4);
     margin-bottom: 10px;
-  }
+}
 
-  .jumbotron .lead {
-    font-size: 24px;
-    line-height: 1.25;
-    margin-top: 10px;
+.home h2 {
+
+    font-size: 48px;
+    font-weight: 100;
+    line-height: 1.2;
+    margin: 50px 0px;
+
+}
+
+.home .lead {
+    font-size: 16px;
+    margin-top: 20px;
     margin-bottom: 40px;
-    font-weight: bold;
-  }
+}
 
-  .jumbotron .signup {
+.home .signup {
     font-size: 24px;
     line-height: 1.25;
     margin-top: 10px;
-  }
+}
 
-  .jumbotron .btn {
+.home .btn {
     font-size: 22px;
     padding: 10px 10px;
     width: 180px;
     margin-bottom: 20px;
-  }
+}
 
-  .jumbotron .about {
+.home .about {
     margin-top: 0px;
     font-weight: bold;
-  }
+}
 
-
-  .jumbotron #mc_embed_signup {
+.home #mc_embed_signup {
     float: none !important;
     margin: 0 auto;
-  }
-
-
-    .jumbotron #mc_embed_signup .email {
-      height: 40px;
-      max-width: 270px;
-    }
-
-
-
-
-#fields #to {
-
-  width: 42%;
 }
 
-#fields #or {
-   font-size: 20px/1.6;
-   font-weight: bold;
-   margin: 0 20px;
+.home #mc_embed_signup .email {
+    height: 40px;
+    max-width: 220px;
+    text-align: center;
 }
 
-#fields #pickfbContact {
-  padding: 4px 8px;
-  position: relative;
-  top: -5px;
-  width: 42%;
+.home #tagline {
+
 }
 
-#submit {
-  margin-top: 20px;
-}
-
-#form #form-actions {
-  margin-top: 10px;
-}
-
+/*ABOUT
+--------------------------------------------------*/
 
 .about h1 {
-  font-size: 60px !important;
-  line-height: 1.1;
-  margin-bottom: 10px;
+    font-size: 60px !important;
+    line-height: 1.1;
+    margin-bottom: 10px;
 }
 
 .about h2 {
-  font-size: 30px !important;
-  line-height: 1;
-  text-align: center;
-  margin-bottom: 40px;
+
 }
 
-.nav {
-  margin: 2px 10px;
+/*LIST
+--------------------------------------------------*/
+.list .pad {
+    margin-bottom: 130px;
+    margin-top: 40px;
 }
 
-.navbar-inner {
-  -webkit-border-radius: initial;
-  border-radius: initial;
-  box-shadow: 0 2px 4px #461973;
+.list #reload {
+    position: relative;
+    top: -5px;
+    padding: 5px;
 }
 
-.navbar-text {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-
-.tag {
-  background-color: #0A94B6;
-  color: #fff;
-  width: 100px;
-  padding: 10px;
-  margin: 10px;
-  display: inline;
-  line-height: 3em;
-}
-
-  .tag:hover {
-    cursor: pointer;
-  }
-
-  .tag.picked {
-    background-color: #D1CDCD;
-  }
-
-
-
-
-/* Gratzi
+/* Listitem
 -------------------------------------------------- */
-
-.gratzi {
-  /*background: url("/img/gratzi-infinity.svg") no-repeat;
-  background-size: 100% auto;
-  height: 400px;
-  opacity:0.4;
-filter:alpha(opacity=40); /* For IE8 and earlier */ */;
+.listitem {
 }
 
-  .gratzi #saveForm, #sendForm, .message, .tags {
-    padding: 0px 10px 0px 10px;
-  }
+.listitem .gup {
+    position: relative;
+    top: -40px;
+}
 
-  .gratzi .gImage, .zImage {
+.listitem .zup {
+    position: relative;
+    top: -180px;
+    left: -5px;
+}
+
+.listitem .gImage, .zImage {
     max-height: 200px;
-  }
+}
 
-  .gratzi .gImage {
-    border: 10px solid #77C4F3;
+.listitem .gImage {
+    border: 5px solid #77C4F3;
     float: right;
-  }
+    min-height: 200px;
+    min-width: 200px;
+}
 
-  .gratzi .zImage {
-    border: 10px solid #7D6CB0;
-    margin-top: 30px;
-  }
+.listitem .zLine {
+    border-bottom: 5px solid #7D6CB0;
+    border-left: 5px solid #7D6CB0;
+    border-radius: 40px;
+    position: relative;
+    left: -115px;
+    width: 140%;
+    z-index: -1;
+}
 
-  .gratzi #zMessage {
- 
-  }
-
-  .gratzi .name {
-    margin: 10px 0 5px;
-    word-wrap: break-word;
-    text-shadow: 0 -1px rgba(0,0,0,.4);
-    font-size: 25px;
-    font-weight: bold;
-    line-height: 20px;
-    font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
-  }
-
-  .gratzi .email {
-    margin: 10px 0 5px;
-    word-wrap: break-word;
-    font-size: 15px;
-    line-height: 20px;
-    font-family: "The Shire Types Derbyshire", 'Arial Black', Arial, Helvetica, Verdana, sans-serif;
-  }
-
-  .gratzi #gName {
-    
-  }
-
-  .gratzi #gDetails {
+.listitem .gDetails {
+    border-bottom: 5px solid #77C4F3;
+    border-left: 5px solid #77C4F3;
+    border-radius: 30px;
     padding-left: 15px;
-    border-bottom: 10px solid #77C4F3;
     z-index: -1;
     position: relative;
-    left: -8px;
-    margin-bottom: 10px;
-  }
-
-    .gratzi #zDetails {
-    padding-right: 25px;
-    border-top: 10px solid #7D6CB0;
-    position: relative;
-    left: 8px;
-    text-align: right;
-  }
-
-  .gratzi #zName {
-
-  }
-
-
-  .gratzi .message {
-    margin: 10px 0 5px;
-    word-wrap: break-word;
-    font-size: 18px;
-    line-height: 20px;
-  }
-
-  .gratzi .tags {
-    word-wrap: break-word;
-    font-size: 12px;
-    line-height: 20px;
-  }
-
-  .gratzi .right {
-    margin-left: 0px;
-  }
-
-  .gratzi .middle {
-    margin: 0px;
-  }
-
-  .gratzi .arrow-right {
-    position: relative;
-    float: right;
-    top: -2px;
-  }
-
-  .gratzi .arrow-left {
-    position: relative;
-    float: left;
-    top: -2px;
-  }
-
-
-
-#tagline {
-  text-align: center;
-  margin-bottom: 60px;
+    min-height: 45px;
+    padding-left: 105px;
 }
 
-.shadow img {
-  width: 100%;
+.listitem .gName {
+    margin: 10px 0 5px;
+}
+
+.listitem .gMessage {
+}
+
+.listitem .gTags {
+}
+
+.listitem .gImage {
+    border: 5px solid #77C4F3;
+    float: right;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.listitem .zDetails {
+    text-align: right;
+    position: relative;
+    left: -70px;
+}
+
+.listitem .zName {
+    margin: 10px 0 5px;
+}
+
+.listitem .zMessage {
+}
+
+.listitem .zTags {
+}
+
+.listitem .zImage {
+    border: 5px solid #7D6CB0;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.listitem .shadow img {
+    width: 100%;
+    position: relative;
+    top: -150px;
+}
+
+/* Create
+-------------------------------------------------- */
+.create {
+}
+
+.create .pad {
+    margin-bottom: 100px;
+}
+
+.create .gup {
+    position: relative;
+    top: -40px;
+}
+
+.create .zup {
+    position: relative;
+    top: -220px;
+    left: -5px;
+}
+
+.create .gImage, .zImage {
+    max-height: 200px;
+}
+
+.create .gImage {
+    border: 5px solid #77C4F3;
+    float: right;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.create #gDetails {
+    border-bottom: 5px solid #77C4F3;
+    border-left: 5px solid #77C4F3;
+    padding-left: 15px;
+    z-index: -1;
+    position: relative;
+    min-height: 45px;
+    padding-left: 90px;
+}
+
+.create #gForm {
+}
+
+.create #gForm #to {
+    width: 45%;
+}
+
+.create #gForm #or {
+    font-size: 20px/1.6;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.create #gForm #pickfbContact {
+    padding: 4px 8px;
+    position: relative;
+    top: -5px;
+    width: 40%;
+}
+
+.create #zLine {
+    /*border-bottom: 10px solid #7D6CB0;
+    border-left: 10px solid #7D6CB0;*/
+    position: relative;
+    left: -90px;
+    width: 135%;
+    z-index: -1;
+}
+
+.create #gName {
+    margin: 10px 0 5px;
+}
+
+.create #zDetails {
+    text-align: right;
+    position: relative;
+}
+
+.create #zName {
+    margin: 20px 0 5px;
+}
+
+.create .zImage {
+    border: 5px solid #7D6CB0;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+/* Reply
+-------------------------------------------------- */
+.reply {
+}
+
+.reply .pad {
+    margin-bottom: 100px;
+}
+
+.reply .gup {
+    position: relative;
+    top: -40px;
+}
+
+.reply .zup {
+    position: relative;
+    top: -180px;
+    left: -5px;
+}
+
+.reply .gImage, .zImage {
+    max-height: 200px;
+}
+
+.reply .gImage {
+    border: 5px solid #77C4F3;
+    float: right;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.reply #gDetails {
+    border-bottom: 5px solid #77C4F3;
+    border-left: 5px solid #77C4F3;
+    padding-left: 15px;
+    z-index: -1;
+    position: relative;
+    min-height: 45px;
+    padding-left: 75px;
+}
+
+.reply #gForm {
+}
+
+.reply #gForm #to {
+    width: 45%;
+}
+
+.reply #gForm #or {
+    font-size: 20px/1.6;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.reply #gForm #pickfbContact {
+    padding: 4px 8px;
+    position: relative;
+    top: -5px;
+    width: 40%;
+}
+
+.reply #zLine {
+    border-bottom: 5px solid #7D6CB0;
+    border-left: 5px solid #7D6CB0;
+    position: relative;
+    left: -90px;
+    width: 135%;
+    z-index: -1;
+}
+
+.reply #gName {
+    margin: 10px 0 5px;
+}
+
+.reply #zDetails {
+    text-align: right;
+    position: relative;
+}
+
+.reply #zName {
+    margin: 20px 0 5px;
+}
+
+.reply .zImage {
+    border: 5px solid #7D6CB0;
+    min-height: 200px;
+    min-width: 200px;
 }
 
 /* Footer
 -------------------------------------------------- */
 
 .footer {
-  text-align: center;
-  padding: 30px 0;
-  width: 100%;
+    text-align: center;
+    padding: 30px 0;
+    width: 100%;
 }
 
-  .footer p {
+.footer p {
     margin-bottom: 0;
     color: #777;
-  }
-
-.footer-links {
-  margin: 10px 0;
 }
 
-  .footer-links li {
+.footer-links {
+    margin: 10px 0;
+}
+
+.footer-links li {
     display: inline;
     padding: 0 2px;
-  }
+}
 
-    .footer-links li:first-child {
-      padding-left: 0;
-    }
-
+.footer-links li:first-child {
+    padding-left: 0;
+}

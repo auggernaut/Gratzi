@@ -1,33 +1,51 @@
-﻿
+<div class="container create">
 
-<div class="container">
+  <div class="pad">
+    <h1>GRATZI</h1>
+    <p class="center">Thank different.</p>
+  </div>
 
   <div class="row">
+    <div class="span3 gup">
+      <img src="<%= profile.image %>" class="gImage img-circle" />
+    </div>
 
-    <div class="span8 offset2">
+    <div class="span6 middle">
+      <div id="zLine">
+        <div id="gDetails">
+          <p class="name" id="gName"><%= profile.fullname %></p>
+          <!--<span class="arrow-right"><img src="../img/right-arrow.png" /></span>-->
+        </div>
+      </div>
 
-      <h1><span class="tight">G</span>RAT<span class="tight">Zi</span></h1>
-      <p id="tagline">Thank different.</p>
+      <div id="zDetails">
+        <p class="name right" id="zName"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div id="gForm" class="span6 offset3">
       <div id="fields">
-        <h2>Who</h2>
-        <input type="text" id="to" name="to" class="input-block-level" placeholder="email address" /> <span id="or">or</span>
-        <input type="hidden" id="fbFriendId"/>
-        <button id="pickfbContact" class="body-button">Pick from Facebook</button>
+        <input type="text" id="to" name="to" class="input-block-level" placeholder="email address" />
+        <span id="or">or</span>
+        <input type="hidden" id="fbFriendId" />
+        <button id="pickfbContact" class="body-button">Facebook</button>
 
-        <h2>Why</h2>
         <textarea id="message" name="message" rows="3" class="input-block-level" placeholder="Thanks for all the fish!" />
-
-        <h2>Tags</h2>
         <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle" />
       </div>
 
       <div id="submit">
-        <button id="createBtn" class="btn btn-inverse btn-large btn-block">Send Gratitude!</button>
+        <button id="createBtn" class="btn btn-inverse btn-large btn-block">Create Gratitude!</button>
         <div id="info" class="hide text-success center"></div>
         <div id="fail" class="hide text-failure center"></div>
       </div>
     </div>
-
+    <div class="span3 zup">
+      <img src="../img/blank-user.jpg" id="imgZi" class="img-circle zImage" />
+    </div>
   </div>
 
   <!-- Markup for These Days Friend Selector -->
@@ -59,6 +77,4 @@
   </div>
 
 </div>
-
-
 

@@ -1,44 +1,53 @@
-<div class="container">
-  <div class="gratzi row">
+<div class="container listitem">
+    <div class="row">
 
-    <div class="span3 offset1">
-      <img src="<%=grat.sender.image%>" alt="<%=grat.sender.fullname %>" class="gImage img-circle" />
+        <div class="span3 offset1 gup">
+            <img src="<%=grat.sender.image%>" alt="<%=grat.sender.fullname %>" class="gImage img-circle"/>
+        </div>
+
+        <div class="span6 middle">
+            <div class="zLine">
+                <div class="gDetails">
+                    <p class="name gName"><%=grat.sender.fullname %></p>
+                    <!--<span class="arrow-right"><img src="../img/right-arrow.png" /></span> -->
+                    <p class="message gMessage"><%=grat.message %></p>
+
+                    <p class="tags gTags"><%=grat.tags %></p>
+                </div>
+            </div>
+
+            <div class="zDetails">
+                <% if(zi.sender) { %>
+                <p class="name zName"><%=zi.sender.fullname %></p>
+
+                <p class="tags zTags"><%=zi.tags %></p>
+
+                <p class="message zMessage"><%=zi.message %></p>
+                <!-- <span class="arrow-left"><img src="../img/left-arrow.png" /></span> -->
+                <% } else { %>
+                <p class="name gName"><%=grat.recipient.fullname %></p>
+                <!-- TODO: check it fullname is null, true = use email -->
+
+                <p class="message zMessage">No reply.</p>
+                <% } %>
+            </div>
+
+        </div>
     </div>
 
-    <div class="span5 middle">
-      <div id="gDetails">
-        <p id="gName" class="name"><%=grat.sender.fullname %></p>
-        <!--<span class="arrow-right"><img src="../img/right-arrow.png" /></span> -->
-        <p class="message" id="gMessage"><%=grat.message %></p>
-        <p class="tags "><%=grat.tags %></p>
-      </div>
+    <div class="row">
+        <div id="" class="span7 offset2">
 
-      <div id="zDetails">
-        <% if(zi.sender) { %>
-        <p id="zName" class="name"><%=zi.sender.fullname %></p>
-        <p class="tags "><%=zi.tags %></p>
-        <p class="message" id="zMessage"><%=zi.message %></p>
-        <!-- <span class="arrow-left"><img src="../img/left-arrow.png" /></span> -->
-        <% } else { %>
-        <p id="zName" class="email"><%=grat.recipient %></p>
-        <p class="message" id="zMessage">No reply.</p>
-        <% } %>
-      </div>
+        </div>
+
+        <div class="span3 zup">
+            <% if(zi.sender) { %>
+            <img src="<%=zi.sender.image%>" alt="<%=zi.sender.fullname %>" class="zImage img-circle"/>
+            <% } else { %>
+            <img src="../img/blank-user.jpg" alt="<%=grat.recipient %>" class="zImage img-circle"/>
+            <% } %>
+        </div>
     </div>
-
-    <div class="span3 right">
-      <% if(zi.sender) { %>
-      <img src="<%=zi.sender.image%>" alt="<%=zi.sender.fullname %>" class="zImage img-circle" />
-      <% } else { %>
-      <img src="../img/blank-user.jpg" alt="<%=grat.recipient %>" class="zImage img-circle" />
-      <% } %>
-    </div>
-
-  </div>
-  <div class="shadow row">
-
-    <img src="../img/gratzi-shadow.svg" />
-
-  </div>
+    <hr class="gup"/>
 
 </div>
