@@ -24,7 +24,8 @@ gratzi.ListView = Backbone.View.extend({
     //Render tags in ListView
     for (var grat in grats) {
       var tag;
-      var ts = JSON.parse(grats[grat]).tags.split(",");
+      var g = grats[grat];
+      var ts = JSON.parse(g).tags.split(",");
 
       for (var t in ts) {
         tag = ts[t].trim();
