@@ -197,8 +197,8 @@ font-style: italic;
 }
 
 .home #mc_embed_signup {
-    float: none !important;
-    margin: 0 auto;
+    position: relative;
+    top: -390px;
 }
 
 .home #mc_embed_signup .email {
@@ -209,7 +209,7 @@ font-style: italic;
 
 
 .home #tagline {
-    margin: 40px 0px;
+    margin: 60px 0px;
     font-size: 35px;
 }
 
@@ -479,7 +479,7 @@ font-style: italic;
 }
 
 .create #gImage {
-    border: 5px solid #77C4F3;
+    border: 10px solid rgba(119,196,243, 0.5);
     float: right;
     min-height: 200px;
     min-width: 200px;
