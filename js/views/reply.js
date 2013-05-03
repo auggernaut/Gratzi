@@ -257,7 +257,7 @@ gratzi.ReplyView = Backbone.View.extend({
       xhr.setRequestHeader("Authorization", "Client-ID 0ea1384c01b6dcf");
       xhr.onload = function () {
          var url = JSON.parse(xhr.responseText).data.link;
-         $("#imgZi").attr("src", url);
+         $("#zImage").attr("src", url);
       }
       xhr.send(fd);
 

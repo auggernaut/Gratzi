@@ -1,20 +1,21 @@
 <div class="container create">
 
   <div class="pad">
-    <h1>GRATZi</h1>
+    <h1>Grat Zi</h1>
     <p class="tagline">Complete gratitude.</p>
   </div>
 
   <div class="row">
     <div class="span3 gup">
-      <img src="<%= profile.image %>" class="gImage img-circle" />
+      <img src="<%= profile.image %>" class="img-circle" id="gImage" />
+        <input type="file" name="input_name" id="upImage" class="hide ie_show" />
+        <button id="btnPickImg" class="btn" onclick="$('input[id=upImage]').click();">Change Image</button>
     </div>
 
     <div class="span6 middle">
       <div id="zLine">
         <div id="gDetails">
           <p class="name" id="gName"><%= profile.fullname %></p>
-          <!--<span class="arrow-right"><img src="../img/right-arrow.png" /></span>-->
         </div>
       </div>
 
@@ -31,20 +32,20 @@
         <input type="text" id="to" name="to" class="input-block-level" placeholder="email address" />
         <span id="or">or</span>
         <input type="hidden" id="fbFriendId" />
-        <button id="pickfbContact" class="body-button">Facebook</button>
+        <button id="pickfbContact" class="btn">Facebook</button>
 
         <textarea id="message" name="message" rows="3" class="input-block-level" placeholder="Thanks for all the fish!" />
         <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle" />
       </div>
 
       <div id="submit">
-        <button id="createBtn" class="btn btn-inverse btn-large btn-block">Create Gratitude!</button>
+        <button id="createBtn" class="btn btn-inverse btn-large btn-block">Create Grat!</button>
         <div id="info" class="hide text-success center"></div>
         <div id="fail" class="hide text-failure center"></div>
       </div>
     </div>
     <div class="span3 zup">
-      <img src="../img/blank-user.jpg" id="imgZi" class="img-circle zImage" />
+      <img src="../img/blank-user.jpg" id="zImage" class="img-circle" />
     </div>
   </div>
 

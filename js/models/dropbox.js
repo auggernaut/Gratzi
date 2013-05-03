@@ -1,5 +1,5 @@
 ﻿if (typeof drop !== 'object') {
-   drop = {};
+   var drop = {};
 }
 
 (function () {
@@ -12,7 +12,9 @@
    dropbox.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
 
 
-   drop = {
+ drop = {
+
+      storeType: "dropbox",
 
       auth: function (callback) {
 

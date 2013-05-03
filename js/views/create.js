@@ -4,7 +4,8 @@ gratzi.CreateView = Backbone.View.extend({
 
    events: {
       'click #createBtn': 'createGrat',
-      'click #pickfbContact': 'pickfbContact'
+      'click #pickfbContact': 'pickfbContact',
+      'click #btnPickImg': 'pickImage'
    },
 
    initialize: function () {
@@ -24,19 +25,21 @@ gratzi.CreateView = Backbone.View.extend({
       $createBtn.html("Creating...");
 
       var profile = JSON.parse(localStorage.getItem("profile"));
-      var fId = $('#fbFriendId').val(), recipient;
+      var fId = $('#fbFriendId').val(), recipient, sender;
 
-      if (fId)
-         recipient = { "type": "facebook", "fullname": $("#zName").html(), "id": fId, "image": $("#imgZi").attr("src") };
-      else
+      if (fId){
+         recipient = { "type": "facebook", "fullname": $("#zName").html(), "id": fId, "image": $("#zImage").attr("src") };
+      } else {
          recipient = { "type": "email", "email": $('#to').val() };
+      }
+
+      sender = { "type": gratzi.Store.storeType, "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": $("#gImage").attr("src") };
 
       //Create Grat
-
       var newGrat = {
          "version": "0.1",
          "type": "grat",
-         "sender": { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
+         "sender": sender,
          "recipient": recipient,
          "message": $('#message').val(),
          "tags": $('#tags').val()
@@ -55,7 +58,7 @@ gratzi.CreateView = Backbone.View.extend({
                //Facebook message recipient
                FB.ui({
                      method: 'send',
-                     name: 'Click to receive your Gratzi!',
+                     name: 'Click to receive your Grat!',
                      link: gratLink,
                      to: fId
                   },
@@ -67,7 +70,7 @@ gratzi.CreateView = Backbone.View.extend({
 
                      $createBtn.removeAttr("disabled");
                      $createBtn.html("Create");
-                     $("#imgZi").attr("src", "../img/blank-user.jpg");
+                     $("#zImage").attr("src", "../img/blank-user.jpg");
 
                      //gratzi.Store.loadGratzi(function () {
                      //  window.location.href = "/#view";
@@ -127,7 +130,7 @@ gratzi.CreateView = Backbone.View.extend({
          $("#zName").html(name);
          FB.api("/" + friendId + "/picture?width=180&height=180", function (response) {
 
-            $("#imgZi").attr("src", response.data.url);
+            $("#zImage").attr("src", response.data.url);
 
          });
 
@@ -188,6 +191,25 @@ gratzi.CreateView = Backbone.View.extend({
       });
 
 
+   },
+
+   pickImage: function() {
+
+      var files = $('input[id = upImage]')[0].files;
+      var file = files[0];
+      if (!file || !file.type.match(/image.*/)) return;
+
+      var $btnPick = $("#btnPickImg");
+
+      $btnPick.attr("disabled", "disabled");
+      $btnPick.html("Uploading...");
+
+      gratzi.Store.addImage(file, file.name, function (path) {
+         $('#gImage').attr("src", path);
+         $btnPick.removeAttr("disabled");
+         $btnPick.html("Change Image");
+         console.log("Image Uploaded: " + path);
+      });
    }
 
 

@@ -100,10 +100,8 @@ a {
 
 .container .name {
     word-wrap: break-word;
-    text-shadow: 0 -1px rgba(0, 0, 0, .4);
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bold;
-    line-height: 35px;
 }
 
 .container .message {
@@ -111,6 +109,7 @@ a {
     font-size: 18px;
     line-height: 20px;
     clear: both;
+    width: 90%;
 }
 
 .container .email {
@@ -332,6 +331,7 @@ a {
 .create .gup {
     position: relative;
     top: -40px;
+    text-align: center;
 }
 
 .create .zup {
@@ -340,11 +340,17 @@ a {
     left: -5px;
 }
 
-.create .gImage, .zImage {
+.create #gImage, #zImage {
     max-height: 200px;
 }
 
-.create .gImage {
+.create #zImage {
+    border: 5px solid #7D6CB0;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.create #gImage {
     border: 5px solid #77C4F3;
     float: right;
     min-height: 200px;
@@ -394,20 +400,16 @@ a {
     margin: 10px 0 5px;
 }
 
-.create #zDetails {
-    text-align: right;
-    width: 83%;
-}
 
 .create #zName {
     margin: 20px 0 5px;
 }
 
-.create .zImage {
-    border: 5px solid #7D6CB0;
-    min-height: 200px;
-    min-width: 200px;
+.create #zDetails {
+    text-align: right;
 }
+
+
 
 /* Reply
 -------------------------------------------------- */
