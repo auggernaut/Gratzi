@@ -100,7 +100,7 @@ gratzi.ReplyView = Backbone.View.extend({
          //JSONP Callback
          cbScript = "<script type='text/javascript' src='" + url + "'></script>";
 
-         localStorage.setItem("loc", url);
+         localStorage.setItem("loc", this.options.loc);
 
       }
 
@@ -154,9 +154,9 @@ gratzi.ReplyView = Backbone.View.extend({
             "recipient": cbGrat.sender,
             //"url": profile.url,
             "sender": sender,
-            "grat": localStorage.getItem("loc"),
+            "grat": utils.b64_to_utf8(localStorage.getItem("loc")),
             "message": $('#response').val().split(')').join("&#41;"),  //replace all occurences of )
-            "tags": $('#tags').val()
+            "tags": $('#tags').val().split(')').join("&#41;")  //replace all occurences of )
          };
 
          if (localStorage.getItem("loc")){

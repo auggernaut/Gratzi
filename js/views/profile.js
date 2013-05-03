@@ -126,7 +126,7 @@ gratzi.ProfileView = Backbone.View.extend({
     //SAVE NEW PROFILE
     var newProfile = {
       "userid": localStorage.getItem("userId"),
-      "email": localStorage.getItem("username"),
+      "email": localStorage.getItem("email"),
       "fullname": $('#fullname').val(),
       "bio": $('#bio').val(),
       "image": fileName,

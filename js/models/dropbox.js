@@ -64,6 +64,9 @@
                return showError(error);  // Something went wrong.
             }
 
+            localStorage.setItem('userid',userInfo.uid);
+            localStorage.setItem('email',userInfo.email);
+
             //GET PROFILE FILE
             var myProfile = "/profile.json";
             dropbox.readFile(myProfile, function (error, stat) {

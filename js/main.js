@@ -39,7 +39,7 @@ gratzi.Router = Backbone.Router.extend({
                window.location.href = "/#";
                return;
             } else {
-               var jProf = JSON.stringify(profile);
+               //var jProf = JSON.stringify(profile);
                //localStorage.setItem("profile", jProf);
                console.log("Loaded Profile");
                //window.location.href = "/#create";
@@ -88,7 +88,8 @@ gratzi.Router = Backbone.Router.extend({
                if (localStorage.getItem('loc'))
                   window.location.href = "#reply?loc=" + localStorage.getItem('loc');
                else
-                  Backbone.history.navigate("#create");
+                  window.location.href = "/#create";
+                  //Backbone.history.navigate("#create");
             }
          });
 
