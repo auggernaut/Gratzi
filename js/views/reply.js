@@ -7,7 +7,6 @@ function gratCallback(json) {
    $('#gMessage').append(json.message);
    $('#gTags').append(json.tags);
    $('#gImage').attr("src", json.sender.image);
-   $('#zImage').attr("src", json.recipient.image)
    localStorage.setItem("cbGrat", JSON.stringify(json));
    //$('#auth').hide();
    $('#saveForm').css('display', 'none');
@@ -15,22 +14,25 @@ function gratCallback(json) {
    //Profile details:
    //var prof = JSON.parse(localStorage.getItem("profile"));
    //$('#zName').append(prof.fullname);
-
    //$('#zImage').attr("src", prof.image);
 
    if (json.recipient.image)
-      $('#imgZi').attr('src', json.recipient.image);
+      $('#zImage').attr('src', json.recipient.image);
 
 
    if (json.recipient.fullname){
+   // Grat created with Facebook photo
       $('#zName').html(json.recipient.fullname);
       $('#fullname').css('display', 'none');
    }else if (localStorage.getItem('authenticated')) {
+   // If not, and the user it logged in, use their profile info
       var prof = JSON.parse(localStorage.getItem("profile"));
       $('#zName').html(prof.fullname);
+      $('#zImage').attr("src", prof.image);
       $('#fullname').css('display', 'none');
    }
    else {
+   // Else, just show the email the grat was sent to in name field
       $('#zName').html(json.recipient.email);
    }
 
@@ -78,7 +80,8 @@ gratzi.ReplyView = Backbone.View.extend({
       "click #btnSend": "sendZi",
       "click #btnSave": "saveZi",
       "change #upImage": "uploadToImgur",
-      "click #dropbox": "authDropBox"
+      "click #dropbox": "authDropBox",
+      'click #btnPickImg': 'pickImage'
    },
 
    initialize: function () {
@@ -139,6 +142,7 @@ gratzi.ReplyView = Backbone.View.extend({
       //Get Grat
       var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
 
+      var sender = { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": $("#zImage").attr("src") };
 
       //Store Grat
       gratzi.Store.addGrat(cbGrat, function (gPath) {
@@ -149,14 +153,15 @@ gratzi.ReplyView = Backbone.View.extend({
             "type": "zi",
             "recipient": cbGrat.sender,
             //"url": profile.url,
-            "sender": { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": profile.image },
+            "sender": sender,
             "grat": localStorage.getItem("loc"),
-            "message": $('#response').val(),
+            "message": $('#response').val().split(')').join("&#41;"),  //replace all occurences of )
             "tags": $('#tags').val()
          };
 
-         if (localStorage.getItem("loc"))
+         if (localStorage.getItem("loc")){
             localStorage.removeItem("loc");
+         }
 
          //Create Zi
          gratzi.Store.addZi(newZi, function (zPath) {
@@ -229,11 +234,33 @@ gratzi.ReplyView = Backbone.View.extend({
 
       } else {
          //Redirect to login
-         //window.location.href = "/#profile";
+         window.location.href = "/#profile";
       }
 
    },
 
+   pickImage: function() {
+
+      var $btnPick = $("#btnPickImg");
+      $btnPick.attr("disabled", "disabled");
+      $btnPick.html("Uploading...");
+
+      var files = $('input[id = upImage]')[0].files;
+      var file = files[0];
+      if (!file || !file.type.match(/image.*/)){
+         $btnPick.removeAttr("disabled");
+         $btnPick.html("Change Image");
+         return;
+      }
+
+
+      gratzi.Store.addImage(file, file.name, function (path) {
+         $('#zImage').attr("src", path);
+         $btnPick.removeAttr("disabled");
+         $btnPick.html("Change Image");
+         console.log("Image Uploaded: " + path);
+      });
+   },
 
    uploadToImgur: function () {
 

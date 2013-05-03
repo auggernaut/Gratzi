@@ -41,7 +41,7 @@ gratzi.CreateView = Backbone.View.extend({
          "type": "grat",
          "sender": sender,
          "recipient": recipient,
-         "message": $('#message').val(),
+         "message": $('#message').val().split(')').join("&#41;"),  //replace all occurences of )
          "tags": $('#tags').val()
       };
 

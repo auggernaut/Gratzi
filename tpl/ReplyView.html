@@ -61,10 +61,12 @@
 
       <div class="span3 zup">
          <% if(localStorage.getItem('authenticated')) { %>
-         <img src="/img/loading-icon.gif" id="zImage" class="img-circle zImage"/>
+         <img src="/img/loading-icon.gif" id="zImage" class="img-circle"/>
+         <input type="file" name="input_name" id="upImage" class="hide ie_show" />
+         <button id="btnPickImg" class="btn" onclick="$('input[id=upImage]').click();">Change Image</button>
          <% } else { %>
          <div>
-            <img src="../img/blank-user.jpg" id="imgZi" class="img-circle zImage"/>
+            <img src="../img/blank-user.jpg" id="zImage" class="img-circle"/>
             <!--<div id="ziSteps">
               <input type="file" name="input_name" id="upImage" class="hide ie_show" />
               <button id="btnUploadImgur" class="btn btn-inverse" onclick="$('input[id=upImage]').click();">Upload Image</button>
