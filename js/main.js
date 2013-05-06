@@ -52,7 +52,12 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    home: function () {
-      ga('send', 'pageview');
+      ga('send', 'pageview', {
+         'page': '/#',
+         'title': 'Home'
+      });
+      //Backbone.history.getFragment();
+
       // Since the home view never changes, we instantiate it and render it only once
       var dropBoxMatch;
       if (!this.homeView) {
@@ -105,22 +110,36 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    create: function () {
-      ga('send', 'pageview');
+
       "use strict";
       $('#header').html(new gratzi.HeaderView().el);
       $("#create").addClass("active");
 
       //Is the user logged in?
-      if (localStorage.getItem('profile'))
+      if (localStorage.getItem('profile')){
+         ga('send', 'pageview', {
+            'page': '/#create',
+            'title': 'Create'
+         });
          $('#content').html(new gratzi.CreateView().el);
-      else
+      } else {
+         ga('send', 'pageview', {
+            'page': '/#signin',
+            'title': 'Sign In'
+         });
          $('#content').html(new gratzi.ProfileView().el);
+      }
 
       $('#footer').html(new gratzi.FooterView().el);
    },
 
    reply: function (params) {
-      ga('send', 'pageview');
+
+      ga('send', 'pageview', {
+         'page': '/#reply?loc=' + params.loc,
+         'title': 'Reply'
+      });
+
       $('#header').html(new gratzi.HeaderView().el);
 
 //      if (localStorage.getItem('replyLink'))
@@ -132,7 +151,12 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    view: function () {
-      ga('send', 'pageview');
+
+      ga('send', 'pageview', {
+         'page': '/#view',
+         'title': 'View'
+      });
+
       $('#header').html(new gratzi.HeaderView().el);
 
       $('#content').html(new gratzi.ListView().el);
@@ -143,7 +167,12 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    about: function () {
-      ga('send', 'pageview');
+
+      ga('send', 'pageview', {
+         'page': '/#about',
+         'title': 'About'
+      });
+
       // Since the about view never changes, we instantiate it and render it only once
       if (!this.aboutView) {
          this.aboutView = new gratzi.AboutView();

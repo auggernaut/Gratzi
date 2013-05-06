@@ -55,9 +55,9 @@ font-style: italic;
 }
 
 .btn {
-    font-size: 22px;
-    padding: 10px 10px;
-    margin-bottom: 20px;
+    /*font-size: 22px;*/
+    /*padding: 10px 10px;*/
+    /*margin-bottom: 20px;*/
 }
 
 
@@ -705,7 +705,7 @@ font-style: italic;
     height: 300px;
 }
 
-.profile .btn {
+.profile #mc-embedded-subscribe, #betaCode-submit {
 
     width: 190px;
 }
