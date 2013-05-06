@@ -136,9 +136,11 @@ gratzi.Router = Backbone.Router.extend({
    reply: function (params) {
 
       ga('send', 'pageview', {
-         'page': '/#reply?loc=' + params.loc,
+         'page': '/#reply',
          'title': 'Reply'
       });
+
+      //?loc=' + params.loc
 
       $('#header').html(new gratzi.HeaderView().el);
 
@@ -189,7 +191,12 @@ gratzi.Router = Backbone.Router.extend({
 
 
    profile: function (params) {
-      ga('send', 'pageview');
+
+      ga('send', 'pageview', {
+         'page': '/#profile',
+         'title': 'Profile'
+      });
+
       $('#header').html(new gratzi.HeaderView().el);
       $('#content').html(new gratzi.ProfileView(params).el);
       $('#footer').html(new gratzi.FooterView().el);
