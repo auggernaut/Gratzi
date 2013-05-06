@@ -52,6 +52,7 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    home: function () {
+      ga('send', 'pageview');
       // Since the home view never changes, we instantiate it and render it only once
       var dropBoxMatch;
       if (!this.homeView) {
@@ -104,6 +105,7 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    create: function () {
+      ga('send', 'pageview');
       "use strict";
       $('#header').html(new gratzi.HeaderView().el);
       $("#create").addClass("active");
@@ -118,7 +120,7 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    reply: function (params) {
-
+      ga('send', 'pageview');
       $('#header').html(new gratzi.HeaderView().el);
 
 //      if (localStorage.getItem('replyLink'))
@@ -130,6 +132,7 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    view: function () {
+      ga('send', 'pageview');
       $('#header').html(new gratzi.HeaderView().el);
 
       $('#content').html(new gratzi.ListView().el);
@@ -140,6 +143,7 @@ gratzi.Router = Backbone.Router.extend({
    },
 
    about: function () {
+      ga('send', 'pageview');
       // Since the about view never changes, we instantiate it and render it only once
       if (!this.aboutView) {
          this.aboutView = new gratzi.AboutView();
@@ -156,6 +160,7 @@ gratzi.Router = Backbone.Router.extend({
 
 
    profile: function (params) {
+      ga('send', 'pageview');
       $('#header').html(new gratzi.HeaderView().el);
       $('#content').html(new gratzi.ProfileView(params).el);
       $('#footer').html(new gratzi.FooterView().el);

@@ -92,8 +92,10 @@ gratzi.ProfileView = Backbone.View.extend({
 
   saveProfile: function () {
 
-    $("#save").attr("disabled", "disabled");
-    $("#save").html("Saving...");
+     var $save = $("#save");
+
+     $save.attr("disabled", "disabled");
+     $save.html("Saving...");
 
 
 
@@ -146,8 +148,8 @@ gratzi.ProfileView = Backbone.View.extend({
 
         if (!error) {
           console.log("Profile Loaded: " + profile);
-          $("#save").removeAttr("disabled");
-          $("#save").html("Save");
+           $save.removeAttr("disabled");
+           $save.html("Save");
           $('#info').show().html("Profile saved!");
 
           profile.url = path;
@@ -155,8 +157,8 @@ gratzi.ProfileView = Backbone.View.extend({
           localStorage.setItem("profile", jProf);
         }
         else {
-          $("#save").removeAttr("disabled");
-          $("#save").html("Save");
+           $save.removeAttr("disabled");
+           $save.html("Save");
           $('#info').show().html("Save failed!");
         }
         //window.location.href = "/#create";
@@ -170,7 +172,7 @@ gratzi.ProfileView = Backbone.View.extend({
   checkCode: function(){
      var codes = gratzi.Client.betaCodes.split(','), found;
      _.each(codes, function(code){
-        if(code == $("#betaCode").val()){
+        if(code.trim() == $("#betaCode").val()){
            found = code;
         }
      });
@@ -180,6 +182,7 @@ gratzi.ProfileView = Backbone.View.extend({
         $("#betaCode").hide();
         $("#betaCode-submit").hide();
         $("#fail").hide();
+        ga('set', 'dimension1', found);   //BetaCode custom dimension in Google Analytics
      }
      else {
         $("#fail").show().html("Invalid code.");

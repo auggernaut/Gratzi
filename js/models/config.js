@@ -18,7 +18,7 @@ gratzi.Client = {
    gitRepo: "http://github.com/auggernaut/gratzi",
    gitClientId: "bbee6e8255728de31711",
    url: "http://www.gratzi.org",
-   betaCodes: "IIW16"
+   betaCodes: "IIW16, Core"
 };
 
 gratzi.Server = {
