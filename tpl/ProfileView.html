@@ -1,74 +1,100 @@
 ﻿<div class="container profile">
 
-  <div class="row">
-    <% if(!localStorage.getItem('authenticated')) { %>
+   <% if(!localStorage.getItem('authenticated')) { %>
+   <div class="row center">
+      <h1>Login</h1>
 
-  <div class="span10 offset1 center">
+      <h3><span class="logo-text">GratZi</span> is still in beta.</h3>
+   </div>
+   <!--      <p>
+       Choose where your profile and Gratzi's will be saved:
+     </p>-->
+   <!--    <p>
+     <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
+     </a>
+   </p>-->
+   <div class="row center band">
+      <div class="span6">
+         <div class="border-right">
+            <h4>Peanut Butter Jelly Time!</h4>
+            <input type="text" value="" name="betaCode" class="input-block-level" id="betaCode"
+                   placeholder="beta code" required>
 
-    <h1>Start</h1>
-    <h3>Connect your cloud.</h3>
-    <p>
-      Gratzi only works with cloud storage that you control.
-    </p>
-    <p>(We don't store your data)</p>
-    <!--      <p>
-        Choose where your profile and Gratzi's will be saved:
-      </p>-->
-    <!--    <p>
-      <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
-      </a>
-    </p>-->
-    <p>
-      <a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b>
-      </a>
-    </p>
+            <input type="submit" value="Login" name="subscribe" id="betaCode-submit"
+                   class="btn btn-inverse">
+            <div id="fail" class="hide text-failure center"></div>
 
-  </div>
+            <div class="hide" id="divDB"><a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a></div>
+         </div>
+      </div>
 
-    <% } else { %>
- 
+      <div class="span6">
+         <div id="mc_embed_signup">
+            <form action="http://datacosmos.us4.list-manage.com/subscribe/post?u=fea203bdaaed7b0312d155f52&amp;id=3e9987e283"
+                  method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                  class="validate"
+                  target="_blank" novalidate>
+               <h4>Sign up for the Beta</h4>
+
+               <input type="email" value="" name="EMAIL" class="email input-block-level" id="mce-EMAIL"
+                      placeholder="email address" required>
+
+               <div>
+                  <input type="submit" value="Sign Up" name="subscribe" id="mc-embedded-subscribe"
+                         class="btn btn-inverse">
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+
+   <% } else { %>
+
+   <div class="row center">
       <h1><%= profile.fullname %></h1>
 
-    <div class="span10 offset1">
-      <% if (profile) { %>
-        <div id="values" class="center">
-          <img class="img-prof img-circle" id="imgProf" src="<%= profile.image %>" />
-          <h3><%= profile.email %></h3>
-          <h4><%= profile.bio %></h4>
-          <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
+      <div class="span12">
+         <% if (profile) { %>
+         <div id="values" class="center">
+            <img class="img-prof img-circle" id="imgProf" src="<%= profile.image %>"/>
 
-        </div>
-      <% } %>
+            <h3><%= profile.email %></h3>
+            <h4><%= profile.bio %></h4>
 
-    <% if(!this.options.grat) {%>
-      <div class="">
-        <div>
-          <h2>Photo</h2>
-          <input type="file" name="input_name" id="file" class="hide ie_show" />
-          <div class="input-append ie_hide">
-            <input id="pretty-input" class="input-large" type="text" />
-            <a class="btn btn-inverse" onclick="$('input[id=file]').click();">Browse</a>
-          </div>
+            <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
+         </div>
+         <% } %>
 
-          <h2>Full name</h2>
-          <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>" placeholder="Arthur Dent" />
+         <% if(!this.options.grat) {%>
+         <div>
+            <h2>Photo</h2>
+            <input type="file" name="input_name" id="file" class="hide ie_show"/>
 
-          <h2>Superhero Skills</h2>
-          <textarea id="bio" name="bio" rows="3" class="input-block-level" placeholder="I walk old ladies across streets."><%=profile.bio%></textarea>
-        </div>
+            <div class="input-append ie_hide">
+               <input id="pretty-input" class="input-large" type="text"/>
+               <a class="btn btn-inverse" onclick="$('input[id=file]').click();">Browse</a>
+            </div>
 
-        <div id="submit">
-          <button id="save" class="btn btn-large btn-block btn-inverse">Save</button>
-          <div id="info" class="hide text-success center"></div>
-        </div>
+            <h2>Full name</h2>
+            <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>"
+                   placeholder="Arthur Dent"/>
+
+            <h2>Superhero Skills</h2>
+            <textarea id="bio" name="bio" rows="3" class="input-block-level"
+                      placeholder="I walk old ladies across streets."><%=profile.bio%></textarea>
+         </div>
+
+         <div id="submit">
+            <button id="save" class="btn btn-large btn-block btn-inverse">Save</button>
+            <div id="info" class="hide text-success center"></div>
+         </div>
+         <% } %>
       </div>
-      <% } %>
+
+   </div>
 
 
-    </div>
+   <% } %>
 
-
-    <% } %>
-  
-  </div>
+</div>
 </div>

@@ -1,28 +1,30 @@
 ﻿
 
   <div class="row">
-    <a href="#" class="nav pull-left"><img src="/img/gratzi-infinity-no-grad.svg" alt="Gratzi Home" id="homeButton"></a>
+    <a href="#" class="nav pull-left"><img src="/img/gratzi-infinity.svg" alt="Gratzi Home" id="homeButton"><h1>GratZi</h1></a>
     <ul class="nav nav-pills pull-left">
       <% if(localStorage.getItem('authenticated')) { %>
       <li id="create"><a href="#create">Create</a></li>
       <li id="view"><a href="#view">View</a></li>
       <% } else { %>
-      <li id="about"><a href="#about">About</a></li>
+<!--      <li id="about"><a href="#about">About</a></li>-->
       <% } %>
     </ul>
 
+     <ul class="nav nav-pills pull-right">
     <% if(localStorage.getItem('authenticated')) { %>
-    <p class="navbar-text pull-right">
+
       <% if(profile) { %>
         <!--<a href="#profile" id="fullname"><%= profile.fullname %></a>-->
       <% } else { %>
         <!--<a href="#profile" id="username"><%= localStorage.getItem("username") %></a>-->
       <% } %>
-        <a href="#profile" id="profile">Profile</a>
-    </p>
+        <li><a href="#profile" id="profile">Profile</a></li>
+
     <% } else { %>
-    <!--<p class="navbar-text pull-right"><a href="#signin" id="login">Login</a></p>-->
+      <li><a href="#signin" id="login">Login</a></li>
     <% } %>
+     </ul>
 
   </div>
 

@@ -8,7 +8,8 @@ gratzi.ProfileView = Backbone.View.extend({
     "click #logout": "logout",
     "click #dropbox": "authDropBox",
     "click #save": "saveProfile",
-    "change input": "pickFile"
+    "change #file": "pickFile",
+     "click #betaCode-submit": "checkCode"
   },
 
   initialize: function () {
@@ -58,6 +59,8 @@ gratzi.ProfileView = Backbone.View.extend({
     $(this.el).html(this.template({ gitAuthUrl: gitAuthUrl, profile: profile }));
 
     return this;
+
+
 
   },
 
@@ -160,6 +163,28 @@ gratzi.ProfileView = Backbone.View.extend({
       });
 
     });
+
+
+  },
+
+  checkCode: function(){
+     var codes = gratzi.Client.betaCodes.split(','), found;
+     _.each(codes, function(code){
+        if(code == $("#betaCode").val()){
+           found = code;
+        }
+     });
+
+     if(found){
+        $("#divDB").show();
+        $("#betaCode").hide();
+        $("#betaCode-submit").hide();
+        $("#fail").hide();
+     }
+     else {
+        $("#fail").show().html("Invalid code.");
+
+     }
 
 
   },

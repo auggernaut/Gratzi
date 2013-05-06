@@ -12,11 +12,13 @@ gratzi.Client = {
    createdByUrl: "http://www.datacosmos.com",
    createdByBlog: "http://blog.gratzi.org",
    createdByTwitter: "http://twitter.com/gratziorg",
+   createdByFacebook: "http://facebook.com/gratziorg",
+   createdByGPlus: "https://plus.google.com/u/0/b/106872788528219610178/106872788528219610178",
    year: "2013",
    gitRepo: "http://github.com/auggernaut/gratzi",
    gitClientId: "bbee6e8255728de31711",
-   url: "http://www.gratzi.org"
-
+   url: "http://www.gratzi.org",
+   betaCodes: "IIW16"
 };
 
 gratzi.Server = {

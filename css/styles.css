@@ -2,6 +2,7 @@
     /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
     font-size: 16px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
 }
 
 input[type='text'], input[type='number'], input[type='email'], textarea, select {
@@ -26,7 +27,6 @@ h1 {
 h2 {
 
     line-height: 25px;
-    font-size: 30px !important;
 }
 
 p {
@@ -51,7 +51,15 @@ a {
 
 .italics {
 font-style: italic;
+    font-weight: bold;
 }
+
+.btn {
+    font-size: 22px;
+    padding: 10px 10px;
+    margin-bottom: 20px;
+}
+
 
 #header {
     position: fixed;
@@ -67,10 +75,20 @@ font-style: italic;
 
 #header #homeButton {
     width: 60px;
+    vertical-align: top;
+}
+
+#header h1 {
+    font-size-adjust: 0.71;
+    font-size: 28px !important;
+    text-shadow: 0 1px 1px rgba(0,0,0,1);
+    color: #000;
+    display: inline;
+    margin-left: 10px;
 }
 
 #logoBig {
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
     z-index: -1;
 }
@@ -79,6 +97,13 @@ font-style: italic;
     margin: 2px 10px;
 
 }
+
+.logo-text {
+    font-family: 'Life Savers', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+/*    font-weight: bold;*/
+}
+
 
 .navbar-inner {
     -webkit-border-radius: initial;
@@ -156,17 +181,15 @@ font-style: italic;
     font-size-adjust: 0.71;
     font-weight: bold;
     font-style: normal;
-    font-size: 70px !important;
-    line-height: 1;
-    text-shadow: 0 3px 3px rgba(0,0,0,.4);
-    margin-bottom: 30px;
+    font-size: 50px !important;
+    line-height: 1.2;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+
 }
 
 .home h2 {
-    font-size: 48px;
-    font-weight: 100;
+    font-size: 40px;
     line-height: 1.2;
-    margin: 50px 0px;
 }
 
 .home h3 {
@@ -186,10 +209,7 @@ font-style: italic;
 }
 
 .home .btn {
-    font-size: 22px;
-    padding: 10px 10px;
     width: 180px;
-    margin-bottom: 20px;
 }
 
 .home .about {
@@ -198,20 +218,31 @@ font-style: italic;
 }
 
 .home #mc_embed_signup {
-
+    margin-top: 50px;
 }
 
-.home #mc_embed_signup .email {
+#mc_embed_signup .email {
     height: 40px;
     max-width: 220px;
     text-align: center;
+
 }
 
 
 .home #tagline {
-    margin: 60px 0px;
-    font-size: 35px;
+    margin-bottom: 20px;
+    font-size: 25px;
 }
+
+.home .band {
+    background-color: #fcfcfc;
+    padding: 20px;
+    background: url("../img/pbnj-crop.gif") no-repeat;
+    height: 550px;
+    background-position:center;
+    padding-top: 100px;
+}
+/*
 
 .home .mb-wrap {
     padding: 20px;
@@ -238,7 +269,9 @@ font-style: italic;
 
     margin-top: 100px;
     padding-top: 100px;
-/*    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);*/
+*/
+/*    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);*//*
+
 
     border-radius: 50%;
 }
@@ -265,14 +298,16 @@ font-style: italic;
     left: 50%;
     top: -90px;
     margin: 0 0 0 -90px;
+*/
 /*    box-shadow:
         inset 1px 1px 4px rgba(0,0,0,0.5),
-        0 2px 3px rgba(0,0,0,0.6);*/
+        0 2px 3px rgba(0,0,0,0.6);*//*
+
 }
 
 .home .mb-style .mb-thumb.becca{
     border: 10px solid rgba(119,196,243, 0.5);
-     background: url(../img/becca-face.gif) no-repeat center center;
+     background: url(../img/becca-face-2.gif) no-repeat center center;
  }
 
 .home .mb-style .mb-thumb.augustin{
@@ -289,7 +324,9 @@ font-style: italic;
 .home .mb-style blockquote:before{
     left: 10px;
     font-size: 70px;
-    content: '\275d';
+*/
+/*    content: '\275d';*//*
+
 }
 
 
@@ -298,17 +335,19 @@ font-style: italic;
     font-style: italic;
     padding: 10px 10px 20px 10px;
     text-align: center;
+*/
 /*    margin: 10px 0 20px 0;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);*/
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);*//*
+
 }
 
 .home .mb-style.grat blockquote p {
-    font-size: 35px;
+    font-size: 45px;
     line-height: 61px;
 }
 
 .home .mb-style.zi blockquote p {
-    font-size: 25px;
+    font-size: 45px;
 }
 
 .home .mb-style .mb-attribution {
@@ -326,7 +365,14 @@ font-style: italic;
     color: #1b1c1d;
     text-shadow: 0 1px rgba(255,255,255,0.1);
     line-height: 25px;
+    padding-right: 30px;
 }
+
+.home .mb-style cite{
+    color: #1b1c1d;
+    padding-right: 30px;
+}
+*/
 
 
 /*ABOUT
@@ -473,13 +519,13 @@ font-style: italic;
 }
 
 .create #zImage {
-    border: 5px solid #7D6CB0;
+    border: 7px solid #7D6CB0;
     min-height: 200px;
     min-width: 200px;
 }
 
 .create #gImage {
-    border: 10px solid rgba(119,196,243, 0.5);
+    border: 7px solid #77C4F3;
     float: right;
     min-height: 200px;
     min-width: 200px;
@@ -638,6 +684,33 @@ font-style: italic;
 .profile #imgProf {
     border: 5px solid #7D6CB0;
 
+}
+
+/*LOGIN
+---------------------------------------------------*/
+
+.profile #betaCode {
+    height: 40px;
+    max-width: 220px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+
+.profile .band {
+    background-color: #fcfcfc;
+    padding-top: 100px;
+    height: 300px;
+}
+
+.profile .btn {
+
+    width: 190px;
+}
+.border-right {
+    border-right: 1px solid #b3b3b3;
 }
 
 
