@@ -48,10 +48,12 @@ function ziCallback(json) {
    $('#btnPickImg').hide();
    localStorage.setItem("cbZi", JSON.stringify(json));
 
+   var gLink = json.grat;
+   var index = gLink.lastIndexOf("/");
+   var gFileName = gLink.substr(index + 1);
+
    if (localStorage.getItem('authenticated')) {
-      var gLink = json.grat;
-      var index = gLink.lastIndexOf("/");
-      var gFileName = gLink.substr(index + 1);
+
       $('#sendForm').hide();
       //$('#auth').hide();
       $('#grat').show();
@@ -68,6 +70,8 @@ function ziCallback(json) {
    else {
       $('#grat').hide();
       //$('#auth').show();
+      $('#gName').append("Login to view Grat.");
+
    }
 
 

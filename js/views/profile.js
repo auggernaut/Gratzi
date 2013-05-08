@@ -148,7 +148,7 @@ gratzi.ProfileView = Backbone.View.extend({
       var codes = gratzi.Client.betaCodes.split(','), found;
       _.each(codes, function (code) {
          if (code.trim() == $("#betaCode").val()) {
-            found = code;
+            found = code.trim();
          }
       });
 
@@ -158,6 +158,13 @@ gratzi.ProfileView = Backbone.View.extend({
          $("#betaCode-submit").hide();
          $("#fail").hide();
          ga('set', 'dimension1', found);   //BetaCode custom dimension in Google Analytics
+         ga('send', {
+            'hitType': 'event',
+            'eventCategory': 'button',
+            'eventAction': 'click',
+            'eventLabel': 'CodeLogin',
+            'eventValue': found
+         });
       }
       else {
          $("#fail").show().html("Invalid code.");
