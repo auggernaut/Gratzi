@@ -74,5 +74,24 @@ if (gitMatch) {
    });
 }
 
+//from profile.js
+if (this.options && this.options.grat) {
+   //Load profile from Grat
+   var grat = JSON.parse(JSON.parse(localStorage.getItem("grats"))[this.options.grat]);
+
+   profile.email = grat.sender.email;
+   profile.fullname = grat.sender.fullname;
+   profile.bio = grat.sender.bio;
+   profile.image = grat.sender.image;
+
+}
 
 
+
+/*    <p>
+Choose where your profile and Gratzi's will be saved:
+</p>-->
+<!--    <p>
+<a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
+</a>
+</p>*/

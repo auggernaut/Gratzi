@@ -58,7 +58,7 @@ gratzi.CreateView = Backbone.View.extend({
                //Facebook message recipient
                FB.ui({
                      method: 'send',
-                     name: 'Click to receive your Grat!',
+                     name: 'Receive the gratitude!',
                      link: gratLink,
                      to: fId
                   },
@@ -82,8 +82,8 @@ gratzi.CreateView = Backbone.View.extend({
                var email = {
                   "to": newGrat.recipient.email,
                   "from": newGrat.sender.email,
-                  "subject": newGrat.sender.fullname + " has sent you a Gratzi!",
-                  "message": "You recieved a Gratzi!<br/><br/>" +
+                  "subject": newGrat.sender.fullname + " sent you gratitude!",
+                  "message": "You recieved a Grat!<br/><br/>" +
                      "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
                      "<a href='" + gratLink + "' style='color: #fff; text-decoration: none;'>Click to view and save!</a></td></tr></table>"
                };
@@ -101,15 +101,16 @@ gratzi.CreateView = Backbone.View.extend({
                         //gratzi.Store.loadGratzi(function () {
                         //  window.location.href = "/#view";
                         //});
-                     }
-                     else {
-                        $('#fail').show().html("Failed to email.");
+                        $createBtn.removeAttr("disabled");
+                        $createBtn.html("Create");
                      }
 
+                  }, "json").fail(function(error){
+                     $('#fail').show().html("Failed to email.");
                      $createBtn.removeAttr("disabled");
                      $createBtn.html("Create");
-
-                  }, "json");
+                     console.log(error);
+                  });
             }
 
          });

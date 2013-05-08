@@ -1,7 +1,9 @@
 ﻿
 
   <div class="row">
-    <a href="#" class="nav pull-left"><img src="/img/gratzi-infinity.svg" alt="Gratzi Home" id="homeButton"><h1>GratZi</h1></a>
+    <a href="#" class="nav pull-left" id="home">
+       <img src="/img/gratzi-infinity.svg" alt="Gratzi Home" id="homeButton"><span class="logo-text" id="homelink">GratZi</span>
+    </a>
     <ul class="nav nav-pills pull-left">
       <% if(localStorage.getItem('authenticated')) { %>
       <li id="create"><a href="#create">Create</a></li>

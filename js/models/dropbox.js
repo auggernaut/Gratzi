@@ -248,8 +248,9 @@
             if (error) {
                callback(showError(error), null);
             }
-            else
+            else {
                callback(JSON.parse(stat.replace(type + "Callback(", "").replace(")", "")));
+            }
 
          });
 
@@ -299,13 +300,14 @@
 
       logout: function () {
          console.log("Logging out.");
-         localStorage.removeItem("username");
-         localStorage.removeItem("userId");
+/*         localStorage.removeItem("username");
+         localStorage.removeItem("userid");
+         localStorage.removeItem("email");
          localStorage.removeItem('authenticated');
          localStorage.removeItem('profile');
          localStorage.removeItem('grats');
-         localStorage.removeItem('zis');
-         //localStorage.clear();
+         localStorage.removeItem('zis');*/
+         localStorage.clear();
       }
 
    };

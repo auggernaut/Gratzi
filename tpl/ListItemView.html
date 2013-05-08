@@ -25,7 +25,11 @@
                <p class="tags zTags"><%=zi.tags %></p>
                 <!-- <span class="arrow-left"><img src="../img/left-arrow.png" /></span> -->
                 <% } else { %>
-                <p class="name gName"><%=grat.recipient.fullname %></p>
+                  <% if(grat.recipient.fullname) { %>
+                     <p class="name gName"><%=grat.recipient.fullname %></p>
+                  <% } else { %>
+                     <p class="name gName"><%=grat.recipient.email %></p>
+                  <% } %>
                 <!-- TODO: check it fullname is null, true = use email -->
 
                 <p class="message zMessage">No reply.</p>

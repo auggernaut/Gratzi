@@ -56,7 +56,6 @@ gratzi.Router = Backbone.Router.extend({
          'page': '/#',
          'title': 'Home'
       });
-      //Backbone.history.getFragment();
 
       // Since the home view never changes, we instantiate it and render it only once
       var dropBoxMatch;
@@ -68,7 +67,6 @@ gratzi.Router = Backbone.Router.extend({
       }
 
       $('#header').html(new gratzi.HeaderView().el);
-      //$("#home").addClass("active");
 
       dropBoxMatch = window.location.href.match(/\&dboauth_token=([a-z0-9]*)/);
 
@@ -80,8 +78,8 @@ gratzi.Router = Backbone.Router.extend({
          gratzi.Store.auth(function (error, profile) {
             if (error === "404") {
                console.log("No Profile found. ");
-               //window.location.href = "/#profile";
-               Backbone.history.navigate("#create");
+               window.location.href = "/#profile";
+               //Backbone.history.navigate("#profile");
             }
             else if (error) {
                console.log("Error with gratzi.Store.auth" + error);
@@ -143,12 +141,7 @@ gratzi.Router = Backbone.Router.extend({
       //?loc=' + params.loc
 
       $('#header').html(new gratzi.HeaderView().el);
-
-//      if (localStorage.getItem('replyLink'))
-//         $('#content').html(new gratzi.ReplyView({ "replyLink": localStorage.getItem('replyLink') }).el);
-//      else if (params)
       $('#content').html(new gratzi.ReplyView(params).el);
-
       $('#footer').html(new gratzi.FooterView().el);
    },
 
@@ -160,11 +153,10 @@ gratzi.Router = Backbone.Router.extend({
       });
 
       $('#header').html(new gratzi.HeaderView().el);
-
       $('#content').html(new gratzi.ListView().el);
-      $("#view").addClass("active");
-
       $('#footer').html(new gratzi.FooterView().el);
+
+      $("#view").addClass("active");
 
    },
 
@@ -184,9 +176,10 @@ gratzi.Router = Backbone.Router.extend({
       }
 
       $('#header').html(new gratzi.HeaderView().el);
-      $("#about").addClass("active");
       $('#content').html(this.aboutView.el);
       $('#footer').html(new gratzi.FooterView().el);
+
+      $("#about").addClass("active");
    },
 
 

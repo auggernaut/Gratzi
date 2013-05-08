@@ -45,6 +45,7 @@ function ziCallback(json) {
    $('#zMessage').append(json.message);
    $('#zTags').append(json.tags);
    $('#zImage').attr("src", json.sender.image);
+   $('#btnPickImg').hide();
    localStorage.setItem("cbZi", JSON.stringify(json));
 
    if (localStorage.getItem('authenticated')) {
@@ -85,7 +86,7 @@ gratzi.ReplyView = Backbone.View.extend({
    },
 
    initialize: function () {
-      console.log('Initializing Gratzi View');
+      console.log('Initializing Reply View');
       this.render();
 
    },
@@ -119,10 +120,11 @@ gratzi.ReplyView = Backbone.View.extend({
             console.log("Auth returned: " + jProf);
             localStorage.setItem("profile", jProf);
             //window.location.href = "/#create";
+            window.location.reload();
          }
          else if (error == "404") {
             console.log("No Profile found. ");
-            //window.location.href = "/#profile";
+            window.location.href = "/#profile";
          } else {
             console.log("Auth failed: " + error);
          }
@@ -142,8 +144,6 @@ gratzi.ReplyView = Backbone.View.extend({
       //Get Grat
       var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
 
-      var sender = { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": $("#zImage").attr("src") };
-
       //Store Grat
       gratzi.Store.addGrat(cbGrat, function (gPath) {
 
@@ -152,8 +152,7 @@ gratzi.ReplyView = Backbone.View.extend({
             "version": "0.1",
             "type": "zi",
             "recipient": cbGrat.sender,
-            //"url": profile.url,
-            "sender": sender,
+            "sender": { "type": "gratzi", "fullname": profile.fullname, "email": profile.email, "bio": profile.bio, "image": $("#zImage").attr("src") },
             "grat": utils.b64_to_utf8(localStorage.getItem("loc")),
             "message": $('#response').val().split(')').join("&#41;"),  //replace all occurences of )
             "tags": $('#tags').val().split(')').join("&#41;")  //replace all occurences of )
@@ -174,8 +173,8 @@ gratzi.ReplyView = Backbone.View.extend({
                var email = {
                   "to": newZi.recipient.email,
                   "from": newZi.sender.email,
-                  "subject": profile.fullname + " has completed your Gratzi!",
-                  "message": "You recieved a Zi!<br/><br/>" +
+                  "subject": profile.fullname + " accepted your gratitude!",
+                  "message": "You and " + profile.fullname + " completed a GratZi!<br/><br/>" +
                      "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
                      ziLink + "</td></tr></table>"
 
@@ -192,13 +191,19 @@ gratzi.ReplyView = Backbone.View.extend({
                         $('#zTags').html($('#tags').val());
 
                         $('#sendForm').hide();
+                        $("#btnPickImg").hide();
 
                         //window.location.href = "/#view?zi=" + url;
                         //gratzi.Store.loadGratzi(function () {
                         //window.location.href = "/#view";
                         //});
                      }
-                  }, "json");
+                  }, "json").fail(function(error){
+                     $('#fail').show().html("Failed to email.");
+                     $btnSend.removeAttr("disabled");
+                     $btnSend.html("Send");
+                     console.log(error);
+                  });
 
 
 

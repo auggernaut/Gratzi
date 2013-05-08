@@ -6,13 +6,7 @@
 
       <h3><span class="logo-text">GratZi</span> is still in beta.</h3>
    </div>
-   <!--      <p>
-       Choose where your profile and Gratzi's will be saved:
-     </p>-->
-   <!--    <p>
-     <a class="btn-auth btn-github large" href="<%= gitAuthUrl %>"><b>GitHub</b>
-     </a>
-   </p>-->
+
    <div class="row center band">
       <div class="span6">
          <div class="border-right">
@@ -49,25 +43,32 @@
    </div>
 
    <% } else { %>
-
+   <div class="pad">
+      <h1>GratZi</h1>
+      <p class="tagline">Complete gratitude.</p>
+   </div>
    <div class="row">
-      <h1><%= profile.fullname %></h1>
 
-      <div class="span12">
-         <% if (profile) { %>
+
+      <div class="span8 offset2">
+         <% if (profile.email) { %>
+         <!--Profile already created-->
          <div id="values" class="center">
             <img class="img-prof img-circle" id="imgProf" src="<%= profile.image %>"/>
-
+            <h2><%= profile.fullname %></h2>
             <h3><%= profile.email %></h3>
             <h4><%= profile.bio %></h4>
 
             <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
          </div>
+         <% } else { %>
+         <!--Profile doesn't exist yet-->
+            <h3>Welcome to <span class="logo-text">GratZi</span>!</h3>
+            <p>First, fill out your profile so your friends know who's thanking them:</p>
          <% } %>
 
-         <% if(!this.options.grat) {%>
-         <div>
-            <h2>Photo</h2>
+         <div class="zup">
+            <h4>Photo</h4>
             <input type="file" name="input_name" id="file" class="hide ie_show"/>
 
             <div class="input-append ie_hide">
@@ -75,11 +76,11 @@
                <a class="btn btn-inverse" onclick="$('input[id=file]').click();">Browse</a>
             </div>
 
-            <h2>Full name</h2>
+            <h4>Full name</h4>
             <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>"
                    placeholder="Arthur Dent"/>
 
-            <h2>Superhero Skills</h2>
+            <h4>Superhero Skills</h4>
             <textarea id="bio" name="bio" rows="3" class="input-block-level"
                       placeholder="I walk old ladies across streets."><%=profile.bio%></textarea>
          </div>
@@ -88,7 +89,7 @@
             <button id="save" class="btn btn-large btn-block btn-inverse">Save</button>
             <div id="info" class="hide text-success center"></div>
          </div>
-         <% } %>
+
       </div>
 
    </div>
