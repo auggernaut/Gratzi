@@ -277,7 +277,7 @@
                            showError(error);  // Something went wrong.
                            callback(files);
                         }
-                        console.log("Got file: " + stat);
+                        console.log("Got file: " + fileStats[index].name);
                         files[fileStats[index].name] = stat.replace(filepart + "Callback(", "").replace(")", "");
                         counter++;
 
@@ -305,7 +305,7 @@
          localStorage.removeItem('profile');
          localStorage.removeItem('grats');
          localStorage.removeItem('zis');
-         localStorage.clear();
+         //localStorage.clear();
       }
 
    };
