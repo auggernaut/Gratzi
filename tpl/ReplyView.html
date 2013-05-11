@@ -34,13 +34,14 @@
 
    <div class="row">
       <div id="gForm" class="span6 offset3">
-         <% if(localStorage.getItem('authenticated')) { %>
          <div id="sendForm" class="fields">
             <input type="text" id="fullname" name="fullname" class="input-block-level" value="" placeholder="Name"/>
             <textarea id="response" name="response" rows="3" class="input-block-level"
                       placeholder="You're welcome!"></textarea>
 
+            <% if(localStorage.getItem('authenticated')) { %>
             <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
+            <% } %>
 
             <div id="submit">
                <button id="btnSend" class="btn btn-large btn-block btn-inverse">Send Zi</button>
@@ -51,11 +52,7 @@
             <button id="btnSave" class="btn btn-large btn-block btn-inverse">Save</button>
          </div>
          <div id="info" class="hide text-success center"></div>
-         <% } else { %>
-         <p class="center">
-            <a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
-         </p>
-         <% } %>
+
       </div>
 
       <div class="span3 zup">

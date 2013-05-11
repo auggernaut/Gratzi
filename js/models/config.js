@@ -17,12 +17,14 @@ gratzi.Client = {
    year: "2013",
    gitRepo: "http://github.com/auggernaut/gratzi",
    gitClientId: "bbee6e8255728de31711",
-   url: "http://www.gratzi.org",
+   //url: "http://www.gratzi.org",
+   url: "http://localhost:8888",
    betaCodes: "IIW16, Core"
 };
 
 gratzi.Server = {
-   url: "http://mighty-plateau-1604.herokuapp.com",
+   //url: "http://mighty-plateau-1604.herokuapp.com",
+   url: "http://localhost:9999",
    emailFrom: "augustin@gratzi.org"
 }
 
