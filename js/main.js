@@ -1,3 +1,5 @@
+/*global Backbone, utils, Gratzi, ga, git, drop */
+
 Gratzi.Router = Backbone.Router.extend({
 
    routes: {
@@ -12,7 +14,7 @@ Gratzi.Router = Backbone.Router.extend({
    },
 
    initialize: function () {
-
+      "use strict";
       //Set Gratzi.Store
       Gratzi.Store = function () {
          var authed = localStorage.getItem('authenticated');
@@ -30,7 +32,7 @@ Gratzi.Router = Backbone.Router.extend({
 
 
       //Do/Redo Auth
-      if (Gratzi.Store) {
+      if(Gratzi.Store){
          Gratzi.Store.auth(function (error, profile) {
 
             if (error) {
@@ -39,8 +41,7 @@ Gratzi.Router = Backbone.Router.extend({
                window.location.href = "/#";
                return;
             } else {
-               //var jProf = JSON.stringify(profile);
-               //localStorage.setItem("profile", jProf);
+               localStorage.setItem("profile", JSON.stringify(profile));
                console.log("Loaded Profile");
                //window.location.href = "/#create";
                //Backbone.history.navigate("#");
@@ -49,9 +50,11 @@ Gratzi.Router = Backbone.Router.extend({
          });
       }
 
+
    },
 
    home: function () {
+      "use strict";
       ga('send', 'pageview', {
          'page': '/#',
          'title': 'Home'
@@ -93,7 +96,7 @@ Gratzi.Router = Backbone.Router.extend({
                   window.location.href = "#reply?loc=" + localStorage.getItem('loc');
                else
                   window.location.href = "/#create";
-                  //Backbone.history.navigate("#create");
+               //Backbone.history.navigate("#create");
             }
          });
 
@@ -108,13 +111,13 @@ Gratzi.Router = Backbone.Router.extend({
    },
 
    create: function () {
-
       "use strict";
+
       $('#header').html(new Gratzi.HeaderView().el);
       $("#create").addClass("active");
 
       //Is the user logged in?
-      if (localStorage.getItem('profile')){
+      if (localStorage.getItem('profile')) {
          ga('send', 'pageview', {
             'page': '/#create',
             'title': 'Create'
@@ -132,6 +135,7 @@ Gratzi.Router = Backbone.Router.extend({
    },
 
    reply: function (params) {
+      "use strict";
 
       ga('send', 'pageview', {
          'page': '/#reply',
@@ -146,6 +150,7 @@ Gratzi.Router = Backbone.Router.extend({
    },
 
    view: function () {
+      "use strict";
 
       ga('send', 'pageview', {
          'page': '/#view',
@@ -161,6 +166,7 @@ Gratzi.Router = Backbone.Router.extend({
    },
 
    about: function () {
+      "use strict";
 
       ga('send', 'pageview', {
          'page': '/#about',
@@ -184,6 +190,7 @@ Gratzi.Router = Backbone.Router.extend({
 
 
    profile: function (params) {
+      "use strict";
 
       ga('send', 'pageview', {
          'page': '/#profile',
@@ -200,6 +207,8 @@ Gratzi.Router = Backbone.Router.extend({
 //templateLoader function defined in utils.js
 utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
    function () {
+      "use strict";
+
       app = new Gratzi.Router();
       Backbone.history.start();
    });
@@ -207,12 +216,15 @@ utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ReplyView", "
 
 //FACEBOOK JAVSCRIPT API STUFFS
 window.fbAsyncInit = function () {
+   "use strict";
 
    FB.init({ appId: '295452973919932', status: true, cookie: false, xfbml: false, oauth: true });
 
 };
 
 (function () {
+   "use strict";
+
    var e = document.createElement('script');
    e.async = true;
    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';

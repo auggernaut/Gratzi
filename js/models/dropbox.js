@@ -20,7 +20,7 @@ var drop = drop || {};
 
          if (localStorage.getItem('authenticated')) {
             //Already authenticated
-            dropbox.authenticate({ interactive: false }, function (error, db) {
+            dropbox.authenticate({ interactive: false }, function (error) {
                if (error) {
                   console.log("Error authenticating: " + error);
                   callback(showError(error), null);
@@ -34,7 +34,7 @@ var drop = drop || {};
 
          else {
             //Not yet authenticated
-            dropbox.authenticate({ interactive: true }, function (error, db) {
+            dropbox.authenticate({ interactive: true }, function (error) {
                if (error) {
                   console.log("Error authenticating: " + error);
                   callback(showError(error), null);
@@ -79,7 +79,7 @@ var drop = drop || {};
                var profile = JSON.parse(stat);
 
                //Get public link to profile image
-               //TODO: move this to saveMyProfile
+               //TODO: move this to saveProfile
                drop.getLink("/images/" + profile.image, function (imageURL) {
 
                   profile.image = imageURL;
