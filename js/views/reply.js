@@ -1,7 +1,9 @@
+/*global Backbone, Gratzi, _, ga, drop, email, utils, s3 */
+
 //*********************JSONP CALLBACKS***********************//
 
 function gratCallback(json) {
-
+   "use strict";
 
    $('#gName').append(json.sender.fullname);
    $('#gMessage').append(json.message);
@@ -16,9 +18,9 @@ function gratCallback(json) {
    //$('#zName').append(prof.fullname);
    //$('#zImage').attr("src", prof.image);
 
-   if (json.recipient.image)
+   if (json.recipient.image) {
       $('#zImage').attr('src', json.recipient.image);
-
+   }
 
    if (json.recipient.fullname) {
       // Grat created with Facebook photo
@@ -40,6 +42,7 @@ function gratCallback(json) {
 }
 
 function ziCallback(json) {
+   "use strict";
 
    $('#zName').append(json.sender.fullname);
    $('#zMessage').append(json.message);
@@ -58,7 +61,7 @@ function ziCallback(json) {
       //$('#auth').hide();
       $('#grat').show();
 
-      gratzi.Store.getFile(gFileName, function (file) {
+      Gratzi.Store.getFile(gFileName, function (file) {
          $('#gTo').append(file.sender);
          $('#gName').append(file.sender.fullname);
          $('#gMessage').append(file.message);
@@ -79,7 +82,7 @@ function ziCallback(json) {
 
 
 //*********************  REPLY   ***************************//
-gratzi.ReplyView = Backbone.View.extend({
+Gratzi.ReplyView = Backbone.View.extend({
 
    events: {
       "click #btnSend": "sendZi",
@@ -90,13 +93,13 @@ gratzi.ReplyView = Backbone.View.extend({
    },
 
    initialize: function () {
+      "use strict";
       console.log('Initializing Reply View');
       this.render();
-
    },
 
    render: function () {
-
+      "use strict";
       var cbScript, url;
 
       if (this.options && (this.options.loc)) {
@@ -115,10 +118,10 @@ gratzi.ReplyView = Backbone.View.extend({
    },
 
    authDropBox: function () {
+      "use strict";
 
-      gratzi.Store = drop;
-
-      gratzi.Store.auth(function (error, profile) {
+      Gratzi.Store = drop;
+      Gratzi.Store.auth(function (error, profile) {
          if (profile) {
             var jProf = JSON.stringify(profile);
             console.log("Auth returned: " + jProf);
@@ -126,162 +129,103 @@ gratzi.ReplyView = Backbone.View.extend({
             //window.location.href = "/#create";
             window.location.reload();
          }
-         else if (error == "404") {
+         else if (error === "404") {
             console.log("No Profile found. ");
             window.location.href = "/#profile";
          } else {
             console.log("Auth failed: " + error);
          }
-
       });
 
    },
 
 
    sendZi: function () {
+      "use strict";
+
       var $btnSend = $("#btnSend");
+      var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
+      var sender, newZi;
+      var nameParts = $('#zName').html().split(" ");
 
       $btnSend.attr("disabled", "disabled");
       $btnSend.html("Sending...");
 
-      //Get Grat
-      var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
 
-      if (localStorage.getItem('authenticated')) {
-         //Send to Dropbox
-
-         //Store Grat
-         gratzi.Store.addGrat(cbGrat, function (gPath) {
-
-            var profile = JSON.parse(localStorage.getItem("profile"));
-            var newZi = {
-               "version": "0.1",
-               "type": "zi",
-               "recipient": cbGrat.sender,
-               "sender": { "type": "gratzi", "fullname": $('#zName').html(), "email": profile.email, "bio": profile.bio, "image": $("#zImage").attr("src") },
-               "grat": utils.b64_to_utf8(localStorage.getItem("loc")),
-               "message": $('#response').val().split(')').join("&#41;"),  //replace all occurences of )
-               "tags": $('#tags').val().split(')').join("&#41;")  //replace all occurences of )
-            };
-
-            if (localStorage.getItem("loc")) {
-               localStorage.removeItem("loc");
-            }
-
-            //Create Zi
-            gratzi.Store.addZi(newZi, function (zPath) {
-
-               //Get link to new Zi
-               gratzi.Store.getLink(zPath, function (url) {
-
-                  var ziLink = "<a href='" + gratzi.Client.url + "/#reply?loc=" + utils.utf8_to_b64(url) + "' style='color: #fff; text-decoration: none;'>Click to view and save!</a>";
-
-                  var email = {
-                     "to": newZi.recipient.email,
-                     "from": newZi.sender.email,
-                     "subject": profile.fullname + " accepted your gratitude!",
-                     "message": "You and " + profile.fullname + " completed a GratZi!<br/><br/>" +
-                        "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
-                        ziLink + "</td></tr></table>"
-
-                  };
-
-                  //Email Zi to recipient
-                  $.post(gratzi.Server.url + "/email", email,
-                     function (data) {
-                        if (data.token === "Success") {
-                           $btnSend.removeAttr("disabled");
-                           $btnSend.html("Send");
-                           $('#info').show().html("Zi sent!");
-                           $('#zMessage').html($('#response').val());
-                           $('#zTags').html($('#tags').val());
-
-                           $('#sendForm').hide();
-                           $("#btnPickImg").hide();
-
-                           //window.location.href = "/#view?zi=" + url;
-                           //gratzi.Store.loadGratzi(function () {
-                           //window.location.href = "/#view";
-                           //});
-                        }
-                     }, "json").fail(function (error) {
-                        $('#fail').show().html("Failed to email.");
-                        $btnSend.removeAttr("disabled");
-                        $btnSend.html("Send");
-                        console.log(error);
-                     });
-
-
-               });
-
-            });
-
-
-         });
-
-      } else {
-         //Send to AWS S3
-         var sender, newZi;
-
-         if (cbGrat.recipient.type == "email") {
-            sender = { "type": "gratzi", "fullname": $('#zName').html(), "email": cbGrat.recipient.email }
-         } else {
-            sender = { "type": "gratzi", "fullname": $("#zName").html(), "id": cbGrat.recipient.id, "image": $("#zImage").attr("src") };
-         }
-
-         newZi = JSON.stringify({
-            "version": "0.1",
-            "type": "zi",
-            "recipient": cbGrat.sender,
-            "sender": sender,
-            "grat": utils.b64_to_utf8(localStorage.getItem("loc")),
-            "message": $('#response').val().split(')').join("&#41;"),  //replace all occurences of )
-            /*"tags": $('#tags').val().split(')').join("&#41;")  //replace all occurences of )
-             */
-         });
-
-
-         $.ajax({
-            url: gratzi.Server.url + "/getS3Creds/zi.json",
-            dataType: "JSON",
-            success: function(res){
-               var fd = new FormData();
-               fd.append("key", "zis/zi_" + utils.getHash(newZi) );
-               fd.append("AWSAccessKeyId", res.s3Key);
-               fd.append("acl", "public-read");
-               //fd.append("success_action_redirect", gratzi.Client.url + "/#reply");
-               fd.append("policy", res.s3PolicyBase64);
-               fd.append("signature", res.s3Signature);
-               fd.append("Content-Type", res.s3Mime);
-
-               fd.append("file", newZi);
-
-               var xhr = new XMLHttpRequest();
-
-               xhr.open("POST", "https://gratzi.s3.amazonaws.com/");
-               xhr.onload = function () {
-                  //var url = JSON.parse(xhr.responseText);
-                  $('#zMessage').html(xhr.responseText);
-                  console.log(xhr.responseText);
-               }
-               xhr.send(fd);
-            },
-            error: function (res, status, error) {
-               console.log(error);
-               //do some error handling here
-            }
-          });
-
+      if (!localStorage.getItem('authenticated')) {
+         //If not logged in send to S3.
+         Gratzi.Store = s3;
       }
 
+      sender = new Gratzi.Profile(
+         cbGrat.recipient.userType,
+         nameParts[0],
+         nameParts[1],
+         cbGrat.recipient.username,
+         $("#zImage").attr("src")
+      );
 
+
+      newZi = new Gratzi.Zi(
+         sender.json,
+         cbGrat.sender,
+         localStorage.getItem("loc"),
+         $('#response').val(),
+         ""
+      );
+
+      //Save Grat
+      Gratzi.Store.saveJSONP(cbGrat, function (gPath) {
+
+         console.log("Grat stored: " + gPath);
+
+         //Save Zi
+         Gratzi.Store.saveJSONP(newZi.json, function (res) {
+
+            if (res === "Failure") {
+
+               $('#fail').show().html("Failed to save Zi.");
+               $btnSend.removeAttr("disabled");
+               $btnSend.html("Send");
+
+            } else {
+
+               //Get Public Link to new Zi
+               Gratzi.Store.getLink(res, function (url) {
+
+                  var ziLink = Gratzi.Servers.fileServer + "/#reply?loc=" + utils.utf8_to_b64(url);
+
+                  //Email Grat creator
+                  email.sendZi(newZi, ziLink, function (res) {
+                     if (res === "Success") {
+                        $btnSend.removeAttr("disabled");
+                        $btnSend.html("Send");
+                        $('#info').show().html("Zi sent!");
+                        $('#zMessage').html($('#response').val());
+                        $('#zTags').html($('#tags').val());
+
+                        $('#sendForm').hide();
+                        $("#btnPickImg").hide();
+                     }
+                     else {
+                        $('#fail').show().html("Failed to email Zi.");
+                        $btnSend.removeAttr("disabled");
+                        $btnSend.html("Send");
+                     }
+                  });
+
+               });
+            }
+
+         });
+      });
    },
 
 
    saveZi: function () {
+      "use strict";
 
       var $btnSave = $("#btnSave");
-
       $btnSave.attr("disabled", "disabled");
       $btnSave.html("Saving...");
 
@@ -290,13 +234,12 @@ gratzi.ReplyView = Backbone.View.extend({
       if (localStorage.getItem('authenticated')) {
 
          //Store Grat
-         gratzi.Store.addZi(cbZi, function (path) {
+         Gratzi.Store.saveJSONP(cbZi, function (path) {
             console.log("Zi stored: " + path);
             $('#saveForm').hide();
             $('#info').show().html("Zi Saved!");
-            //gratzi.Store.loadGratzi(function () {
-            //  window.location.href = "/#view";
-            //});
+
+            //TODO: add new grat to grats in localStorage
          });
 
       } else {
@@ -307,6 +250,7 @@ gratzi.ReplyView = Backbone.View.extend({
    },
 
    pickImage: function () {
+      "use strict";
 
       var $btnPick = $("#btnPickImg");
       $btnPick.attr("disabled", "disabled");
@@ -320,24 +264,28 @@ gratzi.ReplyView = Backbone.View.extend({
          return;
       }
 
-
-      gratzi.Store.addImage(file, file.name, function (path) {
-         $('#zImage').attr("src", path);
-         $btnPick.removeAttr("disabled");
-         $btnPick.html("Change Image");
+      Gratzi.Store.saveImage(file, file.name, function (path) {
          console.log("Image Uploaded: " + path);
+
+         Gratzi.Store.getLink(path, function (imgUrl) {
+            $('#zImage').attr("src", imgUrl);
+            $btnPick.removeAttr("disabled");
+            $btnPick.html("Change Image");
+
+         });
       });
    },
 
    uploadToImgur: function () {
-
-
+      "use strict";
 
       //ADD IMAGE
       //http://hacks.mozilla.org/2011/03/the-shortest-image-uploader-ever/
       var files = $('input[id = upImage]')[0].files;
       var file = files[0];
-      if (!file || !file.type.match(/image.*/)) return;
+      if (!file || !file.type.match(/image.*/)) {
+         return;
+      }
 
       var fd = new FormData();
       fd.append("image", file);
@@ -352,7 +300,7 @@ gratzi.ReplyView = Backbone.View.extend({
       xhr.onload = function () {
          var url = JSON.parse(xhr.responseText).data.link;
          $("#zImage").attr("src", url);
-      }
+      };
       xhr.send(fd);
 
    }

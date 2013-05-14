@@ -1,5 +1,5 @@
 ﻿html, body {
-    /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
+    /*background: url("/img/Gratzi-infinity.svg") no-repeat;*/
     font-size: 16px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
@@ -110,8 +110,8 @@ font-style: italic;
 
 
 .navbar-inner {
-    -webkit-border-radius: initial;
-    border-radius: initial;
+/*    -webkit-border-radius: initial;
+    border-radius: initial;*/
     box-shadow: 0 2px 4px #461973;
 }
 
@@ -123,6 +123,10 @@ font-style: italic;
 #content {
     min-height: 700px;
     margin-top: 60px;
+}
+
+.gMessage {
+    width: 75%;
 }
 
 /* Container
@@ -561,7 +565,7 @@ font-style: italic;
 }
 
 .create #gForm #or {
-    font-size: 20px/1.6;
+    font-size: 20px;
     font-weight: bold;
     margin: 0 5px;
 }
@@ -654,7 +658,7 @@ font-style: italic;
 }
 
 .reply #gForm #or {
-    font-size: 20px/1.6;
+    font-size: 20px;
     font-weight: bold;
     margin: 0 5px;
 }

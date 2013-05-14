@@ -16,7 +16,7 @@ git = {
 
   authenticate: function (code, callback) {
 
-    $.getJSON(gratzi.Server.url + '/authenticate/' + code, function (data) {
+    $.getJSON(Gratzi.Servers.url + '/authenticate/' + code, function (data) {
 
       if (data.token) {
         $.cookie('oauth-token', data.token);
@@ -111,7 +111,7 @@ git = {
     $.cookie("avatar", null);
     $.cookie('authenticated', null);
     window.location.href = "/#";
-  },
+  }
 
 
 }

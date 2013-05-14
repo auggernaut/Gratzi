@@ -1,6 +1,8 @@
+/*global Backbone, Gratzi, _, ga, drop */
+
 //************************    PROFILE    *************************//
 
-gratzi.ProfileView = Backbone.View.extend({
+Gratzi.ProfileView = Backbone.View.extend({
 
    events: {
       "click #logout": "logout",
@@ -11,12 +13,13 @@ gratzi.ProfileView = Backbone.View.extend({
    },
 
    initialize: function () {
+      "use strict";
       console.log('Initializing ProfileView');
       this.render();
    },
 
    render: function () {
-
+      "use strict";
       if (localStorage.getItem('authenticated')) {
 
          //Load logged in user profile
@@ -39,17 +42,17 @@ gratzi.ProfileView = Backbone.View.extend({
    },
 
    authDropBox: function () {
+      "use strict";
+      Gratzi.Store = drop;
 
-      store = drop;
-
-      store.auth(function (error, profile) {
+      Gratzi.Store.auth(function (error, profile) {
          if (profile) {
             var jProf = JSON.stringify(profile);
             console.log("Auth returned: " + jProf);
             localStorage.setItem("profile", jProf);
             window.location.href = "/#create";
          }
-         else if (error == "404") {
+         else if (error === "404") {
             console.log("No Profile found. ");
             window.location.reload();
          } else {
@@ -61,62 +64,39 @@ gratzi.ProfileView = Backbone.View.extend({
    },
 
    pickFile: function (e) {
+      "use strict";
       $('#pretty-input').val($('input[id = file]').val().replace("C:\\fakepath\\", ""));
    },
 
    saveProfile: function () {
-
+      "use strict";
       var $save = $("#save");
-
       $save.attr("disabled", "disabled");
       $save.html("Saving...");
 
+      //Save Image
+      var files = $('input[id = upImage]')[0].files;
+      var file = files[0];
+      if (!file || !file.type.match(/image.*/)){ return; }
+      Gratzi.Store.saveImage(file, file.name, function (path) {
+         console.log("Image Uploaded: " + path);
+      });
 
-      //ADD IMAGE
-      //http://www.html5rocks.com/en/tutorials/file/dndfiles/
-      var files = $('input[id = file]')[0].files; // FileList object
-      var fileName = $('#pretty-input').val();
+      //Create Profile
+      var nameParts = $('#fullname').html().split(" ");
+      var newProfile = new Gratzi.Profile(
+         Gratzi.Store.storeType,
+         localStorage.getItem("email"),
+         nameParts[0],
+         nameParts[1],
+         file.name
+      );
 
-      // Loop through the FileList
-      for (var i = 0, f; f = files[i]; i++) {
-         // Only process image files.
-         if (!f.type.match('image.*')) {
-            continue;
-         }
-
-         var reader = new FileReader();
-         // Closure to capture the file information.
-         reader.onload = (function (theFile) {
-            fileName = theFile.name;
-            return function (e) {
-
-               gratzi.Store.addImage(e.target.result, theFile.name, function (path) {
-                  console.log("Image Uploaded: " + path);
-               });
-
-            };
-         })(f);
-
-         reader.readAsArrayBuffer(f);
-      }
-
-
-      //SAVE NEW PROFILE
-      var newProfile = {
-         "userid": localStorage.getItem("userId"),
-         "email": localStorage.getItem("email"),
-         "fullname": $('#fullname').val(),
-         "bio": $('#bio').val(),
-         "image": fileName,
-         "ui": gratzi.Client.url
-      }
-
-
-      gratzi.Store.saveMyProfile(newProfile, function (path) {
+      //Save Profile
+      Gratzi.Store.saveProfile(newProfile, function (path) {
          console.log("Profile Saved: " + path);
 
-
-         gratzi.Store.loadUser(function (error, profile) {
+         Gratzi.Store.loadUser(function (error, profile) {
 
             if (!error) {
                console.log("Profile Loaded: " + profile);
@@ -145,9 +125,10 @@ gratzi.ProfileView = Backbone.View.extend({
    },
 
    checkCode: function () {
-      var codes = gratzi.Client.betaCodes.split(','), found;
+      "use strict";
+      var codes = Gratzi.Client.betaCodes.split(','), found = false;
       _.each(codes, function (code) {
-         if (code.trim() == $("#betaCode").val()) {
+         if (code.trim() === $("#betaCode").val()) {
             found = code.trim();
          }
       });
@@ -175,7 +156,8 @@ gratzi.ProfileView = Backbone.View.extend({
    },
 
    logout: function () {
-      gratzi.Store.logout();
+      "use strict";
+      Gratzi.Store.logout();
       //window.location.href = "/#";
    }
 

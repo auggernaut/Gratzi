@@ -1,5 +1,5 @@
 ﻿html, body {
-  /*background: url("/img/gratzi-infinity.svg") no-repeat;*/
+  /*background: url("/img/Gratzi-infinity.svg") no-repeat;*/
   font-size: 16px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
@@ -164,7 +164,7 @@ p {
 
 
 #fields #or {
-   font-size: 20px/1.6;
+   font-size: 20px;
    font-weight: bold;
    margin: 0px 20px;
 }
@@ -192,8 +192,7 @@ p {
 }
 
 .navbar-inner {
-  -webkit-border-radius: initial;
-  border-radius: initial;
+
   box-shadow: 0 2px 4px #461973;
 }
 

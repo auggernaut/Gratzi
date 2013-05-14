@@ -1,6 +1,6 @@
 
 //*********************   HEADER    ***************************//
-gratzi.HeaderView = Backbone.View.extend({
+Gratzi.HeaderView = Backbone.View.extend({
 
   events: {
     //"click a": 'selectNavItem',
@@ -23,7 +23,7 @@ gratzi.HeaderView = Backbone.View.extend({
 
 //*********************   FOOTER    ***************************//
 
-gratzi.FooterView = Backbone.View.extend({
+Gratzi.FooterView = Backbone.View.extend({
 
   events: {
     "click #logout": "logout"
@@ -31,7 +31,7 @@ gratzi.FooterView = Backbone.View.extend({
 
   initialize: function () {
     console.log('Initializing Footer View');
-    this.model = gratzi.Client;
+    this.model = Gratzi.Client;
     this.render();
   },
 
@@ -41,7 +41,7 @@ gratzi.FooterView = Backbone.View.extend({
   },
 
   logout: function () {
-    gratzi.Store.logout();
+    Gratzi.Store.logout();
     this.render();
     window.location.href = "/#";
     window.location.reload();
@@ -54,7 +54,7 @@ gratzi.FooterView = Backbone.View.extend({
 
 //*********************   HOME   ***************************//
 
-gratzi.HomeView = Backbone.View.extend({
+Gratzi.HomeView = Backbone.View.extend({
 
   initialize: function () {
     console.log('Initializing Home View');
@@ -73,11 +73,11 @@ gratzi.HomeView = Backbone.View.extend({
 
 //*********************   ABOUT    ***************************//
 
-gratzi.AboutView = Backbone.View.extend({
+Gratzi.AboutView = Backbone.View.extend({
 
   initialize: function () {
     console.log('Initializing About View');
-    this.model = gratzi.Client;
+    this.model = Gratzi.Client;
   },
 
   render: function () {

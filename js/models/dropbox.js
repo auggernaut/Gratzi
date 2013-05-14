@@ -1,6 +1,6 @@
-﻿if (typeof drop !== 'object') {
-   var drop = {};
-}
+﻿/*global Dropbox, utils */
+
+var drop = drop || {};
 
 (function () {
    'use strict';
@@ -12,7 +12,7 @@
    dropbox.authDriver(new Dropbox.Drivers.Redirect({ rememberUser: true }));
 
 
- drop = {
+   drop = {
 
       storeType: "dropbox",
 
@@ -45,7 +45,7 @@
                //Load profile
                drop.loadUser(callback);
 
-               //Load gratzi
+               //Load Gratzi
                drop.loadGratzi(function (data) {
 
                });
@@ -64,8 +64,8 @@
                return showError(error);  // Something went wrong.
             }
 
-            localStorage.setItem('userid',userInfo.uid);
-            localStorage.setItem('email',userInfo.email);
+            localStorage.setItem('userid', userInfo.uid);
+            localStorage.setItem('email', userInfo.email);
 
             //GET PROFILE FILE
             var myProfile = "/profile.json";
@@ -114,7 +114,7 @@
 
       },
 
-      saveMyProfile: function (profile, callback) {
+      saveProfile: function (profile, callback) {
 
          var filename = "/profile.json";
 
@@ -143,85 +143,34 @@
       },
 
 
-      updateMyProfile: function (profile, callback) {
+      saveJSONP: function (json, callback) {
 
-         var filename = "/profile.json";
+         var strJson = JSON.stringify(json).split(')').join("&#41;");
+         var filename = json.type + "/" + json.type + "_" + utils.getHash(strJson) + ".json";
 
-         dropbox.writeFile(filename, JSON.stringify(profile), function (error, stat) {
+         dropbox.writeFile(filename, json.type + "Callback(" + strJson + ")", function (error, stat) {
             if (error) {
                return showError(error);  // Something went wrong.
             }
-
-            callback(stat.path);
+            else {
+               callback(stat.path);
+            }
          });
 
       },
 
-
-      addProfile: function (profile, callback) {
-         var filename = "profile_" + utils.getHash(profile) + ".json"
-
-         dropbox.writeFile(filename, JSON.stringify(profile), function (error, stat) {
-            if (error) {
-               return showError(error);  // Something went wrong.
-            }
-
-            callback(stat.path);
-         });
-      },
-
-
-      addGrat: function (grat, callback) {
-
-         var filename = "/grat/grat_" + utils.getHash(JSON.stringify(grat)) + ".json";
-
-         dropbox.writeFile(filename, "gratCallback(" + JSON.stringify(grat) + ")", function (error, stat) {
-            if (error) {
-               return showError(error);  // Something went wrong.
-            }
-
-            callback(stat.path);
-         });
-
-      },
-
-      addBlob: function (grat, callback) {
-
-         utils.json2hashtrix(grat);
-
-      },
-
-      addZi: function (zi, callback) {
-
-         var filename = "/zi/zi_" + utils.getHash(JSON.stringify(zi)) + ".json";
-
-         dropbox.writeFile(filename, "ziCallback(" + JSON.stringify(zi) + ")", function (error, stat) {
-            if (error) {
-               return showError(error);  // Something went wrong.
-            }
-
-            callback(stat.path);
-         });
-
-      },
-
-
-      addImage: function (image, filename, callback) {
+      saveImage: function (image, filename, callback) {
 
          //Write image
          dropbox.writeFile("/images/" + filename, image, function (error, stat) {
             if (error) {
-               return showError(error);  // Something went wrong.
+               callback(showError(error));
+            }
+            else {
+               callback(stat.path);
             }
 
-            drop.getLink(stat.path, function (imageURL) {
-
-               callback(imageURL);
-
-            });
-
          });
-
       },
 
 
@@ -282,7 +231,7 @@
                         files[fileStats[index].name] = stat.replace(filepart + "Callback(", "").replace(")", "");
                         counter++;
 
-                        if (fileStats.length == counter) {
+                        if (fileStats.length === counter) {
 
                            callback(files);
                         }
@@ -298,15 +247,21 @@
          });
       },
 
+/*      addBlob: function (grat, callback) {
+
+         utils.json2hashtrix(grat);
+
+      },*/
+
       logout: function () {
          console.log("Logging out.");
-/*         localStorage.removeItem("username");
-         localStorage.removeItem("userid");
-         localStorage.removeItem("email");
-         localStorage.removeItem('authenticated');
-         localStorage.removeItem('profile');
-         localStorage.removeItem('grats');
-         localStorage.removeItem('zis');*/
+         /*         localStorage.removeItem("username");
+          localStorage.removeItem("userid");
+          localStorage.removeItem("email");
+          localStorage.removeItem('authenticated');
+          localStorage.removeItem('profile');
+          localStorage.removeItem('grats');
+          localStorage.removeItem('zis');*/
          localStorage.clear();
       }
 
@@ -314,18 +269,20 @@
 
 
    var showError = function (error) {
+      console.log(error.status);
       switch (error.status) {
          case Dropbox.ApiError.INVALID_TOKEN:
             // If you're using dropbox.js, the only cause behind this error is that
             // the user token expired.
             // Get the user through the authentication flow again.
+            drop.logout();
+            window.location = "/#profile";
             break;
 
          case Dropbox.ApiError.NOT_FOUND:
             // The file or folder you tried to access is not in the user's Dropbox.
             // Handling this error is specific to your application.
             return "404";
-            break;
 
          case Dropbox.ApiError.OVER_QUOTA:
             // The user is over their Dropbox quota.
@@ -349,6 +306,7 @@
          default:
          // Caused by a bug in dropbox.js, in your application, or in Dropbox.
          // Tell the user an error occurred, ask them to refresh the page.
+
       }
    };
 

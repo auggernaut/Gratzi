@@ -1,5 +1,5 @@
 
-gratzi.deployd = {
+Gratzi.deployd = {
   Gratzi: Backbone.Model.extend({
     urlRoot: "http://stormy-savannah-7720.herokuapp.com/thank-yous",
     defaults: {
