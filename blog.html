@@ -4,7 +4,7 @@
    <meta charset="utf-8">
    <title>
       {% if is_home %}
-      {{ site.author }}
+      Home
       {% elif is_post %}
       {{ post.title }}
       {% elif is_page %}
@@ -173,8 +173,16 @@
 
       }
 
-      #mc_embed_signup{
+      #mc_embed_signup {
          text-align: center;
+      }
+
+      .icon {
+         margin-right: 5px;
+      }
+
+      .icon img {
+         width: 25px;
       }
 
    </style>
@@ -207,113 +215,113 @@
 </div>
 
 <div class="container">
-   <div class="row">
-      <div class="span6 offset1">
-         {% if is_home %}
+<div class="row">
+   <div class="span6 offset1">
+      {% if is_home %}
 
 
-         {% if posts %}
-         {% for post in posts %}
-         <div class="post">
+      {% if posts %}
+      {% for post in posts %}
+      <div class="post">
 
-            {% if post.type == 'link' %}
-            <h2><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
-            {% else %}
-            <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
-            {% if post.content|striptags|wordcount > 0 %}
-            <p>{{ post.content|striptags|truncate(255) }}</p>
-            {% endif %}
-            {% endif %}
-
-         </div>
-         <hr/>
-         {% endfor %}
+         {% if post.type == 'link' %}
+         <h2><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
          {% else %}
-         <p><em>No posts yet :(</em></p>
+         <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+         {% if post.content|striptags|wordcount > 0 %}
+         <p>{{ post.content|striptags|truncate(255) }}</p>
+         {% endif %}
          {% endif %}
 
-
-         {% elif is_post %}
-
-
-         <div class="post">
-            <h1>{{ post.title }}</h1>
-            <hr/>
-            {{ post.content }}
-         </div>
-
-         {% if site.disqus %}
-         <hr/>
-
-         <div id="disqus_thread"></div>
-         <script type="text/javascript">
-            var disqus_shortname = '{{ site.disqus }}';
-
-            (function () {
-               var dsq = document.createElement('script');
-               dsq.type = 'text/javascript';
-               dsq.async = true;
-               dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-         </script>
-         <noscript>
-            Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a>
-         </noscript>
-         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-         {% endif %}
-
-
-         {% elif is_page %}
-
-
-         <div class="post">
-            <h1>{{ page.title }}</h1>
-            <hr/>
-            {{ page.content }}
-         </div>
-
-
-         {% endif %}
       </div>
+      <hr/>
+      {% endfor %}
+      {% else %}
+      <p><em>No posts yet :(</em></p>
+      {% endif %}
+
+
+      {% elif is_post %}
+
+
+      <div class="post">
+         <h1>{{ post.title }}</h1>
+         <hr/>
+         {{ post.content }}
+      </div>
+
+      {% if site.disqus %}
+      <hr/>
+
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+         var disqus_shortname = '{{ site.disqus }}';
+
+         (function () {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+         })();
+      </script>
+      <noscript>
+         Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+         Disqus.</a>
+      </noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      {% endif %}
+
+
+      {% elif is_page %}
+
+
+      <div class="post">
+         <h1>{{ page.title }}</h1>
+         <hr/>
+         {{ page.content }}
+      </div>
+
+
+      {% endif %}
+   </div>
 
             <span class="span3 offset1">
                 <div class="bio">
                    <img class="avatar" src="http://www.gratzi.org/img/clasped-hands-small.jpg"/>
 
                    <p>{{ site.bio }}</p>
-                   <ul class="unstyled">
-                      {% if site.twitter %}
-                      <li>
+                   <br/>
+                   {% if site.twitter %}
+                      <span class="icon">
                          <a href="http://twitter.com/{{ site.twitter }}" target="_blank">
                             <img src="http://www.gratzi.org/img/twitter.png"/>
                          </a>
-                      </li>
-                      {% endif %}
+                      </span>
+                   {% endif %}
 
-                      {% if site.facebook %}
-                      <li>
+                   {% if site.facebook %}
+                      <span class="icon">
                          <a href="http://facebook.com/{{ site.facebook }}" target="_blank">
                             <img src="http://www.gratzi.org/img/facebook.png"/>
                          </a>
-                      </li>
-                      {% endif %}
+                      </span>
+                   {% endif %}
 
-                      <li>
+                      <span class="icon">
                          <a href="https://plus.google.com/u/0/b/106872788528219610178/106872788528219610178/posts"
                             target="_blank">
                             <img src="http://www.gratzi.org/img/google_plus.png"/>
                          </a>
-                      </li>
+                      </span>
 
-                      {% if site.linkedin %}
-                      <li>
+                   {% if site.linkedin %}
+                      <span class="icon">
                          <a href="http://linkedin.com/in/{{ site.linkedin }}" target="_blank">
                             <i class="icon-linkedin"></i> LinkedIn
                          </a>
-                      </li>
-                      {% endif %}
+                      </span>
+                   {% endif %}
                    </ul>
                 </div>
 
@@ -322,58 +330,60 @@
                <div class="bio bec">
                   <img class="avatar" src="http://www.gratzi.org/img/becca-face.gif"/>
                   <h4>Becca McGovern</h4>
+
                   <p>Gratitude pixie, spreading happiness and well being through conscious appreciation.</p>
-                   <br/>
+                  <br/>
+
                   <p>Community management and product design at gratzi.org.</p>
-                  <ul class="unstyled">
-                     <li>
-                        <a href="mailto:becca@gratzi.org">
-                           <i class="icon-envelope"></i> Email
-                        </a>
-                     </li>
-                     <li>
+                  <br/>
+                 <span class="icon">
+                     <a href="mailto:becca@gratzi.org">
+                        <img src="http://www.gratzi.org/img/email.png"/>
+                     </a>
+                  </span>
+                  <span class="icon">
                         <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
-                           <i class="icon-facebook-sign"></i> Facebook
+                           <img src="http://www.gratzi.org/img/facebook.png"/>
                         </a>
-                     </li>
-                     <li>
-                        <a href="https://plus.google.com/u/0/115309920032161112024/"
-                           target="_blank">
-                           <i class="icon-google-plus"></i> Google+
+                  </span>
+                  <span class="icon">
+                        <a href="https://plus.google.com/u/0/115309920032161112024/" target="_blank">
+                           <img src="http://www.gratzi.org/img/google_plus.png"/>
                         </a>
-                     </li>
-                   </ul>
+                  </span>
                </div>
 
                <div class="bio aug">
                   <img class="avatar" src="http://www.gratzi.org/img/aug-face.gif"/>
                   <h4>Augustin Bralley</h4>
+
                   <p>Dreamer and maker, seeking the next big thing and tinkering along the way.</p>
                   <br/>
+
                   <p>Customer and product development at gratzi.org.</p>
-                  <ul class="unstyled">
-                     <li>
-                        <a href="mailto:augustin@gratzi.org">
-                           <i class="icon-envelope"></i> Email
-                        </a>
-                     </li>
-                     <li>
-                        <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
-                           <i class="icon-facebook-sign"></i> Facebook
-                        </a>
-                     </li>
-                     <li>
-                        <a href="https://plus.google.com/u/0/115309920032161112024/"
-                           target="_blank">
-                           <i class="icon-google-plus"></i> Google+
-                        </a>
-                     </li>
-                     <li>
-                        <a href="http://twitter.com/datacosmos" target="_blank">
-                           <i class="icon-twitter"></i> Twitter
-                        </a>
-                     </li>
-                  </ul>
+                  <br/>
+                  <span class="icon">
+                     <a href="mailto:augustin@gratzi.org">
+                        <img src="http://www.gratzi.org/img/email.png"/>
+                     </a>
+                  </span>
+                  <span class="icon">
+                     <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
+                        <img src="http://www.gratzi.org/img/facebook.png"/>
+                     </a>
+                  </span>
+                  <span class="icon">
+                     <a href="https://plus.google.com/u/0/115309920032161112024/"
+                        target="_blank">
+                        <img src="http://www.gratzi.org/img/google_plus.png"/>
+                     </a>
+                  </span>
+                  <span class="icon">
+                     <a href="http://twitter.com/datacosmos" target="_blank">
+                        <img src="http://www.gratzi.org/img/twitter.png"/>
+                     </a>
+                  </span>
+
                </div>
 
                <div id="mc_embed_signup">
@@ -394,24 +404,24 @@
                </div>
 
             </span>
-   </div>
+</div>
 
-   <div class="row">
-      <div class="span10 offset1">
-         <footer>
-            &copy; <a href="/">{{ site.name }}</a>. Powered by <a href="http://postach.io"
-                                                                  target="_blank">Postach.io</a>
-            <ul class="inline pull-right">
+<div class="row">
+   <div class="span10 offset1">
+      <footer>
+         &copy; <a href="/">{{ site.name }}</a>. Powered by <a href="http://postach.io"
+                                                               target="_blank">Postach.io</a>
+         <ul class="inline pull-right">
 
-               {% if pages %}
-               {% for page in pages %}
-               <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
-               {% endfor %}
-               {% endif %}
-            </ul>
-         </footer>
-      </div>
+            {% if pages %}
+            {% for page in pages %}
+            <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
+            {% endfor %}
+            {% endif %}
+         </ul>
+      </footer>
    </div>
+</div>
 </div>
 
 <script src="{{ static('bootstrap/js/bootstrap.min.js') }}"></script>

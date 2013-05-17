@@ -144,7 +144,7 @@ Gratzi.ProfileView = Backbone.View.extend({
             'eventCategory': 'button',
             'eventAction': 'click',
             'eventLabel': 'CodeLogin',
-            'eventValue': found
+            'eventValue': 1
          });
       }
       else {
