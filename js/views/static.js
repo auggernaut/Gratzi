@@ -87,3 +87,22 @@ Gratzi.AboutView = Backbone.View.extend({
 
 });
 
+
+
+
+//*********************   PRIVACY    ***************************//
+
+Gratzi.PrivacyView = Backbone.View.extend({
+
+   initialize: function () {
+      console.log('Initializing Privacy View');
+      this.model = Gratzi.Client;
+   },
+
+   render: function () {
+      $(this.el).html(this.template(this.model));
+      return this;
+   }
+
+});
+

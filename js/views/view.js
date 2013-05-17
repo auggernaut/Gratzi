@@ -21,7 +21,7 @@ Gratzi.ListView = Backbone.View.extend({
       "use strict";
       var zis = JSON.parse(localStorage.getItem("zis"));
       var grats = JSON.parse(localStorage.getItem("grats"));
-      var tag, tags = [], g, ts;
+      var tags = [], ts, grater, gratee, zier, jZi, jGrat, gId, match;
 
       if (!grats) {
          //No grats yet... render just the ListView
@@ -29,7 +29,6 @@ Gratzi.ListView = Backbone.View.extend({
          return;
       }
       else {
-         //Load grats and zis
 
          //Get tag list, render ListView
          _.each(grats, function (grat) {
@@ -44,26 +43,44 @@ Gratzi.ListView = Backbone.View.extend({
          $(this.el).html(this.template({ tags: tags }));
 
          //Render all Gratzi in ListItemViews
-         _.each(grats, function (grat) {
-            var gJSON = JSON.parse(grat);
+         _.each(grats, function (grat, id) {
 
-            if (!pickTag || gJSON.tags.indexOf(pickTag) !== -1) {
-               var match = false;
+            jGrat = JSON.parse(grat);
+            grater = new Gratzi.Profile();
+            grater.load(jGrat.sender);
+
+            gratee = new Gratzi.Profile();
+            gratee.load(jGrat.recipient);
+
+            if (!pickTag || jGrat.tags.indexOf(pickTag) !== -1) {
+               match = false;
 
                _.each(zis, function (zi) {
-                  var ziJSON = JSON.parse(zi);
-                  //Should never be empty... TODO: test for empty grat in zi
-                  var gId = ziJSON.grat ? ziJSON.grat.substr(ziJSON.grat.lastIndexOf("/") + 1) : "empty";
+                  jZi = JSON.parse(zi);
+                  zier = new Gratzi.Profile();
+                  zier.load(jZi.sender);
 
-                  if (grat === gId) {
+                  gId = jZi.grat ? jZi.grat.substr(jZi.grat.lastIndexOf("/") + 1) : "empty";
+
+                  if (id === gId) {
                      match = true;
-                     $(this.el).append(new Gratzi.ListItemView({ model: { gratid: gId, "grat": gJSON, "zi": ziJSON } }).render().el);
-                  }
-
-                  if (!match) {
-                     $(this.el).append(new Gratzi.ListItemView({ model: { gratid: gId, "grat": gJSON, "zi": { "from": {}, to: {}, message: "" } } }).render().el);
+                     $(this.el).append(new Gratzi.ListItemView({ model: {
+                        "grat": jGrat,
+                        "zi": jZi,
+                        "zier": zier,
+                        "grater": grater }
+                     }).render().el);
                   }
                }, this);
+
+               if (!match) {
+                  $(this.el).append(new Gratzi.ListItemView({ model: {
+                     "grat": jGrat,
+                     "zi": "",
+                     "zier": gratee,
+                     "grater": grater  }
+                  }).render().el);
+               }
             }
          }, this);
 

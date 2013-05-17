@@ -1,4 +1,4 @@
-/*global Backbone, Gratzi, _, ga, drop */
+/*global Backbone, Gratzi, _, ga, drop, FB, TDFriendSelector, utils, email */
 
 //************************   CREATE   *************************//
 Gratzi.CreateView = Backbone.View.extend({
@@ -6,22 +6,27 @@ Gratzi.CreateView = Backbone.View.extend({
    events: {
       'click #createBtn': 'createGrat',
       'click #pickfbContact': 'pickfbContact',
-      'click #btnPickImg': 'pickImage'
+      'change #upImage': 'pickImage'
    },
 
    initialize: function () {
+      "use strict";
+
       console.log('Initializing Create View');
       this.render();
    },
 
    render: function () {
+      "use strict";
+
       $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) }));
       return this;
    },
 
-   createGrat: function (e) {
+   createGrat: function () {
+      "use strict";
 
-      var sender, recipient, newGrat, nameParts;
+      var sender, recipient, newGrat;
       var $createBtn = $("#createBtn");
       var profile = JSON.parse(localStorage.getItem("profile"));
       var fId = $('#fbFriendId').val();
@@ -29,35 +34,29 @@ Gratzi.CreateView = Backbone.View.extend({
       $createBtn.attr("disabled", "disabled");
       $createBtn.html("Creating...");
 
-      nameParts = $('#zName').html().split(" ");
-      recipient = new Gratzi.Profile(
-         fId ? "facebook" : "email",
-         nameParts[0],
-         nameParts[1],
-         fId ? fId : $('#to').val(),
-         fId ? $("#zImage").attr("src") : ""
-      );
+      recipient = new Gratzi.Profile();
+      recipient.userType = fId ? "facebook" : "email";
+      recipient.fullName = $('#zName').html();
+      recipient.userName = fId ? fId : $('#to').val();
+      recipient.email = $('#to').val();
+      recipient.image = fId ? $("#zImage").attr("src") : "";
 
-      nameParts = profile.fullname.split(" ");
-      sender = new Gratzi.Profile(
-         Gratzi.Store.storeType,
-         nameParts[0],
-         nameParts[1],
-         profile.email,
-         $("#gImage").attr("src")
-      );
+      sender = new Gratzi.Profile();
+      sender.userType = Gratzi.Store.storeType;
+      sender.fullName = profile.fullname;
+      sender.email = sender.userName = profile.email;
+      sender.image = $("#gImage").attr("src");
 
-
-      newGrat = new Gratzi.Zi(
-         sender.json,
-         recipient.json,
+      newGrat = new Gratzi.Grat(
+         sender.json(),
+         recipient.json(),
          $('#message').val(),
          $('#tags').val()
       );
 
 
       //save Grat
-      Gratzi.Store.saveJSONP(newGrat, "grat", function (path) {
+      Gratzi.Store.saveJSONP(newGrat.json(), function (path) {
 
          //Get link to new Grat
          Gratzi.Store.getLink(path, function (url) {
@@ -74,6 +73,7 @@ Gratzi.CreateView = Backbone.View.extend({
                   },
                   function (res) {
                      $('#info').show().html("Gratzi sent!");
+                     $('#fail').hide();
                      $('#zName').html('');
                      $('#message').val('');
                      $('#tags').val('');
@@ -87,9 +87,10 @@ Gratzi.CreateView = Backbone.View.extend({
             else {
 
                //email recipient
-               email.sendGrat(newGrat.json, gratLink, function (res) {
+               email.sendGrat(newGrat.json(), gratLink, function (res) {
                   if (res === "Success") {
                      $('#info').show().html("Gratzi sent!");
+                     $('#fail').hide();
                      $('#to').val('');
                      $('#message').val('');
                      $('#tags').val('');
@@ -114,8 +115,9 @@ Gratzi.CreateView = Backbone.View.extend({
    },
 
    pickfbContact: function (e) {
+      "use strict";
 
-      var selector1, logActivity, callbackFriendSelected, callbackFriendUnselected, callbackMaxSelection, callbackSubmit;
+      var selector1, callbackFriendSelected, callbackFriendUnselected, callbackMaxSelection, callbackSubmit;
 
       // When a friend is selected, log their name and ID
       callbackFriendSelected = function (friendId) {
@@ -189,10 +191,11 @@ Gratzi.CreateView = Backbone.View.extend({
    },
 
    pickImage: function () {
+      "use strict";
 
       var files = $('input[id = upImage]')[0].files;
       var file = files[0];
-      if (!file || !file.type.match(/image.*/)) return;
+      if (!file || !file.type.match(/image.*/)){return;}
 
       var $btnPick = $("#btnPickImg");
       $btnPick.attr("disabled", "disabled");

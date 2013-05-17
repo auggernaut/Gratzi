@@ -20,7 +20,7 @@ var email = email || {};
       };
 
       //Email Zi to recipient
-      $.post(Gratzi.Servers.url + "/email", email,
+      $.post(Gratzi.Servers.email, email,
          function (data) {
 
             callback(data.token);
@@ -47,7 +47,7 @@ var email = email || {};
 
       $("#createBtn").html("Emailing...");
 
-      $.post(Gratzi.Servers.url + "/email", email,
+      $.post(Gratzi.Servers.email, email,
          function (data) {
             callback(data.token);
 

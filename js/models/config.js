@@ -1,6 +1,6 @@
 ﻿/*global Backbone, utils */
 
-var Gratzi  = Gratzi || {};
+var Gratzi = Gratzi || {};
 
 (function () {
    "use strict";
@@ -10,7 +10,7 @@ var Gratzi  = Gratzi || {};
       appName: "Gratzi",
       description: "Send, recieve, and store gratitude.",
       createdBy: "Augustin Bralley",
-      createdByUrl: "http://www.datacosmos.com",
+      createdByUrl: "http://www.gratzi.org",
       createdByBlog: "http://blog.gratzi.org",
       createdByTwitter: "http://twitter.com/gratziorg",
       createdByFacebook: "http://facebook.com/gratziorg",
@@ -23,29 +23,27 @@ var Gratzi  = Gratzi || {};
    };
 
    Gratzi.Servers = {
-      //gatekeeper: "http://mighty-plateau-1604.herokuapp.com",
+      //gateKeeper: "http://mighty-plateau-1604.herokuapp.com",
       gateKeeper: "http://localhost:9999",
-      //fileserver: "http://www.gratzi.org",
-      defaultEmail: "augustin@gratzi.org",
+      email: "http://localhost:9999/email",
+      //fileServer: "http://www.gratzi.org",
       fileServer: "http://localhost:8888",
       tempStore: "https://gratzi.s3.amazonaws.com/"
    };
 
-   Gratzi.Grat = (function() {
+   Gratzi.Grat = (function () {
 
-      function Grat(sender, recipient, message, tags){
-         this.version = "1.0";
-         this.type = "grat";
+      function Grat(sender, recipient, message, tags) {
          this.recipient = recipient;
          this.sender = sender;
          this.message = message;
          this.tags = tags;
       }
 
-      Grat.prototype.json = function(){
+      Grat.prototype.json = function () {
          return {
-            "version": this.version,
-            "type": this.type,
+            "version": "1.0",
+            "type": "grat",
             "recipient": this.recipient,
             "sender": this.sender,
             "message": this.message,
@@ -53,33 +51,31 @@ var Gratzi  = Gratzi || {};
          };
       };
 
-/*
-      Grat.prototype.jsonp = function(){
-         return "gratCallback(" + JSON.stringify(Grat.json()).split(')').join("&#41;") + ")";
-      };
-*/
+
+      /*
+       Grat.prototype.jsonp = function(){
+       return "gratCallback(" + JSON.stringify(Grat.json()).split(')').join("&#41;") + ")";
+       };
+       */
 
       return Grat;
 
    })();
 
+   Gratzi.Zi = (function () {
 
-   Gratzi.Zi = (function() {
-
-      function Zi(sender, recipient, grat, message, tags){
-         this.version = "1.0";
-         this.type = "zi";
-         this.recipient = recipient;
+      function Zi(sender, recipient, grat, message, tags) {
          this.sender = sender;
+         this.recipient = recipient;
          this.grat = utils.b64_to_utf8(grat);
          this.message = message;
          this.tags = tags;
       }
 
-      Zi.prototype.json = function(){
+      Zi.prototype.json = function () {
          return {
-            "version": this.version,
-            "type": this.type,
+            "version": "1.0",
+            "type": "zi",
             "recipient": this.recipient,
             "sender": this.sender,
             "grat": this.grat,
@@ -88,72 +84,97 @@ var Gratzi  = Gratzi || {};
          };
       };
 
-/*
-      Zi.prototype.jsonp = function(){
-         return "ziCallback(" + JSON.stringify(Zi.json()).split(')').join("&#41;") + ")";
-      };
-*/
+      /*
+       Zi.prototype.jsonp = function(){
+       return "ziCallback(" + JSON.stringify(Zi.json()).split(')').join("&#41;") + ")";
+       };
+       */
 
       return Zi;
 
    })();
 
-   Gratzi.Profile = (function(){
+   Gratzi.Profile = (function () {
 
-      function Profile(utype, fname, lname, id, imageUrl){
+
+
+      function Profile() {
          this.id = utils.guid();
-         this.fname = fname;
-         this.lname = lname;
-         this.utype = utype;
-
-         if(utype === "facebook"){
-            this.email = Gratzi.Servers.defaultEmail;
-            this.username = id;
-         } else if(utype === "email"){
-            this.email = id;
-            this.username = id;
-         } else if(utype === "dropbox"){
-            this.email = id;
-            this.username = id;
-         } else {
-            this.username = id;
-         }
-
          this.created = utils.dtNow();
-
-         this.profileUrl = imageUrl;
+         this.userType = "";
+         this.email = "";
+         this.userName = "";
+         this.fullName = "";
+         this.image = "";
+         this.bio = "";
       }
 
-      Profile.prototype.setLocation = function(url){
+      Profile.prototype.load = function(json){
+         if(!json.version){                             //Old version
+
+            this.userType = json.type;
+            this.fullName = json.fullname;
+            this.userName = this.email = json.email;
+            this.bio = json.bio;
+            this.email = json.email;
+            this.image = json.image;
+
+         } else if(json.version === "1.0"){            //Current version
+
+            this.id = json.id;
+            this.userType = json.userType;
+            this.fullName = json.name.formatted;
+
+            if (json.userType === "facebook") {
+               this.userName = json.userName;
+            } else {
+               this.userName = this.email = json.emails[0];
+            }
+
+            this.created = json.meta.created;
+            this.modified = json.meta.lastModified;
+            this.image = json.photos[0].value;
+            this.bio = json.bio;
+         }
+
+      };
+
+      Profile.prototype.setLocation = function (url) {
          this.url = url;
          this.modified = utils.nowDateTime();
       };
 
-      Profile.prototype.json = function(){
+      //SCIM - System for Cross-Domain Identity Management
+      //http://tools.ietf.org/html/draft-ietf-scim-core-schema-01
+      Profile.prototype.json = function () {
          return {
-            "schemas":["urn:scim:schemas:core:1.0"],
-            "id":this.id,
-            "meta":{
+            "schemas": ["urn:scim:schemas:core:1.0"],
+            "id": this.id,
+            "version": "1.0",
+            "meta": {
                "created": this.created,
                "lastModified": this.modified,
                "location": this.url
             },
-            "name":{
-               "formatted": this.fname + " " + this.lname,
-               "familyName": this.lname,
-               "givenName":this.fname
+            "name": {
+               "formatted": this.fullName,
+               "familyName": this.fullName.split(" ")[1],
+               "givenName": this.fullName.split(" ")[0]
             },
-            "userName": this.username,
-            "userType": this.utype,
-            "emails":[ this.email ],
+            "userName": this.userName,
+            "userType": this.userType,
+            "bio": this.bio,
+            "emails": [ this.email ],
             "photos": [
                {
-                  "value": this.profileUrl,
+                  "value": this.image,
                   "type": "photo"
                }
             ]
          };
       };
+
+      return Profile;
    })();
 
 

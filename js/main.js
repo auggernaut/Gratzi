@@ -8,6 +8,7 @@ Gratzi.Router = Backbone.Router.extend({
       "view": "view",
       "reply": "reply",
       "about": "about",
+      "privacy": "privacy",
       "profile": "profile",
       "signin": "create",
       ":code": "home"
@@ -41,7 +42,7 @@ Gratzi.Router = Backbone.Router.extend({
                window.location.href = "/#";
                return;
             } else {
-               localStorage.setItem("profile", JSON.stringify(profile));
+               //localStorage.setItem("profile", JSON.stringify(profile));
                console.log("Loaded Profile");
                //window.location.href = "/#create";
                //Backbone.history.navigate("#");
@@ -184,8 +185,27 @@ Gratzi.Router = Backbone.Router.extend({
       $('#header').html(new Gratzi.HeaderView().el);
       $('#content').html(this.aboutView.el);
       $('#footer').html(new Gratzi.FooterView().el);
+   },
 
-      $("#about").addClass("active");
+   privacy: function () {
+      "use strict";
+
+      ga('send', 'pageview', {
+         'page': '/#privacy',
+         'title': 'Privacy'
+      });
+
+      // Since the about view never changes, we instantiate it and render it only once
+      if (!this.privacyView) {
+         this.privacyView = new Gratzi.PrivacyView();
+         this.privacyView.render();
+      } else {
+         this.privacyView.delegateEvents();
+      }
+
+      $('#header').html(new Gratzi.HeaderView().el);
+      $('#content').html(this.privacyView.el);
+      $('#footer').html(new Gratzi.FooterView().el);
    },
 
 
@@ -205,11 +225,11 @@ Gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "CreateView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "PrivacyView", "CreateView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
    function () {
       "use strict";
 
-      app = new Gratzi.Router();
+      var GratziRouter = new Gratzi.Router();
       Backbone.history.start();
    });
 

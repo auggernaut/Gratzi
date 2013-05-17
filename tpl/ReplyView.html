@@ -3,7 +3,7 @@
 <div class="container reply">
 
    <div class="pad">
-      <h1>GratZi</h1>
+      <h1>gratzi</h1>
 
       <p class="tagline">Complete gratitude.</p>
    </div>
@@ -18,13 +18,17 @@
          <div id="zLine">
             <div id="gDetails">
                <p class="name" id="gName"></p>
+
                <p class="message" id="gMessage"></p>
+
                <p class="tags" id="gTags"></p>
             </div>
          </div>
          <div id="zDetails">
             <p class="name" id="zName"></p>
+
             <p class="message" id="zMessage"></p>
+
             <p class="tags" id="zTags"></p>
          </div>
       </div>
@@ -34,42 +38,48 @@
 
    <div class="row">
       <div id="gForm" class="span6 offset3">
-         <div id="sendForm" class="fields">
+         <div id="info" class="hide text-success center"></div>
+         <div id="fail" class="hide text-error center"></div>
+
+         <div id="sendForm" class="fields hide">
+            <h3>Reply</h3>
             <input type="text" id="fullname" name="fullname" class="input-block-level" value="" placeholder="Name"/>
             <textarea id="response" name="response" rows="3" class="input-block-level"
                       placeholder="You're welcome!"></textarea>
 
-            <% if(localStorage.getItem('authenticated')) { %>
             <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
-            <% } %>
 
             <div id="submit">
                <button id="btnSend" class="btn btn-large btn-block btn-inverse">Send Zi</button>
             </div>
          </div>
 
+         <div class="" id="divDB">
+            <h3>You completed a <span class="logo-text">gratzi</span>!</h3>
+            <p><span class="logo-text-inline">gratzi</span> is an awesome new way to express gratitude.</p>
+            <p>Why? <a href="/#about">Many reasons</a>, but first because: <span class="logo-text-inline">gratzi</span> are yours.
+               <br/>Save them in your Dropbox and you'll have them forever.</p>
+            <p>Just click the button:</p>
+            <a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
+         </div>
+
          <div id="saveForm">
             <button id="btnSave" class="btn btn-large btn-block btn-inverse">Save</button>
          </div>
-         <div id="info" class="hide text-success center"></div>
-
       </div>
 
       <div class="span3 zup">
-         <% if(localStorage.getItem('authenticated')) { %>
-         <img src="/img/loading-icon.gif" id="zImage" class="img-circle"/>
-         <input type="file" name="input_name" id="upImage" class="hide ie_show" />
+         <!--         <img src="/img/loading-icon.gif" id="zImage" class="img-circle"/>-->
+         <img src="../img/blank-user.jpg" id="zImage" class="img-circle"/>
+         <input type="file" name="input_name" id="upImage" class="hide ie_show"/>
          <button id="btnPickImg" class="btn" onclick="$('input[id=upImage]').click();">Change Image</button>
-         <% } else { %>
-         <div>
-            <img src="../img/blank-user.jpg" id="zImage" class="img-circle"/>
-            <!--<div id="ziSteps">
-              <input type="file" name="input_name" id="upImage" class="hide ie_show" />
-              <button id="btnUploadImgur" class="btn btn-inverse" onclick="$('input[id=upImage]').click();">Upload Image</button>
-              <p style="margin-left: 37px;"><a href="/#signin">Login</a></p>
-            </div>-->
-         </div>
-         <% } %>
+
+         <!--<div id="ziSteps">
+           <input type="file" name="input_name" id="upImage" class="hide ie_show" />
+           <button id="btnUploadImgur" class="btn btn-inverse" onclick="$('input[id=upImage]').click();">Upload Image</button>
+           <p style="margin-left: 37px;"><a href="/#signin">Login</a></p>
+         </div>-->
+
       </div>
    </div>
 

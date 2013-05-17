@@ -26,6 +26,7 @@ h1 {
 h2 {
 
     line-height: 25px;
+    font-size: 23px;
 }
 
 p {
@@ -88,7 +89,7 @@ font-style: italic;
     display: inline;
     margin-left: 10px;
     position: relative;
-    top: 5px;
+    top: 2px;
 }
 
 #logoBig {
@@ -105,9 +106,13 @@ font-style: italic;
 .logo-text {
     font-family: 'Life Savers', sans-serif;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
-/*    font-weight: bold;*/
+/*    */
 }
 
+.logo-text-inline {
+    font-family: 'Life Savers', sans-serif;
+    font-weight: 700;
+}
 
 .navbar-inner {
 /*    -webkit-border-radius: initial;
@@ -123,6 +128,10 @@ font-style: italic;
 #content {
     min-height: 700px;
     margin-top: 60px;
+}
+
+#gMessage {
+    width: 90%;
 }
 
 .gMessage {
@@ -159,6 +168,11 @@ font-style: italic;
     top: -300px;
 }
 
+.container .up {
+    position: relative;
+    top: -80px;
+}
+
 .container #submit {
     margin-top: 20px;
 }
@@ -168,7 +182,7 @@ font-style: italic;
 }
 
 .container .tagline {
-    font-size: 25px;
+    font-size: 23px;
     text-align: center;
     position: relative;
     left: 7px;
@@ -236,6 +250,10 @@ font-style: italic;
 
 }
 
+.home .logo-text {
+    font-size: 45px;
+}
+
 
 .home #tagline {
     margin-bottom: 20px;
@@ -256,137 +274,7 @@ font-style: italic;
     bottom: 0;
 
 }
-/*
 
-.home .mb-wrap {
-    padding: 20px;
-    position: relative;
-}
-
-.home .mb-wrap p{
-    margin: 0;
-    padding: 0;
-}
-
-.home .mb-wrap blockquote {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    border-left: 0;
-}
-
-.home .mb-wrap cite {
-    font-style: normal;
-}
-
-.home .mb-style {
-
-    margin-top: 100px;
-    padding-top: 100px;
-*/
-/*    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);*//*
-
-
-    border-radius: 50%;
-}
-
-.home .mb-style.grat{
-    background: #fff;
-    border-top: 10px solid #77C4F3;
-    border-bottom: 10px solid #77C4F3;
-}
-
-.home .mb-style.zi{
-    background: #fff;
-    border-top: 10px solid #7D6CB0;
-    border-bottom: 10px solid #7D6CB0;
-}
-
-.home .mb-style .mb-thumb {
-    display: block;
-    width: 180px;
-    height: 180px;
-
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: -90px;
-    margin: 0 0 0 -90px;
-*/
-/*    box-shadow:
-        inset 1px 1px 4px rgba(0,0,0,0.5),
-        0 2px 3px rgba(0,0,0,0.6);*//*
-
-}
-
-.home .mb-style .mb-thumb.becca{
-    border: 10px solid rgba(119,196,243, 0.5);
-     background: url(../img/becca-face-2.gif) no-repeat center center;
- }
-
-.home .mb-style .mb-thumb.augustin{
-    border: 10px solid rgba(125,108,176, 0.5);
-    background: url(../img/aug-face.gif) no-repeat center center;
-}
-
-.home .mb-style blockquote:before {
-    position: absolute;
-    color: #242526;
-    text-shadow: 0 1px 1px rgba(255,255,255,0.1);
-}
-
-.home .mb-style blockquote:before{
-    left: 10px;
-    font-size: 70px;
-*/
-/*    content: '\275d';*//*
-
-}
-
-
-.home .mb-style blockquote p {
-    font-family: Cambria, Georgia, serif;
-    font-style: italic;
-    padding: 10px 10px 20px 10px;
-    text-align: center;
-*/
-/*    margin: 10px 0 20px 0;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);*//*
-
-}
-
-.home .mb-style.grat blockquote p {
-    font-size: 45px;
-    line-height: 61px;
-}
-
-.home .mb-style.zi blockquote p {
-    font-size: 45px;
-}
-
-.home .mb-style .mb-attribution {
-    text-align: right;
-    width: 80%;
-    border-top: 1px solid rgba(0,0,0,0.2);
-    position: relative;
-    left: -50px;
-    top: -10px;
-    float: right;
-}
-
-.home .mb-style .mb-author{
-    font-size: 20px;
-    color: #1b1c1d;
-    text-shadow: 0 1px rgba(255,255,255,0.1);
-    line-height: 25px;
-    padding-right: 30px;
-}
-
-.home .mb-style cite{
-    color: #1b1c1d;
-    padding-right: 30px;
-}
-*/
 
 
 /*ABOUT
@@ -692,6 +580,11 @@ font-style: italic;
     position: relative;
 }
 
+.reply #divDB {
+    background-color: #fafafa;
+    text-align: center;
+    padding: 10px;
+}
 
 
 
