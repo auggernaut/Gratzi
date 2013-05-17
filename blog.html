@@ -17,7 +17,8 @@
 
    <link href="{{ static('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
    <link href="{{ static('fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
-   <link href='http://fonts.googleapis.com/css?family=Life+Savers:400,700|La+Belle+Aurore' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Life+Savers:400,700|La+Belle+Aurore' rel='stylesheet'
+         type='text/css'>
 
 
    <style>
@@ -29,9 +30,9 @@
          color: #08c;
       }
 
-/*      a:hover {
-         color: #005580;
-      }*/
+         /*      a:hover {
+                  color: #005580;
+               }*/
 
       p {
          color: #333333;
@@ -78,12 +79,29 @@
       .bio {
          position: relative;
          background-color: #F5F5F5;
-         border-top: 2px solid #08c;
+
          margin-top: 30px;
          margin-bottom: 40px;
          padding: 50px 30px 30px 30px;
          font-size: 12px;
          color: #666666;
+
+      }
+
+      .bio.aug {
+         border-top: 2px solid #77C4F3;
+      }
+
+      .bio.aug img.avatar {
+         border: 2px solid #77C4F3;
+      }
+
+      .bio.bec {
+         border-top: 2px solid #7D6CB0;
+      }
+
+      .bio.bec img.avatar {
+         border: 2px solid #7D6CB0;
       }
 
       .bio img.avatar {
@@ -150,10 +168,13 @@
          text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
       }
 
-
       .nav {
          margin: 2px 10px;
 
+      }
+
+      #mc_embed_signup{
+         text-align: center;
       }
 
    </style>
@@ -259,14 +280,14 @@
 
             <span class="span3 offset1">
                 <div class="bio">
-                   <img class="avatar" src="http://www.gratzi.org/img/clasped-hands-small.jpg" />
+                   <img class="avatar" src="http://www.gratzi.org/img/clasped-hands-small.jpg"/>
 
                    <p>{{ site.bio }}</p>
                    <ul class="unstyled">
                       {% if site.twitter %}
                       <li>
                          <a href="http://twitter.com/{{ site.twitter }}" target="_blank">
-                            <i class="icon-twitter"></i> Twitter
+                            <img src="http://www.gratzi.org/img/twitter.png"/>
                          </a>
                       </li>
                       {% endif %}
@@ -274,14 +295,15 @@
                       {% if site.facebook %}
                       <li>
                          <a href="http://facebook.com/{{ site.facebook }}" target="_blank">
-                            <i class="icon-facebook-sign"></i> Facebook
+                            <img src="http://www.gratzi.org/img/facebook.png"/>
                          </a>
                       </li>
                       {% endif %}
 
                       <li>
-                         <a href="https://plus.google.com/u/0/b/106872788528219610178/106872788528219610178/posts" target="_blank">
-                            <i class="icon-google-plus"></i> Google+
+                         <a href="https://plus.google.com/u/0/b/106872788528219610178/106872788528219610178/posts"
+                            target="_blank">
+                            <img src="http://www.gratzi.org/img/google_plus.png"/>
                          </a>
                       </li>
 
@@ -294,6 +316,83 @@
                       {% endif %}
                    </ul>
                 </div>
+
+
+
+               <div class="bio bec">
+                  <img class="avatar" src="http://www.gratzi.org/img/becca-face.gif"/>
+                  <h4>Becca McGovern</h4>
+                  <p>Gratitude pixie, spreading happiness and well being through conscious appreciation.</p>
+                   <br/>
+                  <p>Community management and product design at gratzi.org.</p>
+                  <ul class="unstyled">
+                     <li>
+                        <a href="mailto:becca@gratzi.org">
+                           <i class="icon-envelope"></i> Email
+                        </a>
+                     </li>
+                     <li>
+                        <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
+                           <i class="icon-facebook-sign"></i> Facebook
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://plus.google.com/u/0/115309920032161112024/"
+                           target="_blank">
+                           <i class="icon-google-plus"></i> Google+
+                        </a>
+                     </li>
+                   </ul>
+               </div>
+
+               <div class="bio aug">
+                  <img class="avatar" src="http://www.gratzi.org/img/aug-face.gif"/>
+                  <h4>Augustin Bralley</h4>
+                  <p>Dreamer and maker, seeking the next big thing and tinkering along the way.</p>
+                  <br/>
+                  <p>Customer and product development at gratzi.org.</p>
+                  <ul class="unstyled">
+                     <li>
+                        <a href="mailto:augustin@gratzi.org">
+                           <i class="icon-envelope"></i> Email
+                        </a>
+                     </li>
+                     <li>
+                        <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
+                           <i class="icon-facebook-sign"></i> Facebook
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://plus.google.com/u/0/115309920032161112024/"
+                           target="_blank">
+                           <i class="icon-google-plus"></i> Google+
+                        </a>
+                     </li>
+                     <li>
+                        <a href="http://twitter.com/datacosmos" target="_blank">
+                           <i class="icon-twitter"></i> Twitter
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+
+               <div id="mc_embed_signup">
+                  <form action="http://datacosmos.us4.list-manage.com/subscribe/post?u=fea203bdaaed7b0312d155f52&amp;id=3e9987e283"
+                        method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                        class="validate"
+                        target="_blank" novalidate>
+                     <h4>Get Updates!</h4>
+
+                     <input type="email" value="" name="EMAIL" class="email input-block-level" id="mce-EMAIL"
+                            placeholder="email address" required>
+
+                     <div>
+                        <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe"
+                               class="btn">
+                     </div>
+                  </form>
+               </div>
+
             </span>
    </div>
 
