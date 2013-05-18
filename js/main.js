@@ -33,7 +33,7 @@ Gratzi.Router = Backbone.Router.extend({
 
 
       //Do/Redo Auth
-      if(Gratzi.Store){
+      if (Gratzi.Store) {
          Gratzi.Store.auth(function (error, profile) {
 
             if (error) {
@@ -80,29 +80,83 @@ Gratzi.Router = Backbone.Router.extend({
 
          //Do Auth
          Gratzi.Store.auth(function (error, profile) {
-            if (error === "404") {
-               console.log("No Profile found. ");
-               window.location.href = "/#profile";
-               //Backbone.history.navigate("#profile");
-            }
-            else if (error) {
-               console.log("Error with Gratzi.Store.auth" + error);
-               return;
-            }
-            else if (profile) {
-               var jProf = JSON.stringify(profile);
-               localStorage.setItem("profile", jProf);
-               console.log("Loaded Profile: " + jProf);
-               if (localStorage.getItem('loc'))
-                  window.location.href = "#reply?loc=" + localStorage.getItem('loc');
-               else
+
+            if (profile || error === "404") {
+               //Auth success
+
+               //Load profile if exists
+               if (profile) {
+                  var jProf = JSON.stringify(profile);
+                  localStorage.setItem("profile", jProf);
+                  console.log("Loaded Profile: " + jProf);
+               }
+               else {
+                  //profile doesn't yet exist
+                  /*
+
+                   window.location.href = "/#profile";
+                   */
+                  console.log("No Profile found. ");
+               }
+
+
+               var jZi = localStorage.getItem("jZi");
+               var jGrat = localStorage.getItem("jGrat");
+               var loc = localStorage.getItem("loc");
+
+               if (loc) {
+                  //User came back from the reply screen
+
+                  if (jZi) {
+                     //Zi has already been created
+
+                     //Save Grat
+                     Gratzi.Store.saveJSONP(jGrat, function (gPath) {
+
+                        console.log(gPath);
+                        localStorage.removeItem("jGrat");
+
+                        //Save Zi
+                        Gratzi.Store.saveJSONP(jZi, function (zPath) {
+
+                           console.log(zPath);
+                           localStorage.removeItem("jZi");
+
+                           //Load completed gratzi
+                           window.location.href = "#reply?loc=" + loc;
+                        });
+
+                     });
+                  } else if (jGrat) {
+                     //Zi hasn't yet been created
+
+                     //Save Grat
+                     Gratzi.Store.saveJSONP(jGrat, function (gPath) {
+
+                        console.log(gPath);
+                        localStorage.removeItem("jGrat");
+
+                        //Load partial gratzi
+                        window.location.href = "#reply?loc=" + loc;
+                     });
+
+                  }
+               }
+               else {
+                  //User just logged in from Login screen
                   window.location.href = "/#create";
-               //Backbone.history.navigate("#create");
+               }
+
+            } else {
+               //Auth fail... TODO: handle
+               console.log("Auth failed: " + error);
             }
+
          });
 
       }
       else {
+         //Not a Dropbox redirect, load home
          $('#content').html(this.homeView.el);
       }
 

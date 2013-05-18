@@ -5,7 +5,7 @@
 function gratCallback(json) {
    "use strict";
 
-   localStorage.setItem("cbGrat", JSON.stringify(json));
+   localStorage.setItem("jGrat", JSON.stringify(json));
 
    var sender = new Gratzi.Profile();
    sender.load(json.sender);
@@ -46,7 +46,7 @@ function gratCallback(json) {
 function ziCallback(json) {
    "use strict";
 
-   localStorage.setItem("cbZi", JSON.stringify(json));
+   localStorage.setItem("jZi", JSON.stringify(json));
 
    var sender = new Gratzi.Profile();
    sender.load(json.sender);
@@ -120,8 +120,8 @@ Gratzi.ReplyView = Backbone.View.extend({
          cbScript = "<script type='text/javascript' src='" + url + "'></script>";
 
          localStorage.setItem("loc", this.options.loc);
-
       }
+
 
       if (!localStorage.getItem('authenticated')) {
          //If not logged in send to S3.
@@ -137,21 +137,7 @@ Gratzi.ReplyView = Backbone.View.extend({
       "use strict";
 
       Gratzi.Store = drop;
-      Gratzi.Store.auth(function (error, profile) {
-         if (profile) {
-            var jProf = JSON.stringify(profile);
-            console.log("Auth returned: " + jProf);
-            localStorage.setItem("profile", jProf);
-            //window.location.href = "/#create";
-            window.location.reload();
-         }
-         else if (error === "404") {
-            console.log("No Profile found. ");
-            window.location.href = "/#profile";
-         } else {
-            console.log("Auth failed: " + error);
-         }
-      });
+      Gratzi.Store.auth();
 
    },
 
@@ -160,7 +146,7 @@ Gratzi.ReplyView = Backbone.View.extend({
       "use strict";
 
       var $btnSend = $("#btnSend");
-      var cbGrat = JSON.parse(localStorage.getItem("cbGrat"));
+      var jGrat = JSON.parse(localStorage.getItem("jGrat"));
       var sender, recipient, newZi;
 
 
@@ -168,12 +154,12 @@ Gratzi.ReplyView = Backbone.View.extend({
       $btnSend.html("Sending...");
 
       sender = new Gratzi.Profile();
-      sender.load(cbGrat.recipient);
+      sender.load(jGrat.recipient);
       sender.fullName = $('#zName').html();
-      sender.image =  $("#zImage").attr("src");
+      sender.image = $("#zImage").attr("src");
 
       recipient = new Gratzi.Profile();
-      recipient.load(cbGrat.sender);
+      recipient.load(jGrat.sender);
 
       newZi = new Gratzi.Zi(
          sender.json(),
@@ -184,7 +170,7 @@ Gratzi.ReplyView = Backbone.View.extend({
       );
 
       //Save Grat
-      Gratzi.Store.saveJSONP(cbGrat, function (gPath) {
+      Gratzi.Store.saveJSONP(jGrat, function (gPath) {
 
          console.log("Grat stored: " + gPath);
 
@@ -204,7 +190,8 @@ Gratzi.ReplyView = Backbone.View.extend({
                //Get Public Link to new Zi
                Gratzi.Store.getLink(res, function (url) {
 
-                  var ziLink = Gratzi.Servers.fileServer + "/#reply?loc=" + utils.utf8_to_b64(url);
+                  var loc = utils.utf8_to_b64(url);
+                  var ziLink = Gratzi.Servers.fileServer + "/#reply?loc=" + loc;
 
                   //Email Grat creator
                   email.sendZi(jZi, ziLink, function (res) {
@@ -219,7 +206,8 @@ Gratzi.ReplyView = Backbone.View.extend({
                         $("#btnPickImg").hide();
 
                         if (!localStorage.getItem('authenticated')) {
-                           localStorage.setItem("s3Zi", jZi);
+                           localStorage.setItem("jZi", jZi);
+                           localStorage.setItem("loc", loc);
                            $('#divDB').show();
                         }
                      }
@@ -245,12 +233,12 @@ Gratzi.ReplyView = Backbone.View.extend({
       $btnSave.attr("disabled", "disabled");
       $btnSave.html("Saving...");
 
-      var cbZi = JSON.parse(localStorage.getItem("cbZi"));
+      var jZi = JSON.parse(localStorage.getItem("jZi"));
 
       if (localStorage.getItem('authenticated')) {
 
          //Store Grat
-         Gratzi.Store.saveJSONP(cbZi, function (path) {
+         Gratzi.Store.saveJSONP(jZi, function (path) {
             console.log("Zi stored: " + path);
             $('#saveForm').hide();
             $('#info').show().html("Zi Saved!");

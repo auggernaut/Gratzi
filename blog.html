@@ -165,7 +165,7 @@
 
       .logo-text {
          font-family: 'Life Savers', sans-serif;
-         text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+         text-shadow: 0 1px 1px rgba(0, 0, 0,  1);
       }
 
       .nav {
@@ -183,6 +183,10 @@
 
       .icon img {
          width: 25px;
+      }
+
+      #mce-post-EMAIL {
+         margin-bottom: 0px !important;
       }
 
    </style>
@@ -250,6 +254,22 @@
          {{ post.content }}
       </div>
 
+      <hr/>
+
+      <div id="mc_embed_signup_post">
+         <form action="http://datacosmos.us4.list-manage.com/subscribe/post?u=fea203bdaaed7b0312d155f52&amp;id=3e9987e283"
+               method="post" id="mc-embedded-post-subscribe-form" name="mc-embedded-subscribe-form"
+               class="validate"
+               target="_blank" novalidate>
+            <h4>Gratzi is coming soon!</h4>
+            <p>Be one of the first to try it:</p>
+            <input type="email" value="" name="EMAIL" class="email" id="mce-post-EMAIL"
+                   placeholder="email address" required>
+               <input type="submit" value="Submit" name="subscribe" id="mc-embedded-post-subscribe"
+                      class="btn">
+         </form>
+      </div>
+
       {% if site.disqus %}
       <hr/>
 
@@ -287,18 +307,11 @@
    </div>
 
             <span class="span3 offset1">
-                <div class="bio">
+                <div class="bio aug">
                    <img class="avatar" src="http://www.gratzi.org/img/clasped-hands-small.jpg"/>
-
+                   <h4>Gratzi</h4>
                    <p>{{ site.bio }}</p>
                    <br/>
-                   {% if site.twitter %}
-                      <span class="icon">
-                         <a href="http://twitter.com/{{ site.twitter }}" target="_blank">
-                            <img src="http://www.gratzi.org/img/twitter.png"/>
-                         </a>
-                      </span>
-                   {% endif %}
 
                    {% if site.facebook %}
                       <span class="icon">
@@ -322,6 +335,14 @@
                          </a>
                       </span>
                    {% endif %}
+
+                   {% if site.twitter %}
+                      <span class="icon">
+                         <a href="http://twitter.com/{{ site.twitter }}" target="_blank">
+                            <img src="http://www.gratzi.org/img/twitter.png"/>
+                         </a>
+                      </span>
+                   {% endif %}
                    </ul>
                 </div>
 
@@ -336,11 +357,7 @@
 
                   <p>Community management and product design at gratzi.org.</p>
                   <br/>
-                 <span class="icon">
-                     <a href="mailto:becca@gratzi.org">
-                        <img src="http://www.gratzi.org/img/email.png"/>
-                     </a>
-                  </span>
+
                   <span class="icon">
                         <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
                            <img src="http://www.gratzi.org/img/facebook.png"/>
@@ -350,6 +367,16 @@
                         <a href="https://plus.google.com/u/0/115309920032161112024/" target="_blank">
                            <img src="http://www.gratzi.org/img/google_plus.png"/>
                         </a>
+                  </span>
+                  <span class="icon">
+                     <a href="http://twitter.com/beccamcgovern" target="_blank">
+                        <img src="http://www.gratzi.org/img/twitter.png"/>
+                     </a>
+                  </span>
+                  <span class="icon">
+                     <a href="mailto:becca@gratzi.org">
+                        <img src="http://www.gratzi.org/img/email.png"/>
+                     </a>
                   </span>
                </div>
 
@@ -362,18 +389,14 @@
 
                   <p>Customer and product development at gratzi.org.</p>
                   <br/>
+
                   <span class="icon">
-                     <a href="mailto:augustin@gratzi.org">
-                        <img src="http://www.gratzi.org/img/email.png"/>
-                     </a>
-                  </span>
-                  <span class="icon">
-                     <a href="http://facebook.com/rebecca.mcgovern.376" target="_blank">
+                     <a href="http://facebook.com/abralley" target="_blank">
                         <img src="http://www.gratzi.org/img/facebook.png"/>
                      </a>
                   </span>
                   <span class="icon">
-                     <a href="https://plus.google.com/u/0/115309920032161112024/"
+                     <a href="https://plus.google.com/u/0/106580776012275822055/"
                         target="_blank">
                         <img src="http://www.gratzi.org/img/google_plus.png"/>
                      </a>
@@ -384,6 +407,11 @@
                      </a>
                   </span>
 
+                  <span class="icon">
+                     <a href="mailto:augustin@gratzi.org">
+                        <img src="http://www.gratzi.org/img/email.png"/>
+                     </a>
+                  </span>
                </div>
 
                <div id="mc_embed_signup">
