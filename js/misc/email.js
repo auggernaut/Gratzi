@@ -40,7 +40,11 @@ var email = email || {};
          //Email from default if sender doesn't have an email address (e.g. fb account).
          "from": grat.sender.emails[0] ? grat.sender.emails[0] : Gratzi.Client.defaultEmail,
          "subject": grat.sender.name.formatted + " sent you gratitude!",
-         "message": "You just received one of the first Gratzi ever! My brother and his girlfriend are developing an app for gratitude called Gratzi. By clicking the link and accepting my gratitude, you become one of the first users!<br/><br/>" +
+         "message": "<h2>You just received one of the first gratzi ever!</h2>"+
+            "<br/>Gratzi is a new app for expressing, sharing, and saving gratitude." +
+            "<br/><br/>Click the button below to accept your gratitude!<br/><br/>" +
+            "<hr/>From: " + grat.sender.name.formatted +  "<br/><br/>" +
+            grat.message.substring(0, 200) + "...<br/><br/>" +
             "<table><tr><td align='center' width='300' bgcolor='#08c' style='background: #08c; padding-top: 6px; padding-right: 10px; padding-bottom: 6px; padding-left: 10px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; color: #fff; font-weight: bold; text-decoration: none; font-family: Helvetica, Arial, sans-serif; display: block;'>" +
             "<a href='" + url + "' style='color: #fff; text-decoration: none;'>Click to view and save!</a>" +
             "</td></tr></table>"

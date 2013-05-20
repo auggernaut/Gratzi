@@ -31,6 +31,7 @@ function gratCallback(json) {
    if (recipient.fullName) {
       // Grat created with Facebook photo
       $('#zName').html(recipient.fullName);
+      $('#fullname').val(recipient.fullName);
       $('#fullname').css('display', 'none');
    } else if (localStorage.getItem('authenticated')) {
       // If not, and the user it logged in, use their profile info
