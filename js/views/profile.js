@@ -24,7 +24,8 @@ Gratzi.ProfileView = Backbone.View.extend({
 
          //Load logged in user profile
          if (localStorage.getItem('profile')) {
-            var profile = JSON.parse(localStorage.getItem('profile'));
+            var profile = new Gratzi.Profile();
+            profile.load(JSON.parse(localStorage.getItem('profile')));
             $(this.el).html(this.template({  profile: profile }));
          }
          else {

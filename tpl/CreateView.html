@@ -8,40 +8,42 @@
 
    <div class="row">
       <div class="span3 gup">
-         <img src="<%= profile.image %>" class="img-circle" id="gImage"/>
-         <input type="file" name="input_name" id="upImage" class="hide ie_show"/>
-         <button id="btnPickImg" class="btn" onclick="$('input[id=upImage]').click();">Change Image</button>
+         <img src="<%= profile.image %>" class="img-circle" id="imgProfImg" onclick="$('input[id=upProfImg]').click();"/>
+         <input type="file" name="input_name" id="upProfImg" class="hide ie_show"/>
       </div>
 
       <div class="span6 middle">
          <div id="zLine">
             <div id="gDetails">
-               <p class="name" id="gName"><%= profile.fullname %></p>
+               <p class="name" id="gName"><%= profile.fullName %></p>
+               <p class="message" id="gMessage"></p>
+               <textarea id="message" name="message" rows="3" class="input-block-level"
+                         placeholder="Thanks for all the fish!"/>
+               <p class="tags" id="gTags"></p>
+               <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
+               <img src="" class="" id="imgGratImg" onclick="$('input[id=upGratImg]').click();"/>
+               <input type="file" name="input_name" id="upGratImg" class="hide ie_show"/>
+               <button id="btnGratImg" class="btn" onclick="$('input[id=upGratImg]').click();">Add Photo</button>
             </div>
          </div>
 
          <div id="zDetails">
             <p class="name right" id="zName"></p>
+            <div id="pickFriend">
+               <input type="email" id="to" name="to" class="input-block-level" placeholder="email address"/>
+               <span id="or">or</span>
+               <input type="hidden" id="fbFriendId"/>
+               <button id="pickfbContact" class="btn">Facebook</button>
+            </div>
          </div>
       </div>
 
    </div>
 
    <div class="row">
-      <div id="gForm" class="span6 offset3">
-         <div id="fields">
-            <input type="email" id="to" name="to" class="input-block-level" placeholder="email address"/>
-            <span id="or">or</span>
-            <input type="hidden" id="fbFriendId"/>
-            <button id="pickfbContact" class="btn">Facebook</button>
-
-            <textarea id="message" name="message" rows="3" class="input-block-level"
-                      placeholder="Thanks for all the fish!"/>
-            <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
-         </div>
-
+      <div class="span6 offset3">
          <div id="submit">
-            <button id="createBtn" class="btn btn-inverse btn-large btn-block">Create Grat!</button>
+            <button id="createBtn" class="btn btn-inverse btn-large btn-block">Send</button>
             <div id="info" class="hide text-success center"></div>
             <div id="fail" class="hide text-error center"></div>
          </div>

@@ -33,11 +33,12 @@ var Gratzi = Gratzi || {};
 
    Gratzi.Grat = (function () {
 
-      function Grat(sender, recipient, message, tags) {
+      function Grat(sender, recipient, message, tags, image) {
          this.recipient = recipient;
          this.sender = sender;
          this.message = message;
          this.tags = tags;
+         this.image = image;
       }
 
       Grat.prototype.json = function () {
@@ -47,7 +48,8 @@ var Gratzi = Gratzi || {};
             "recipient": this.recipient,
             "sender": this.sender,
             "message": this.message,
-            "tags": this.tags
+            "tags": this.tags,
+            "image": this.image
          };
       };
 
@@ -64,12 +66,13 @@ var Gratzi = Gratzi || {};
 
    Gratzi.Zi = (function () {
 
-      function Zi(sender, recipient, grat, message, tags) {
+      function Zi(sender, recipient, grat, message, tags, image) {
          this.sender = sender;
          this.recipient = recipient;
          this.grat = utils.b64_to_utf8(grat);
          this.message = message;
          this.tags = tags;
+         this.image = image;
       }
 
       Zi.prototype.json = function () {
@@ -80,7 +83,8 @@ var Gratzi = Gratzi || {};
             "sender": this.sender,
             "grat": this.grat,
             "message": this.message,
-            "tags": this.tags
+            "tags": this.tags,
+            "image": this.image
          };
       };
 

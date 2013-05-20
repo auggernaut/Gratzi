@@ -48,7 +48,6 @@
     <option devel="true" />
     <option dojo="false" />
     <option jquery="true" />
-    <option backbone="true" />
     <option mootools="false" />
     <option node="false" />
     <option nonstandard="false" />

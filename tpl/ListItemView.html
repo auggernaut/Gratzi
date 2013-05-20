@@ -1,7 +1,7 @@
 <div class="container listitem">
    <div class="row">
 
-      <div class="span3 offset1 gup">
+      <div class="span3 gup">
          <img src="<%=grater.image%>" alt="<%=grater.fullName %>" class="gImage img-circle"/>
       </div>
 
@@ -11,25 +11,24 @@
                <p class="name gName"><%=grater.fullName %></p>
                <p class="message gMessage"><%=grat.message %></p>
                <p class="tags gTags"><%=grat.tags %></p>
+               <img src="<%=grat.image %>" />
             </div>
          </div>
+      </div>
+   </div>
 
+   <div class="row">
+      <div class="span6 offset3">
          <div class="zDetails">
             <p class="name zName"><%=zier.fullName %></p>
             <% if(zi) { %>
             <p class="message zMessage"><%=zi.message %></p>
             <p class="tags zTags"><%=zi.tags %></p>
+            <img src="<%=zi.image %>" />
             <% } else { %>
             <p class="message zMessage">No reply.</p>
             <% } %>
          </div>
-
-      </div>
-   </div>
-
-   <div class="row">
-      <div id="" class="span7 offset2">
-
       </div>
 
       <div class="span3 zup">
@@ -40,7 +39,7 @@
          <% } %>
       </div>
    </div>
-   <hr class="gup"/>
+   <hr/>
 
 </div>
 

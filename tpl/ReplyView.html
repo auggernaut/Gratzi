@@ -1,6 +1,6 @@
 <%=script%>
 
-<div class="container reply">
+<div class="container reply" id="reply">
 
    <div class="pad">
       <h1>gratzi</h1>
@@ -22,69 +22,79 @@
                <p class="message" id="gMessage"></p>
 
                <p class="tags" id="gTags"></p>
+               <img src="" id="imgGratImg"/>
             </div>
          </div>
-         <div id="zDetails">
-            <p class="name" id="zName"></p>
 
-            <p class="message" id="zMessage"></p>
-
-            <p class="tags" id="zTags"></p>
-         </div>
       </div>
 
 
    </div>
 
    <div class="row">
-      <div id="gForm" class="span6 offset3">
+      <div class="span6 offset3">
+         <div id="zDetails">
+            <p class="name" id="zName"></p>
+            <input type="text" id="fullname" name="fullname" class="input-block-level" value="" placeholder="Name"/>
+
+            <p class="message" id="zMessage"></p>
+            <textarea id="response" name="response" rows="3" class="input-block-level"
+                      placeholder="Message"></textarea>
+
+            <p class="tags" id="zTags"></p>
+            <input type="text" id="tags" name="tags" class="input-block-level" placeholder="Tags"/>
+
+            <img src="" class="" id="imgZiImg" onclick="$('input[id=upZiImg]').click();"/>
+            <input type="file" name="input_name" id="upZiImg" class="hide ie_show"/>
+            <button id="btnZiImg" class="btn" onclick="$('input[id=upZiImg]').click();">Add Photo</button>
+         </div>
+      </div>
+
+      <div class="span3 zup">
+         <img src="https://gratzi.s3.amazonaws.com/images/blank-user.jpg" id="imgProfImg" class="img-circle"
+              onclick="$('input[id=upProfImg]').click();"/>
+         <input type="file" name="input_name" id="upProfImg" class="hide ie_show"/>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="span6 offset3">
          <div id="info" class="hide text-success center"></div>
          <div id="fail" class="hide text-error center"></div>
 
-         <div id="sendForm" class="fields">
-            <h3>Reply</h3>
-            <input type="text" id="fullname" name="fullname" class="input-block-level" value="" placeholder="Name"/>
-            <textarea id="response" name="response" rows="3" class="input-block-level"
-                      placeholder="You're welcome!"></textarea>
-
-            <input type="text" id="tags" name="tags" class="input-block-level" placeholder="food, lifestyle"/>
-
-            <div id="submit">
-               <button id="btnSend" class="btn btn-large btn-block btn-inverse">Send Zi</button>
-            </div>
-         </div>
-
-         <div class="hide" id="divDB">
-            <h3>You completed a <span class="logo-text">gratzi</span>!</h3>
-            <p>Don't let this gift of gratitude get lost.<br/>Connect your Dropbox and save it forever!</p>
-<!--            <p><span class="logo-text-inline">gratzi</span> is an awesome new way to express gratitude.</p>
-            <p>Why? <a href="/#about">Many reasons</a>, but first because: <span class="logo-text-inline">gratzi</span> are yours.
-               <br/>Save them in your Dropbox and you'll have them forever.</p>-->
-            <p><a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
-            </p>
-            <p><a href="/#privacy">What's this?</a></p>
+         <div id="submit">
+            <button id="btnSend" class="btn btn-large btn-block btn-inverse">Reply</button>
          </div>
 
          <div id="saveForm">
             <button id="btnSave" class="btn btn-large btn-block btn-inverse">Save</button>
          </div>
-      </div>
 
-      <div class="span3 zup">
-         <!--         <img src="/img/loading-icon.gif" id="zImage" class="img-circle"/>-->
-         <img src="../img/blank-user.jpg" id="zImage" class="img-circle"/>
-         <input type="file" name="input_name" id="upImage" class="hide ie_show"/>
-         <button id="btnPickImg" class="btn" onclick="$('input[id=upImage]').click();">Change Image</button>
+         <div class="hide greyBox" id="divDB">
+            <h3>You completed a <span class="logo-text">gratzi</span>!</h3>
 
-         <!--<div id="ziSteps">
-           <input type="file" name="input_name" id="upImage" class="hide ie_show" />
-           <button id="btnUploadImgur" class="btn btn-inverse" onclick="$('input[id=upImage]').click();">Upload Image</button>
-           <p style="margin-left: 37px;"><a href="/#signin">Login</a></p>
-         </div>-->
+            <p>Don't lose this gift of gratitude.<br/>Connect your Dropbox and save it forever!</p>
 
+            <p><a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
+            </p>
+
+            <p><a href="/#privacy">What's this?</a></p>
+         </div>
       </div>
    </div>
 
 </div>
+<div id="auth" class="hide greyBox">
+
+      <h3>Please log in to save your Zi.</h3>
+
+      <p><a class="btn-auth btn-dropBox large" id="dropbox"><b>Dropbox</b></a>
+      </p>
+
+      <p><a href="/#privacy">Why?</a></p>
+
+</div>
+
+
 
 

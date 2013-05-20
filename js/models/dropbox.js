@@ -1,4 +1,4 @@
-﻿/*global Dropbox, utils */
+﻿/*global Dropbox, utils, Gratzi */
 
 var drop = drop || {};
 
@@ -76,17 +76,25 @@ var drop = drop || {};
                   return;
                }
 
-               var profile = JSON.parse(stat);
+               var profile = new Gratzi.Profile();
+               profile.load(JSON.parse(stat));
 
-               //Get public link to profile image
-               //TODO: move this to saveProfile
-               drop.getLink("/images/" + profile.image, function (imageURL) {
+               if (profile.image.indexOf("gratzi.s3") === -1) {
 
-                  profile.image = imageURL;
+                  //Get public link to profile image
+                  //TODO: move this to saveProfile
+                  drop.getLink("/images/" + profile.image, function (imageURL) {
 
+                     profile.image = imageURL;
+
+                     callback(null, profile);
+
+                  });
+               }
+               else {
                   callback(null, profile);
+               }
 
-               });
 
             });
 
@@ -247,11 +255,11 @@ var drop = drop || {};
          });
       },
 
-/*      addBlob: function (grat, callback) {
+      /*      addBlob: function (grat, callback) {
 
-         utils.json2hashtrix(grat);
+       utils.json2hashtrix(grat);
 
-      },*/
+       },*/
 
       logout: function () {
          console.log("Logging out.");

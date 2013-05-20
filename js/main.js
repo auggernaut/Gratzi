@@ -83,20 +83,28 @@ Gratzi.Router = Backbone.Router.extend({
 
             if (profile || error === "404") {
                //Auth success
+               var jProf;
 
                //Load profile if exists
                if (profile) {
-                  var jProf = JSON.stringify(profile);
+                  jProf = JSON.stringify(profile);
                   localStorage.setItem("profile", jProf);
                   console.log("Loaded Profile: " + jProf);
                }
                else {
                   //profile doesn't yet exist
-                  /*
-
-                   window.location.href = "/#profile";
-                   */
                   console.log("No Profile found. ");
+                  jProf = localStorage.getItem("profile");
+
+                  //Could be a new user, connected after replying to a grat.
+                  if (jProf) {
+                     //Create Profile with reply sender data
+                     Gratzi.Store.saveProfile(JSON.parse(jProf), function (path) {
+                        console.log("Profile Created: " + path);
+
+                     });
+                  }
+
                }
 
 
@@ -105,35 +113,48 @@ Gratzi.Router = Backbone.Router.extend({
                var loc = localStorage.getItem("loc");
 
                if (loc) {
-                  //User came back from the reply screen
+                  //User logged in after the reply screen
 
                   if (jZi) {
-                     //Zi has already been created
+                     //Zi has already been created/viewed
 
-                     //Save Grat
-                     Gratzi.Store.saveJSONP(jGrat, function (gPath) {
+                     if (jGrat) {
+                        //User sent a Zi, then logged in
+                        Gratzi.Store.saveJSONP(JSON.parse(jGrat), function (gPath) {
 
-                        console.log(gPath);
-                        localStorage.removeItem("jGrat");
+                           localStorage.removeItem("jGrat");
 
-                        //Save Zi
-                        Gratzi.Store.saveJSONP(jZi, function (zPath) {
+                           Gratzi.Store.saveJSONP(JSON.parse(jZi), function (zPath) {
 
-                           console.log(zPath);
+                              localStorage.removeItem("jZi");
+                              localStorage.removeItem("loc");
+
+                              Gratzi.Store.loadGratzi(function () {
+                                 window.location.href = "#view";
+                              });
+                           });
+
+                        });
+                     }
+                     else {
+                        //User viewed Zi, then logged in
+                        Gratzi.Store.saveJSONP(JSON.parse(jZi), function (zPath) {
+
                            localStorage.removeItem("jZi");
+                           localStorage.removeItem("loc");
 
-                           //Load completed gratzi
-                           window.location.href = "#reply?loc=" + loc;
+                           Gratzi.Store.loadGratzi(function () {
+                              window.location.href = "#view";
+                           });
                         });
 
-                     });
+                     }
                   } else if (jGrat) {
                      //Zi hasn't yet been created
 
-                     //Save Grat
-                     Gratzi.Store.saveJSONP(jGrat, function (gPath) {
+                     //User viewed Grat, then logged in
+                     Gratzi.Store.saveJSONP(JSON.parse(jGrat), function (gPath) {
 
-                        console.log(gPath);
                         localStorage.removeItem("jGrat");
 
                         //Load partial gratzi

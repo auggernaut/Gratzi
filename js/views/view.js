@@ -96,6 +96,11 @@ Gratzi.ListView = Backbone.View.extend({
 
    reload: function () {
       "use strict";
+
+      var $reload = $('#reload');
+      $reload.attr("disabled", "disabled");
+      $reload.html("Loading...");
+
       Gratzi.Store.loadGratzi(function () {
          window.location.reload();
       });

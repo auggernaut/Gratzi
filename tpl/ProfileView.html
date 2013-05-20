@@ -55,11 +55,11 @@
          <!--Profile already created-->
          <div id="values" class="center">
             <img class="img-prof img-circle" id="imgProf" src="<%= profile.image %>"/>
-            <h2><%= profile.fullname %></h2>
+            <h2><%= profile.fullName %></h2>
             <h3><%= profile.email %></h3>
             <h4><%= profile.bio %></h4>
 
-            <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>
+<!--            <p><a href="<%= profile.ui %>"><%= profile.ui %></a></p>-->
          </div>
          <% } else { %>
          <!--Profile doesn't exist yet-->
@@ -77,7 +77,7 @@
             </div>
 
             <h4>Full name</h4>
-            <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullname%>"
+            <input type="text" id="fullname" name="fullname" class="input-block-level" value="<%=profile.fullName%>"
                    placeholder="Arthur Dent"/>
 
             <h4>Superhero Skills</h4>

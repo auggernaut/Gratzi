@@ -138,6 +138,13 @@ font-style: italic;
     width: 75%;
 }
 
+.greyBox {
+    background-color: #fafafa;
+    text-align: center;
+    padding: 10px;
+}
+
+
 /* Container
 -------------------------------------------------- */
 
@@ -309,13 +316,12 @@ font-style: italic;
 }
 
 .listitem .gup {
-    position: relative;
-    top: -40px;
+
 }
 
 .listitem .zup {
     position: relative;
-    top: -180px;
+    top: -100px;
     left: -5px;
 }
 
@@ -334,7 +340,7 @@ font-style: italic;
 .listitem .zLine {
     border-bottom: 5px solid #7D6CB0;
     border-left: 5px solid #7D6CB0;
-    border-radius: 40px;
+    border-radius: 10px;
     position: relative;
     left: -115px;
     width: 140%;
@@ -344,8 +350,7 @@ font-style: italic;
 .listitem .gDetails {
     border-bottom: 5px solid #77C4F3;
     border-left: 5px solid #77C4F3;
-    border-radius: 30px;
-    padding-left: 15px;
+    border-radius: 7px;
     z-index: -1;
     position: relative;
     min-height: 45px;
@@ -371,7 +376,7 @@ font-style: italic;
 
 .listitem .zDetails {
     text-align: right;
-    width: 83%;
+
 }
 
 .listitem .zName {
@@ -409,11 +414,12 @@ font-style: italic;
     position: relative;
     top: -40px;
     text-align: center;
+    z-index: 1000;
 }
 
 .create .zup {
     position: relative;
-    top: -220px;
+    top: -130px;
     left: -5px;
 }
 
@@ -428,7 +434,7 @@ font-style: italic;
     min-width: 200px;
 }
 
-.create #gImage {
+.create #imgProfImg {
     border: 7px solid #77C4F3;
     float: right;
     min-height: 200px;
@@ -436,29 +442,30 @@ font-style: italic;
 }
 
 .create #gDetails {
-    border-bottom: 5px solid #77C4F3;
-    border-left: 5px solid #77C4F3;
-    padding-left: 15px;
-    z-index: -1;
+    border-bottom: 7px solid #77C4F3;
+    border-left: 7px solid #77C4F3;
     position: relative;
     min-height: 45px;
     padding-left: 90px;
+    padding-bottom: 50px;
+    border-radius: 10px;
 }
 
-.create #gForm {
+.create #pickFriend {
+    padding-top: 20px;
 }
 
-.create #gForm #to {
+.create #pickFriend #to {
     width: 45%;
 }
 
-.create #gForm #or {
+.create #pickFriend #or {
     font-size: 20px;
     font-weight: bold;
     margin: 0 5px;
 }
 
-.create #gForm #pickfbContact {
+.create #pickFriend #pickfbContact {
     padding: 4px 8px;
     position: relative;
     top: -5px;
@@ -471,7 +478,6 @@ font-style: italic;
     position: relative;
     left: -90px;
     width: 135%;
-    z-index: -1;
 }
 
 .create #gName {
@@ -484,7 +490,19 @@ font-style: italic;
 }
 
 .create #zDetails {
-    text-align: right;
+
+}
+
+.create #submit {
+    margin-top: 60px;
+}
+
+.create #gMessage,#gTags,#imgGratImg,#zImage,#imgProfImg:hover {
+    cursor: pointer;
+}
+
+.create #message, .create #tags{
+    width: 90%;
 }
 
 
@@ -505,7 +523,7 @@ font-style: italic;
 
 .reply .zup {
     position: relative;
-    top: -180px;
+    top: -40px;
     left: -5px;
     text-align: center;
 }
@@ -522,7 +540,7 @@ font-style: italic;
     min-width: 200px;
 }
 
-.reply #zImage {
+.reply #imgProfImg {
     border: 5px solid #7D6CB0;
     min-height: 200px;
     min-width: 200px;
@@ -531,32 +549,16 @@ font-style: italic;
 .reply #gDetails {
     border-bottom: 5px solid #77C4F3;
     border-left: 5px solid #77C4F3;
-    padding-left: 15px;
     z-index: -1;
     position: relative;
     min-height: 45px;
     padding-left: 75px;
+    padding-bottom: 50px;
+    border-radius: 7px;
+
 }
 
-.reply #gForm {
-}
 
-.reply #gForm #to {
-    width: 45%;
-}
-
-.reply #gForm #or {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 5px;
-}
-
-.reply #gForm #pickfbContact {
-    padding: 4px 8px;
-    position: relative;
-    top: -5px;
-    width: 40%;
-}
 
 .reply #zLine {
     border-bottom: 5px solid #7D6CB0;
@@ -565,6 +567,7 @@ font-style: italic;
     left: -90px;
     width: 135%;
     z-index: -1;
+    border-radius: 10px;
 }
 
 .reply #gName {
@@ -572,19 +575,15 @@ font-style: italic;
 }
 
 .reply #zName {
-    margin: 20px 0 5px;
+
 }
 
 .reply #zDetails {
     text-align: right;
     position: relative;
+    margin: 20px 0 5px;
 }
 
-.reply #divDB {
-    background-color: #fafafa;
-    text-align: center;
-    padding: 10px;
-}
 
 
 

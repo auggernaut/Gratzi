@@ -17,11 +17,15 @@ function gratCallback(json) {
    $('#gMessage').append(json.message);
    $('#gTags').append(json.tags);
    $('#gImage').attr("src", sender.image);
-   $('#saveForm').css('display', 'none');
+   $('#saveForm').hide();
 
 
    if (recipient.image) {
       $('#zImage').attr('src', recipient.image);
+   }
+
+   if(json.image){
+      $('#imgGratImg').attr('src', json.image);
    }
 
    if (recipient.fullName) {
@@ -30,9 +34,10 @@ function gratCallback(json) {
       $('#fullname').css('display', 'none');
    } else if (localStorage.getItem('authenticated')) {
       // If not, and the user it logged in, use their profile info
-      var prof = JSON.parse(localStorage.getItem("profile"));
-      $('#zName').html(prof.fullname);
-      $('#zImage').attr("src", prof.image);
+      var profile = new Gratzi.Profile();
+      profile.load(JSON.parse(localStorage.getItem('profile')));
+      $('#zName').html(profile.fullName);
+      $('#imgProfImg').attr("src", profile.image);
       $('#fullname').css('display', 'none');
    }
    else {
@@ -48,16 +53,23 @@ function ziCallback(json) {
 
    localStorage.setItem("jZi", JSON.stringify(json));
 
-   var sender = new Gratzi.Profile();
-   sender.load(json.sender);
-
-   $('#zName').append(sender.fullName);
-   $('#zMessage').append(json.message);
-   $('#zTags').append(json.tags);
-   $('#zImage').attr("src", sender.image);
-   $('#btnPickImg').hide();
 
    if (localStorage.getItem('authenticated')) {
+
+      var sender = new Gratzi.Profile();
+      sender.load(json.sender);
+
+      $('#fullname').hide();
+      $('#response').hide();
+      $('#tags').hide();
+      $('#btnZiImg').hide();
+      $('#btnSend').hide();
+
+      $('#zName').append(sender.fullName);
+      $('#zMessage').append(json.message);
+      $('#zTags').append(json.tags);
+      $('#zImage').attr("src", sender.image);
+
 
       $('#sendForm').hide();
       //$('#auth').hide();
@@ -80,8 +92,8 @@ function ziCallback(json) {
 
    }
    else {
-      $('#grat').hide();
-      //$('#auth').show();
+      $('#reply').hide();
+      $('#auth').show();
       $('#gName').append("Login to view Grat.");
       $('#sendForm').hide();
    }
@@ -98,9 +110,14 @@ Gratzi.ReplyView = Backbone.View.extend({
       "click #btnSave": "saveZi",
       /*"change #upImage": "uploadToImgur",*/
       "click #dropbox": "authDropBox",
-      'change #upImage': 'pickImage',
+      'change #upProfImg': 'pickImage',
+      'change #upZiImg': 'pickImage',
       'change #fullname': 'changeName',
-      'change #response': 'changeResponse'
+      'click #zName': 'changeName',
+      'change #response': 'changeResponse',
+      'click #zMessage': 'changeResponse',
+      'change #tags': 'changeTags',
+      'click #zTags': 'changeTags'
    },
 
    initialize: function () {
@@ -156,7 +173,7 @@ Gratzi.ReplyView = Backbone.View.extend({
       sender = new Gratzi.Profile();
       sender.load(jGrat.recipient);
       sender.fullName = $('#zName').html();
-      sender.image = $("#zImage").attr("src");
+      sender.image = $("#imgProfImg").attr("src");
 
       recipient = new Gratzi.Profile();
       recipient.load(jGrat.sender);
@@ -166,7 +183,8 @@ Gratzi.ReplyView = Backbone.View.extend({
          recipient.json(),
          localStorage.getItem("loc"),
          $('#response').val(),
-         $('#tags').val()
+         $('#tags').val(),
+         $('#imgZiImg').attr("src")
       );
 
       //Save Grat
@@ -199,14 +217,16 @@ Gratzi.ReplyView = Backbone.View.extend({
                         $btnSend.removeAttr("disabled");
                         $btnSend.html("Send");
                         $('#info').show().html("Zi sent!");
+                        $('#fail').hide();
                         $('#zMessage').html($('#response').val());
                         $('#zTags').html($('#tags').val());
 
                         $('#sendForm').hide();
-                        $("#btnPickImg").hide();
+                        $btnSend.hide();
 
                         if (!localStorage.getItem('authenticated')) {
-                           localStorage.setItem("jZi", jZi);
+                           localStorage.setItem("profile", JSON.stringify(sender.json()));
+                           localStorage.setItem("jZi", JSON.stringify(jZi));
                            localStorage.setItem("loc", loc);
                            $('#divDB').show();
                         }
@@ -253,30 +273,34 @@ Gratzi.ReplyView = Backbone.View.extend({
 
    },
 
-   pickImage: function () {
+   pickImage: function (e) {
       "use strict";
 
-      var $btnPick = $("#btnPickImg");
-      $btnPick.attr("disabled", "disabled");
-      $btnPick.html("Uploading...");
+      var idPart = e.currentTarget.id.split('up')[1];
 
-      var files = $('input[id = upImage]')[0].files;
+      var files = $('input[id = \'up' + idPart + '\']')[0].files;
       var file = files[0];
       if (!file || !file.type.match(/image.*/)) {
-         $btnPick.removeAttr("disabled");
-         $btnPick.html("Change Image");
          return;
       }
 
-      Gratzi.Store.saveImage(file, file.name, function (path) {
+      var $btnPick = $("#btn" + idPart);
+      if ($btnPick) {
+         $btnPick.attr("disabled", "disabled");
+         $btnPick.html("Uploading...");
+      }
 
-         //TODO: handle upload error
+      Gratzi.Store.saveImage(file, file.name, function (path) {
          console.log("Image Uploaded: " + path);
 
          Gratzi.Store.getLink(path, function (imgUrl) {
-            $('#zImage').attr("src", imgUrl);
-            $btnPick.removeAttr("disabled");
-            $btnPick.html("Change Image");
+            $('#img' + idPart).attr("src", imgUrl);
+
+            if ($btnPick) {
+               //$btnPick.removeAttr("disabled");
+               //$btnPick.html("Change Image");
+               $btnPick.hide();
+            }
 
          });
       });
@@ -288,15 +312,54 @@ Gratzi.ReplyView = Backbone.View.extend({
       var val = $(e.currentTarget).val();
       $("#zName").html(val);
 
+      if (e.currentTarget.id === "fullname") {
+         val = $(e.currentTarget).val();
+         $("#zName").html(val);
+         $("#fullname").hide();
+         $("#zName").show();
+      } else {
+         $("#fullname").show();
+         $("#zName").hide();
+
+      }
+
    },
 
    changeResponse: function (e) {
       "use strict";
 
-      var val = $(e.currentTarget).val();
-      $("#zMessage").html(val);
+      var val;
 
+      if (e.currentTarget.id === "response") {
+         val = $(e.currentTarget).val();
+         $("#zMessage").html(val.replace(/\n/g, "<br />"));
+         $("#response").hide();
+         $("#zMessage").show();
+      } else {
+         $("#response").show();
+         $("#zMessage").hide();
+      }
    },
+
+   changeTags: function (e) {
+      "use strict";
+
+      var val;
+
+      $("#message").hide();
+      $("#zMessage").show();
+
+      if (e.currentTarget.id === "tags") {
+         val = $(e.currentTarget).val();
+         $("#zTags").html(val);
+         $("#tags").hide();
+         $("#zTags").show();
+      } else {
+         $("#tags").show();
+         $("#zTags").hide();
+      }
+   },
+
 
    uploadToImgur: function () {
       "use strict";

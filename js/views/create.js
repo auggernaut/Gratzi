@@ -6,7 +6,12 @@ Gratzi.CreateView = Backbone.View.extend({
    events: {
       'click #createBtn': 'createGrat',
       'click #pickfbContact': 'pickfbContact',
-      'change #upImage': 'pickImage'
+      'change #upProfImg': 'pickImage',
+      'change #upGratImg': 'pickImage',
+      'change #message': 'changeMessage',
+      'click #gMessage': 'changeMessage',
+      'change #tags': 'changeTags',
+      'click #gTags': 'changeTags'
    },
 
    initialize: function () {
@@ -18,8 +23,10 @@ Gratzi.CreateView = Backbone.View.extend({
 
    render: function () {
       "use strict";
+      var profile = new Gratzi.Profile();
+      profile.load(JSON.parse(localStorage.getItem('profile')));
 
-      $(this.el).html(this.template({ profile: JSON.parse(localStorage.getItem("profile")) }));
+      $(this.el).html(this.template({ profile: profile }));
       return this;
    },
 
@@ -28,7 +35,8 @@ Gratzi.CreateView = Backbone.View.extend({
 
       var sender, recipient, newGrat;
       var $createBtn = $("#createBtn");
-      var profile = JSON.parse(localStorage.getItem("profile"));
+      var profile = new Gratzi.Profile();
+      profile.load(JSON.parse(localStorage.getItem('profile')));
       var fId = $('#fbFriendId').val();
 
       $createBtn.attr("disabled", "disabled");
@@ -43,17 +51,19 @@ Gratzi.CreateView = Backbone.View.extend({
 
       sender = new Gratzi.Profile();
       sender.userType = Gratzi.Store.storeType;
-      sender.fullName = profile.fullname;
+      sender.fullName = profile.fullName;
       sender.email = sender.userName = profile.email;
-      sender.image = $("#gImage").attr("src");
+      sender.image = $("#imgProfImg").attr("src");
 
       newGrat = new Gratzi.Grat(
          sender.json(),
          recipient.json(),
          $('#message').val(),
-         $('#tags').val()
+         $('#tags').val(),
+         $('#imgGratImg').attr("src")
       );
 
+      var that = this;
 
       //save Grat
       Gratzi.Store.saveJSONP(newGrat.json(), function (path) {
@@ -74,29 +84,23 @@ Gratzi.CreateView = Backbone.View.extend({
                   function (res) {
                      $('#info').show().html("Gratzi sent!");
                      $('#fail').hide();
-                     $('#zName').html('');
-                     $('#message').val('');
-                     $('#tags').val('');
+                     that.reset();
 
-                     $createBtn.removeAttr("disabled");
-                     $createBtn.html("Create");
-                     $("#zImage").attr("src", "../img/blank-user.jpg");
                      console.log(res);
                   });
             }
             else {
 
+
                //email recipient
                email.sendGrat(newGrat.json(), gratLink, function (res) {
                   if (res === "Success") {
+
                      $('#info').show().html("Gratzi sent!");
                      $('#fail').hide();
-                     $('#to').val('');
-                     $('#message').val('');
-                     $('#tags').val('');
+                     that.reset();
 
-                     $createBtn.removeAttr("disabled");
-                     $createBtn.html("Create");
+
                   } else {
                      $('#fail').show().html("Failed to email.");
                      $createBtn.removeAttr("disabled");
@@ -111,6 +115,29 @@ Gratzi.CreateView = Backbone.View.extend({
          });
 
       });
+
+   },
+
+   reset: function () {
+      "use strict";
+
+      var $createBtn = $("#createBtn");
+      $createBtn.removeAttr("disabled");
+      $createBtn.html("Send");
+
+      $("#message").show();
+      $("#gMessage").hide();
+      $("#tags").show();
+      $("#gTags").hide();
+      $('#zName').html('');
+      $("#zImage").attr("src", "../img/blank-user.jpg");
+      //$("#imgGratImg").attr("src", "");
+
+
+
+      $('#to').val('');
+      $('#message').val('');
+      $('#tags').val('');
 
    },
 
@@ -190,28 +217,76 @@ Gratzi.CreateView = Backbone.View.extend({
 
    },
 
-   pickImage: function () {
+   pickImage: function (e) {
       "use strict";
 
-      var files = $('input[id = upImage]')[0].files;
-      var file = files[0];
-      if (!file || !file.type.match(/image.*/)){return;}
+      var idPart = e.currentTarget.id.split('up')[1];
 
-      var $btnPick = $("#btnPickImg");
-      $btnPick.attr("disabled", "disabled");
-      $btnPick.html("Uploading...");
+      var files = $('input[id = \'up' + idPart + '\']')[0].files;
+      var file = files[0];
+      if (!file || !file.type.match(/image.*/)) {
+         return;
+      }
+
+      var $btnPick = $("#btn" + idPart);
+      if ($btnPick) {
+         $btnPick.attr("disabled", "disabled");
+         $btnPick.html("Uploading...");
+      }
 
       Gratzi.Store.saveImage(file, file.name, function (path) {
          console.log("Image Uploaded: " + path);
 
          Gratzi.Store.getLink(path, function (imgUrl) {
-            $('#gImage').attr("src", imgUrl);
-            $btnPick.removeAttr("disabled");
-            $btnPick.html("Change Image");
+            $('#img' + idPart).attr("src", imgUrl);
+
+            if ($btnPick) {
+               //$btnPick.removeAttr("disabled");
+               //$btnPick.html("Change Image");
+               $btnPick.hide();
+            }
 
          });
       });
 
+   },
+
+
+   changeMessage: function (e) {
+      "use strict";
+
+      var val;
+
+      if (e.currentTarget.id === "message") {
+         val = $(e.currentTarget).val();
+         $("#gMessage").html(val.replace(/\n/g, "<br />"));
+         $("#message").hide();
+         $("#gMessage").show();
+      } else {
+         $("#message").show();
+         $("#gMessage").hide();
+      }
+   },
+
+   changeTags: function (e) {
+      "use strict";
+
+      var val;
+
+      $("#message").hide();
+      $("#gMessage").show();
+
+      if (e.currentTarget.id === "tags") {
+         val = $(e.currentTarget).val();
+         $("#gTags").html(val);
+         $("#tags").hide();
+         $("#gTags").show();
+      } else {
+         $("#tags").show();
+         $("#gTags").hide();
+      }
    }
+
+
 });
 
