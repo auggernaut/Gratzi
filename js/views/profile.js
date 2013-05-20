@@ -8,7 +8,7 @@ Gratzi.ProfileView = Backbone.View.extend({
       "click #logout": "logout",
       "click #dropbox": "authDropBox",
       "click #save": "saveProfile",
-      "change #file": "pickFile",
+      "change #upImage": "pickFile",
       "click #betaCode-submit": "checkCode"
    },
 
@@ -66,7 +66,7 @@ Gratzi.ProfileView = Backbone.View.extend({
 
    pickFile: function (e) {
       "use strict";
-      $('#pretty-input').val($('input[id = file]').val().replace("C:\\fakepath\\", ""));
+      $('#pretty-input').val($('input[id = upImage]').val().replace("C:\\fakepath\\", ""));
    },
 
    saveProfile: function () {
@@ -84,17 +84,15 @@ Gratzi.ProfileView = Backbone.View.extend({
       });
 
       //Create Profile
-      var nameParts = $('#fullname').html().split(" ");
-      var newProfile = new Gratzi.Profile(
-         Gratzi.Store.storeType,
-         localStorage.getItem("email"),
-         nameParts[0],
-         nameParts[1],
-         file.name
-      );
+
+      var newProfile = new Gratzi.Profile();
+      newProfile.email = localStorage.getItem("email");
+      newProfile.fullName = $('#fullname').val();
+      newProfile.image = file.name;
+      newProfile.bio = $('#bio').html();
 
       //Save Profile
-      Gratzi.Store.saveProfile(newProfile, function (path) {
+      Gratzi.Store.saveProfile(newProfile.json(), function (path) {
          console.log("Profile Saved: " + path);
 
          Gratzi.Store.loadUser(function (error, profile) {
@@ -106,7 +104,7 @@ Gratzi.ProfileView = Backbone.View.extend({
                $('#info').show().html("Profile saved!");
 
                profile.url = path;
-               var jProf = JSON.stringify(profile);
+               var jProf = JSON.stringify(profile.json());
                localStorage.setItem("profile", jProf);
                window.location.href = "/#create";
             }
