@@ -66,7 +66,7 @@ Gratzi.CreateView = Backbone.View.extend({
       newGrat = new Gratzi.Grat(
          sender.json(),
          recipient.json(),
-         $('#message').val(),
+         $("#gMessage").html(),
          $('#tags').val(),
          $('#imgGratImg').attr("src")
       );
