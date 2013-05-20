@@ -24,10 +24,10 @@ var Gratzi = Gratzi || {};
 
    Gratzi.Servers = {
       //gateKeeper: "http://mighty-plateau-1604.herokuapp.com",
-      gateKeeper: "http://localhost:9999",
-      email: "http://localhost:9999/email",
+      gateKeeper: "http://mighty-plateau-1604.herokuapp.com",
+      email: "http://http://mighty-plateau-1604.herokuapp.com/email",
       //fileServer: "http://www.gratzi.org",
-      fileServer: "http://localhost:8888",
+      fileServer: "http://http://www.gratzi.org",
       tempStore: "https://gratzi.s3.amazonaws.com/"
    };
 
