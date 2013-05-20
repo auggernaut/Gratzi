@@ -19,7 +19,8 @@ var Gratzi = Gratzi || {};
       gitRepo: "http://github.com/auggernaut/gratzi",
       gitClientId: "bbee6e8255728de31711",
       url: "http://www.gratzi.org",
-      betaCodes: "IIW16, Core"
+      betaCodes: "IIW16, Core",
+      defaultEmail: "augustin@gratzi.org"
    };
 
    Gratzi.Servers = {
