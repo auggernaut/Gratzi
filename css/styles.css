@@ -367,13 +367,6 @@ font-style: italic;
 .listitem .gTags {
 }
 
-.listitem .gImage {
-    border: 5px solid #77C4F3;
-    float: right;
-    min-height: 200px;
-    min-width: 200px;
-}
-
 .listitem .zDetails {
     text-align: right;
 
@@ -393,6 +386,7 @@ font-style: italic;
     border: 5px solid #7D6CB0;
     min-height: 200px;
     min-width: 200px;
+    background-color: #fff;
 }
 
 .listitem .shadow img {
@@ -439,6 +433,7 @@ font-style: italic;
     float: right;
     min-height: 200px;
     min-width: 200px;
+    background-color: #fff;
 }
 
 .create #gDetails {
@@ -538,12 +533,14 @@ font-style: italic;
     float: right;
     min-height: 200px;
     min-width: 200px;
+    background-color: #fff;
 }
 
 .reply #imgProfImg {
     border: 5px solid #7D6CB0;
     min-height: 200px;
     min-width: 200px;
+    background-color: #fff;
 }
 
 .reply #gDetails {
@@ -648,4 +645,57 @@ font-style: italic;
 
 .footer-links li:first-child {
     padding-left: 0;
+}
+
+
+
+@media only screen and (max-width: 700px), only screen and (max-device-width: 600px) {
+
+   .create #submit {
+       position: relative;
+       top: 170px;
+   }
+
+    .create .zup {
+        top: -95px;
+        left: 32px;
+    }
+
+    .reply .zup {
+        top: 0px;
+    }
+
+    .reply #gImage {
+        float:none;
+    }
+
+    .reply .gup {
+        text-align: center;
+        top: 0px;
+    }
+
+    .reply #gDetails {
+        padding-bottom: 0px;
+    }
+
+    .reply #gImage, .reply #zImage {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .listitem .zup {
+        top: 0px;
+        left: 0px;
+        text-align: center;
+    }
+
+    .listitem .gImage {
+        float:none;
+
+    }
+
+    .listitem .gup {
+        text-align: center;
+    }
+
 }
