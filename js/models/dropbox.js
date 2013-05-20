@@ -145,7 +145,7 @@ var drop = drop || {};
             });
 
 
-            callback(stat.path);
+            //callback(stat.path);
          });
 
       },

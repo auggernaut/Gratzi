@@ -128,7 +128,7 @@ var Gratzi = Gratzi || {};
 
             this.id = json.id;
             this.userType = json.userType;
-            this.fullName = json.name.formatted;
+            this.fullName = json.name.formatted ? json.name.formatted : json.emails[0];
 
             if (json.userType === "facebook") {
                this.userName = json.userName;

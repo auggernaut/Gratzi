@@ -81,17 +81,21 @@ Gratzi.ProfileView = Backbone.View.extend({
       //Save Image
       var files = $('input[id = upImage]')[0].files;
       var file = files[0];
-      if (!file || !file.type.match(/image.*/)){ return; }
-      Gratzi.Store.saveImage(file, file.name, function (path) {
-         console.log("Image Uploaded: " + path);
-      });
+      var profImg;
+      if (file && file.type.match(/image.*/)) {
+         Gratzi.Store.saveImage(file, file.name, function (path) {
+            console.log("Image Uploaded: " + path);
+         });
+      }
+      else {
+         profImg = $('#imgProf').attr("src");
+      }
 
       //Create Profile
-
       var newProfile = new Gratzi.Profile();
       newProfile.email = localStorage.getItem("email");
       newProfile.fullName = $('#fullname').val();
-      newProfile.image = file.name;
+      newProfile.image = file ? file.name : profImg.substr(profImg.lastIndexOf("/") + 1);
       newProfile.bio = $('#bio').html();
 
       //Save Profile
