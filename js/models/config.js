@@ -18,16 +18,16 @@ var Gratzi = Gratzi || {};
       year: "2013",
       gitRepo: "http://github.com/auggernaut/gratzi",
       gitClientId: "bbee6e8255728de31711",
-      url: "http://localhost:8888",
+      url: "http://www.gratzi.org",
       betaCodes: "IIW16, Core"
    };
 
    Gratzi.Servers = {
       //gateKeeper: "http://mighty-plateau-1604.herokuapp.com",
       gateKeeper: "http://mighty-plateau-1604.herokuapp.com",
-      email: "http://http://mighty-plateau-1604.herokuapp.com/email",
+      email: "http://mighty-plateau-1604.herokuapp.com/email",
       //fileServer: "http://www.gratzi.org",
-      fileServer: "http://http://www.gratzi.org",
+      fileServer: "http://www.gratzi.org",
       tempStore: "https://gratzi.s3.amazonaws.com/"
    };
 
