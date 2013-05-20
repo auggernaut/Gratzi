@@ -68,7 +68,8 @@ function ziCallback(json) {
       $('#zName').append(sender.fullName);
       $('#zMessage').append(json.message);
       $('#zTags').append(json.tags);
-      $('#zImage').attr("src", sender.image);
+      $('#imgProfImg').attr("src", sender.image);
+      $('#imgZiImg').attr("src", json.image);
 
 
       $('#sendForm').hide();
@@ -88,6 +89,7 @@ function ziCallback(json) {
          $('#gMessage').append(file.message);
          $('#gTags').append(file.tags);
          $('#gImage').attr("src", recipient.image);
+         $('#imgGratImg').attr("src", file.image);
       });
 
    }
