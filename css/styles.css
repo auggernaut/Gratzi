@@ -66,7 +66,7 @@ font-style: italic;
     top: 0px;
     width: 100%;
     background-color: #fff;
-    z-index: 100;
+    z-index: 1000;
 }
 
 #header .row {
@@ -339,6 +339,7 @@ font-style: italic;
     float: right;
     min-height: 200px;
     min-width: 200px;
+    background-color: #fff;
 }
 
 .listitem .zLine {
@@ -412,7 +413,7 @@ font-style: italic;
     position: relative;
     top: -40px;
     text-align: center;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .create .zup {

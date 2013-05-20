@@ -44,23 +44,17 @@ Gratzi.ProfileView = Backbone.View.extend({
 
    authDropBox: function () {
       "use strict";
-      Gratzi.Store = drop;
 
-      Gratzi.Store.auth(function (error, profile) {
-         if (profile) {
-            var jProf = JSON.stringify(profile);
-            console.log("Auth returned: " + jProf);
-            localStorage.setItem("profile", jProf);
-            window.location.href = "/#create";
-         }
-         else if (error === "404") {
-            console.log("No Profile found. ");
-            window.location.reload();
-         } else {
-            console.log("Auth failed: " + error);
-         }
-
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'authDropBoxProf',
+         'eventValue': 1
       });
+
+      Gratzi.Store = drop;
+      Gratzi.Store.auth();
 
    },
 
@@ -71,6 +65,15 @@ Gratzi.ProfileView = Backbone.View.extend({
 
    saveProfile: function () {
       "use strict";
+
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'saveProfile',
+         'eventValue': 1
+      });
+
       var $save = $("#save");
       $save.attr("disabled", "disabled");
       $save.html("Saving...");

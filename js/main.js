@@ -87,7 +87,7 @@ Gratzi.Router = Backbone.Router.extend({
 
                //Load profile if exists
                if (profile) {
-                  jProf = JSON.stringify(profile);
+                  jProf = JSON.stringify(profile.json());
                   localStorage.setItem("profile", jProf);
                   console.log("Loaded Profile: " + jProf);
                }

@@ -1,4 +1,4 @@
-/*global Backbone, Gratzi, _ */
+/*global Backbone, Gratzi, _, ga */
 
 //************************  LIST *********************************//
 Gratzi.ListView = Backbone.View.extend({
@@ -91,6 +91,15 @@ Gratzi.ListView = Backbone.View.extend({
 
    tagSelect: function (e) {
       "use strict";
+
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'tagSelect',
+         'eventValue': 1
+      });
+
       this.render($(e.currentTarget).val());
    },
 

@@ -155,6 +155,14 @@ Gratzi.ReplyView = Backbone.View.extend({
    authDropBox: function () {
       "use strict";
 
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'authDropBoxZi',
+         'eventValue': 1
+      });
+
       Gratzi.Store = drop;
       Gratzi.Store.auth();
 
@@ -163,6 +171,14 @@ Gratzi.ReplyView = Backbone.View.extend({
 
    sendZi: function () {
       "use strict";
+
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'sendZi',
+         'eventValue': 1
+      });
 
       var $btnSend = $("#btnSend");
       var jGrat = JSON.parse(localStorage.getItem("jGrat"));
@@ -222,6 +238,7 @@ Gratzi.ReplyView = Backbone.View.extend({
                         $('#fail').hide();
                         $('#zMessage').html($('#response').val());
                         $('#zTags').html($('#tags').val());
+                        $('#btnZiImg').hide();
 
                         $('#sendForm').hide();
                         $btnSend.hide();
@@ -251,6 +268,14 @@ Gratzi.ReplyView = Backbone.View.extend({
    saveZi: function () {
       "use strict";
 
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'saveZi',
+         'eventValue': 1
+      });
+
       var $btnSave = $("#btnSave");
       $btnSave.attr("disabled", "disabled");
       $btnSave.html("Saving...");
@@ -279,6 +304,14 @@ Gratzi.ReplyView = Backbone.View.extend({
       "use strict";
 
       var idPart = e.currentTarget.id.split('up')[1];
+
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'up' + idPart,
+         'eventValue': 1
+      });
 
       var files = $('input[id = \'up' + idPart + '\']')[0].files;
       var file = files[0];

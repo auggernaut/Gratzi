@@ -33,6 +33,14 @@ Gratzi.CreateView = Backbone.View.extend({
    createGrat: function () {
       "use strict";
 
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'CreateGrat',
+         'eventValue': 1
+      });
+
       var sender, recipient, newGrat;
       var $createBtn = $("#createBtn");
       var profile = new Gratzi.Profile();
@@ -144,6 +152,14 @@ Gratzi.CreateView = Backbone.View.extend({
    pickfbContact: function (e) {
       "use strict";
 
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'pickfbContact',
+         'eventValue': 1
+      });
+
       var selector1, callbackFriendSelected, callbackFriendUnselected, callbackMaxSelection, callbackSubmit;
 
       // When a friend is selected, log their name and ID
@@ -221,6 +237,14 @@ Gratzi.CreateView = Backbone.View.extend({
       "use strict";
 
       var idPart = e.currentTarget.id.split('up')[1];
+
+      ga('send', {
+         'hitType': 'event',
+         'eventCategory': 'button',
+         'eventAction': 'click',
+         'eventLabel': 'up' + idPart,
+         'eventValue': 1
+      });
 
       var files = $('input[id = \'up' + idPart + '\']')[0].files;
       var file = files[0];
