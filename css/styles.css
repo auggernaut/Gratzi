@@ -418,7 +418,7 @@ font-style: italic;
 
 .create .zup {
     position: relative;
-    top: -130px;
+    top: -170px;
     left: -5px;
 }
 
@@ -487,6 +487,7 @@ font-style: italic;
 
 .create #zName {
     margin: 20px 0 5px;
+    text-align: right;
 }
 
 .create #zDetails {
