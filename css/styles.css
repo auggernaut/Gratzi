@@ -272,11 +272,11 @@ font-style: italic;
 }
 
 .home .band {
-    background: url("../img/pbnj-orig.jpg") no-repeat;
-    height: 550px;
-    background-position:center;
+    background: url("../img/pbnj-orig.jpg") no-repeat center;
+    height: 400px;
+
     background-size: 100%;
-    padding-top: 100px;
+    padding-top: 50px;
     position: relative;
 }
 
@@ -655,7 +655,25 @@ font-style: italic;
 
 
 
-@media only screen and (max-width: 700px), only screen and (max-device-width: 600px) {
+@media only screen and (max-width: 767px), only screen and (max-device-width: 767px) {
+
+    .home h2{
+        font-size: 24px;
+        line-height: 24px;
+
+    }
+
+    .home .band {
+        height: 300px;
+        background-position: bottom;
+        padding-top: 50px;
+        background-size: 160%;
+    }
+
+    .home h3 {
+        font-size: 18px;
+        line-height: 18px;
+    }
 
    .create #submit {
        position: relative;
@@ -664,7 +682,7 @@ font-style: italic;
 
     .create .zup {
         top: -95px;
-        left: 32px;
+        text-align: center;
     }
 
     .reply .zup {
@@ -702,6 +720,36 @@ font-style: italic;
 
     .listitem .gup {
         text-align: center;
+    }
+
+    #imgProfImg {
+        max-width: 200px;
+        float:none !important;
+    }
+
+    .name {
+        clear: both;
+    }
+
+    .create #zLine {
+        width: 100%;
+        left: 0;
+    }
+
+    .create #gDetails {
+        padding-left: 10px;
+    }
+    
+    .create #message, .create #tags {
+        width: 100%;
+    }
+
+    .create #gDetails {
+        border-left: none;
+    }
+
+    .create .gup {
+        top: 0px;
     }
 
 }
