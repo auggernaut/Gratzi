@@ -106,3 +106,54 @@ Gratzi.PrivacyView = Backbone.View.extend({
 
 });
 
+//*********************   FEEDBACK    ***************************//
+
+Gratzi.FeedbackView = Backbone.View.extend({
+
+   events: {
+      "click #btnSend" : "sendFeedback"
+   },
+
+   initialize: function () {
+      console.log('Initializing Feedback View');
+      //this.model = Gratzi.Client;
+      this.render();
+   },
+
+   render: function () {
+      $(this.el).html(this.template());
+      return this;
+   },
+
+   sendFeedback: function() {
+      "use strict";
+
+      var $message = $("#message");
+      var $btnSend = $("#btnSend");
+
+      $btnSend.attr("disabled", "disabled");
+      $btnSend.html("Sending...");
+
+      email.sendFeedback($message.val(), function(res){
+
+         if (res === "Success") {
+            $message.val("Feedback sent!");
+
+            //$message.val(" ");
+         }
+         else {
+            $('#fail').show().html("Failed to send feedback.");
+         }
+
+         $btnSend.removeAttr("disabled");
+         $btnSend.html("Send");
+
+      });
+   }
+
+
+
+
+});
+
+

@@ -28,7 +28,7 @@ var email = email || {};
 
          }, "json").fail(function (error) {
 
-            callback("Failure");
+            callback("Fail: sendZi");
 
          });
 
@@ -50,16 +50,32 @@ var email = email || {};
             "</td></tr></table>"
       };
 
+      $.post(Gratzi.Servers.email, email,
+         function (data) {
+            callback(data.token);
 
-      $("#createBtn").html("Emailing...");
+         }, "json").fail(function(error){
+            callback("Fail: sendGrat");
+         });
+   };
+
+   email.sendFeedback = function (message, callback) {
+
+      var email = {
+         "to": Gratzi.Client.defaultEmail,
+         "from": Gratzi.Client.defaultEmail,
+         "subject": "Feedback",
+         "message": message
+      };
 
       $.post(Gratzi.Servers.email, email,
          function (data) {
             callback(data.token);
 
          }, "json").fail(function(error){
-            callback("Failure");
+            callback("Fail: sendFeedback");
          });
+
    };
 
 

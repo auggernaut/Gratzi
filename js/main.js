@@ -71,6 +71,7 @@ Gratzi.Router = Backbone.Router.extend({
       }
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
 
       dropBoxMatch = window.location.href.match(/\&dboauth_token=([a-z0-9]*)/);
 
@@ -190,6 +191,7 @@ Gratzi.Router = Backbone.Router.extend({
       "use strict";
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $("#create").addClass("active");
 
       //Is the user logged in?
@@ -221,6 +223,7 @@ Gratzi.Router = Backbone.Router.extend({
       //?loc=' + params.loc
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $('#content').html(new Gratzi.ReplyView(params).el);
       $('#footer').html(new Gratzi.FooterView().el);
    },
@@ -234,6 +237,7 @@ Gratzi.Router = Backbone.Router.extend({
       });
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $('#content').html(new Gratzi.ListView().el);
       $('#footer').html(new Gratzi.FooterView().el);
 
@@ -258,6 +262,7 @@ Gratzi.Router = Backbone.Router.extend({
       }
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $('#content').html(this.aboutView.el);
       $('#footer').html(new Gratzi.FooterView().el);
    },
@@ -279,6 +284,7 @@ Gratzi.Router = Backbone.Router.extend({
       }
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $('#content').html(this.privacyView.el);
       $('#footer').html(new Gratzi.FooterView().el);
    },
@@ -293,6 +299,7 @@ Gratzi.Router = Backbone.Router.extend({
       });
 
       $('#header').html(new Gratzi.HeaderView().el);
+      $('#feedback').html(new Gratzi.FeedbackView().el);
       $('#content').html(new Gratzi.ProfileView(params).el);
       $('#footer').html(new Gratzi.FooterView().el);
    }
@@ -300,7 +307,7 @@ Gratzi.Router = Backbone.Router.extend({
 });
 
 //templateLoader function defined in utils.js
-utils.templateLoader.load(["HomeView", "AboutView", "PrivacyView", "CreateView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
+utils.templateLoader.load(["HomeView", "AboutView", "PrivacyView", "CreateView", "FeedbackView", "ReplyView", "ListView", "ListItemView", "ProfileView", "HeaderView", "FooterView"],
    function () {
       "use strict";
 

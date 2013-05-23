@@ -43,9 +43,9 @@ Gratzi.CreateView = Backbone.View.extend({
 
       var sender, recipient, newGrat;
       var $createBtn = $("#createBtn");
+      var fId = $('#fbFriendId').val();
       var profile = new Gratzi.Profile();
       profile.load(JSON.parse(localStorage.getItem('profile')));
-      var fId = $('#fbFriendId').val();
 
       $createBtn.attr("disabled", "disabled");
       $createBtn.html("Creating...");
@@ -93,13 +93,11 @@ Gratzi.CreateView = Backbone.View.extend({
                      $('#info').show().html("Gratzi sent!");
                      $('#fail').hide();
                      that.reset();
-
-                     console.log(res);
                   });
             }
             else {
 
-
+               $createBtn.html("Emailing...");
                //email recipient
                email.sendGrat(newGrat.json(), gratLink, function (res) {
                   if (res === "Success") {
@@ -108,12 +106,10 @@ Gratzi.CreateView = Backbone.View.extend({
                      $('#fail').hide();
                      that.reset();
 
-
                   } else {
                      $('#fail').show().html("Failed to email.");
                      $createBtn.removeAttr("disabled");
                      $createBtn.html("Create");
-                     console.log(res);
                   }
                });
 

@@ -1,0 +1,67 @@
+<div id="slideout">
+   <img src="/img/feedback.png" alt="Feedback" />
+   <div id="slideout_inner">
+<!--
+      <input type="email" id="feedback" name="feedback" class="input-block-level"
+             value="" placeholder="Email"/>
+-->
+
+      <textarea id="message" name="message" rows="3" class="input-block-level"
+                placeholder="Thanks for helping make gratzi better!" required></textarea>
+
+      <div id="info" class="hide text-success center"></div>
+      <div id="fail" class="hide text-error center"></div>
+
+      <button id="btnSend" class="btn">Send</button>
+   </div>
+</div>
+
+<style type="text/css" media="screen">
+
+   #slideout {
+      position: fixed;
+      top: 40px;
+      left: 0;
+      width: 35px;
+      padding: 12px 0;
+      text-align: center;
+      background: #6DAD53;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      -webkit-border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      border-radius: 0 5px 5px 0;
+      z-index: 10000;
+      cursor: pointer;
+   }
+   #slideout_inner {
+      position: fixed;
+      top: 40px;
+      left: -250px;
+      background: #6DAD53;
+      width: 200px;
+      padding: 25px;
+      height: 150px;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      text-align: left;
+      -webkit-border-radius: 0 0 5px 0;
+      -moz-border-radius: 0 0 5px 0;
+      border-radius: 0 0 5px 0;
+   }
+   #slideout_inner textarea {
+      height: 120px;
+      margin-bottom: 6px;
+   }
+   #slideout:hover {
+      left: 250px;
+   }
+   #slideout:hover #slideout_inner {
+      left: 0;
+   }
+
+</style>
