@@ -25,16 +25,10 @@
                <button id="btnGratImg" class="btn" onclick="$('input[id=upGratImg]').click();">Add Photo</button>
                <input type="file" name="input_name" id="upGratImg" class="inputFile ie_show"/>
 
-                <script src='https://framebase.io/assets/framebase-js/framebase.js'/></script>
-                <script>
-                framebase_init({
-                    token: "17373ccaa66e5b15e278af54832c566a96a7b6dbe9db09de3fe1058a43bd2396"
-                });
-                </script>
-
                 <!-- Add the input tag. Voila. -->
+               <form method="post">
                 <input type="framebase" name="my_video" id="my_video" record="true"/>
-
+               </form>
             </div>
          </div>
 
